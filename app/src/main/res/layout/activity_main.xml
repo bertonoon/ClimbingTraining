@@ -21,144 +21,217 @@
         android:textSize="20sp"
         />
 
+
     <LinearLayout
-        android:id="@+id/llTimes"
+        android:id="@+id/llSeries"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/tvCurrentSeries"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_margin="10dp"
-        android:background="@drawable/ll_row_border"
         >
 
         <LinearLayout
-            android:id="@+id/llHangTime"
-            android:layout_width="wrap_content"
+            android:id="@+id/llHeaders"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="10dp"
+            android:gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/ll_row_border"
+            android:layout_marginVertical="10dp"
             >
+
             <TextView
-                android:id="@+id/tvHangTime"
-                android:layout_width="50dp"
+                android:id="@+id/tvHeaderHang"
+                android:layout_width="65dp"
                 android:layout_height="30dp"
-                tools:text = "15"
+                android:layout_marginHorizontal="5dp"
+                android:text = "Hang"
                 android:gravity="center"
                 android:textSize="@dimen/time"
                 />
             <TextView
-                android:id="@+id/tvUnitHangTime"
-                android:layout_width="15dp"
+                android:id="@+id/tvHeaderRest"
+                android:layout_width="65dp"
                 android:layout_height="30dp"
-                android:text = "s"
-                android:gravity="center"
-                android:textSize="@dimen/time"
-                />
-        </LinearLayout>
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/palette3"
-            />
-        <LinearLayout
-            android:id="@+id/llPauseTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp"
-            >
-            <TextView
-                android:id="@+id/tvPauseTime"
-                android:layout_width="50dp"
-                android:layout_height="30dp"
-                tools:text = "15"
+                android:layout_marginHorizontal="7dp"
+                android:text = "Rest"
                 android:gravity="center"
                 android:textSize="@dimen/time"
                 />
             <TextView
-                android:id="@+id/tvUnitPauseTime"
-                android:layout_width="15dp"
+                android:id="@+id/tvHeaderSeries"
+                android:layout_width="65dp"
                 android:layout_height="30dp"
-                android:text = "s"
-                android:gravity="center"
-                android:textSize="@dimen/time"
-                />
-        </LinearLayout>
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/palette3"
-            />
-        <LinearLayout
-            android:id="@+id/llRoundsToEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp"
-            >
-            <TextView
-                android:id="@+id/tvRoundsToEnd"
-                android:layout_width="50dp"
-                android:layout_height="30dp"
-                tools:text = "15"
-                android:gravity="center"
-                android:textSize="@dimen/time"
-                />
-        </LinearLayout>
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/palette3"
-            />
-        <LinearLayout
-            android:id="@+id/llRestTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp"
-            >
-            <TextView
-                android:id="@+id/tvRestTime"
-                android:layout_width="50dp"
-                android:layout_height="30dp"
-                tools:text = "15"
+                android:layout_marginHorizontal="5dp"
+                android:text = "Sets"
                 android:gravity="center"
                 android:textSize="@dimen/time"
                 />
             <TextView
-                android:id="@+id/tvUnitRestTime"
-                android:layout_width="15dp"
+                android:id="@+id/tvHeaderPause"
+                android:layout_width="65dp"
                 android:layout_height="30dp"
-                android:text = "s"
+                android:layout_marginHorizontal="7dp"
+                android:text = "Pause"
                 android:gravity="center"
                 android:textSize="@dimen/time"
                 />
-        </LinearLayout>
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/palette3"
-            />
-        <LinearLayout
-            android:id="@+id/llSetsToEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp"
-            >
             <TextView
-                android:id="@+id/tvSetsToEnd"
-                android:layout_width="50dp"
+                android:id="@+id/tvHeaderRounds"
+                android:layout_width="65dp"
                 android:layout_height="30dp"
-                tools:text = "15"
+                android:layout_marginHorizontal="5dp"
+                android:text = "Rounds"
                 android:gravity="center"
                 android:textSize="@dimen/time"
                 />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/llTimes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/llHeaders"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/ll_row_border"
+            >
+
+
+
+            <LinearLayout
+                android:id="@+id/llHangTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="5dp"
+                >
+                <TextView
+                    android:id="@+id/tvHangTime"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    tools:text = "15"
+                    android:gravity="center"
+                    android:textSize="@dimen/time"
+                    />
+                <TextView
+                    android:id="@+id/tvUnitHangTime"
+                    android:layout_width="15dp"
+                    android:layout_height="30dp"
+                    android:text = "s"
+                    android:gravity="center"
+                    android:textSize="@dimen/time"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/palette3"
+                />
+            <LinearLayout
+                android:id="@+id/llPauseTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="5dp"
+                >
+                <TextView
+                    android:id="@+id/tvPauseTime"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    tools:text = "15"
+                    android:gravity="center"
+                    android:textSize="@dimen/time"
+                    />
+                <TextView
+                    android:id="@+id/tvUnitPauseTime"
+                    android:layout_width="15dp"
+                    android:layout_height="30dp"
+                    android:text = "s"
+                    android:gravity="center"
+                    android:textSize="@dimen/time"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/palette3"
+                />
+            <LinearLayout
+                android:id="@+id/llRoundsToEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="5dp"
+                >
+                <TextView
+                    android:id="@+id/tvRoundsToEnd"
+                    android:layout_width="65dp"
+                    android:layout_height="30dp"
+                    tools:text = "15"
+                    android:gravity="center"
+                    android:textSize="@dimen/time"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/palette3"
+                />
+            <LinearLayout
+                android:id="@+id/llRestTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="5dp"
+                >
+                <TextView
+                    android:id="@+id/tvRestTime"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    tools:text = "15"
+                    android:gravity="center"
+                    android:textSize="@dimen/time"
+                    />
+                <TextView
+                    android:id="@+id/tvUnitRestTime"
+                    android:layout_width="15dp"
+                    android:layout_height="30dp"
+                    android:text = "s"
+                    android:gravity="center"
+                    android:textSize="@dimen/time"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/palette3"
+                />
+            <LinearLayout
+                android:id="@+id/llSetsToEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="6dp"
+                >
+                <TextView
+                    android:id="@+id/tvSetsToEnd"
+                    android:layout_width="65dp"
+                    android:layout_height="30dp"
+                    tools:text = "15"
+                    android:gravity="center"
+                    android:textSize="@dimen/time"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -166,7 +239,7 @@
         android:id="@+id/llButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/llTimes"
+        app:layout_constraintTop_toBottomOf="@id/llSeries"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:orientation="horizontal"
