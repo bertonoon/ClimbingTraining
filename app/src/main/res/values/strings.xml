@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Climbing Training</string>
+    <string name="add_hangboard">Add hangboard</string>
 </resources>

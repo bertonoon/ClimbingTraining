@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-kapt'
 
 }
+apply plugin: 'kotlin-parcelize'
+
 
 android {
     namespace 'com.example.climbingtraining'
@@ -35,6 +37,7 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
 }
 
 dependencies {
@@ -46,6 +49,7 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.5.5'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+
 
     implementation 'androidx.room:room-common:2.5.0'
     implementation "androidx.room:room-runtime:2.5.0"

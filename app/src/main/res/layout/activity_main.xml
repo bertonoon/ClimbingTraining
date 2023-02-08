@@ -12,11 +12,11 @@
         android:id="@+id/tvCurrentSeries"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="CURRENT SERIES"
+        android:text="CURRENT SETTING"
         android:gravity="center"
         android:textSize="20sp"
         />
@@ -62,11 +62,11 @@
                 android:textSize="@dimen/time"
                 />
             <TextView
-                android:id="@+id/tvHeaderSeries"
+                android:id="@+id/tvHeaderRepeats"
                 android:layout_width="65dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="5dp"
-                android:text = "Sets"
+                android:text = "Repeats"
                 android:gravity="center"
                 android:textSize="@dimen/time"
                 />
@@ -80,11 +80,11 @@
                 android:textSize="@dimen/time"
                 />
             <TextView
-                android:id="@+id/tvHeaderRounds"
+                android:id="@+id/tvHeaderSeries"
                 android:layout_width="65dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="5dp"
-                android:text = "Rounds"
+                android:text = "Sets"
                 android:gravity="center"
                 android:textSize="@dimen/time"
                 />
@@ -135,14 +135,14 @@
                 android:background="@color/palette3"
                 />
             <LinearLayout
-                android:id="@+id/llPauseTime"
+                android:id="@+id/llRestTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_margin="5dp"
                 >
                 <TextView
-                    android:id="@+id/tvPauseTime"
+                    android:id="@+id/tvRestTime"
                     android:layout_width="50dp"
                     android:layout_height="30dp"
                     tools:text = "15"
@@ -150,7 +150,7 @@
                     android:textSize="@dimen/time"
                     />
                 <TextView
-                    android:id="@+id/tvUnitPauseTime"
+                    android:id="@+id/tvUnitRestTime"
                     android:layout_width="15dp"
                     android:layout_height="30dp"
                     android:text = "s"
@@ -185,14 +185,14 @@
                 android:background="@color/palette3"
                 />
             <LinearLayout
-                android:id="@+id/llRestTime"
+                android:id="@+id/llPauseTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_margin="5dp"
                 >
                 <TextView
-                    android:id="@+id/tvRestTime"
+                    android:id="@+id/tvPauseTime"
                     android:layout_width="50dp"
                     android:layout_height="30dp"
                     tools:text = "15"
@@ -200,7 +200,7 @@
                     android:textSize="@dimen/time"
                     />
                 <TextView
-                    android:id="@+id/tvUnitRestTime"
+                    android:id="@+id/tvUnitPauseTime"
                     android:layout_width="15dp"
                     android:layout_height="30dp"
                     android:text = "s"
@@ -235,58 +235,27 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/llButtons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/llSeries"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        >
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnStart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/palette3"
-            android:text="START"
-            android:layout_margin="10dp"
-            />
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnStopReset"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/palette5"
-            android:text="STOP"
-            android:layout_margin="10dp"
-            />
-
-
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/tvCurrentState"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        app:layout_constraintTop_toBottomOf="@id/llButtons"
+        android:layout_marginBottom="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@id/llSeries"
         tools:text="CURRENT STATE"
         android:gravity="center"
-        android:textSize="20sp"
+        android:textSize="30sp"
         />
 
 
 
     <FrameLayout
-        android:id="@+id/flRestView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/flTimer"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_margin="10dp"
         android:background="@drawable/item_circular_color_accent_border"
         app:layout_constraintStart_toStartOf="parent"
@@ -296,8 +265,8 @@
         <ProgressBar
             android:id="@+id/pbProgressBar"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
             android:background="@drawable/circular_progress_gray"
             android:progressDrawable="@drawable/circular_progress_bar"
@@ -307,8 +276,8 @@
             android:rotation="-90"
             />
         <LinearLayout
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
             android:layout_gravity="center"
             android:background="@drawable/item_circular_accent_background"
             android:gravity="center">
@@ -316,14 +285,197 @@
                 android:id="@+id/tvMainTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="25sp"
+                android:textSize="40sp"
                 android:textStyle="bold"
-                tools:text="10"/>
+                tools:text="999.9"/>
+        </LinearLayout>
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/flTimer"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvTextLeftRepeats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Repeats"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    />
+                <FrameLayout
+                    android:id="@+id/flRepeats"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/item_circular_color_accent_border"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvCurrentState"
+                    >
+            <ProgressBar
+                android:id="@+id/pbRepeats"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="@drawable/circular_progress_gray"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                android:indeterminate="false"
+                android:max="10"
+                android:progress="100"
+                android:rotation="-90"
+                />
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@drawable/item_circular_accent_background"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvLeftRepeats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    tools:text="99"/>
+            </LinearLayout>
+        </FrameLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvTextLeftSets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sets"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    />
+                <FrameLayout
+                    android:id="@+id/flSets"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/item_circular_color_accent_border"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvCurrentState"
+                    >
+            <ProgressBar
+                android:id="@+id/pbSets"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="@drawable/circular_progress_gray"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                android:indeterminate="false"
+                android:max="10"
+                android:progress="100"
+                android:rotation="-90"
+                />
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@drawable/item_circular_accent_background"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvLeftSets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    tools:text="99"/>
+            </LinearLayout>
+        </FrameLayout>
+            </LinearLayout>
         </LinearLayout>
 
 
 
-    </FrameLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/llButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        >
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnStart"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:background="@color/palette3"
+            android:text="START"
+            android:layout_margin="5dp"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnStopReset"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:background="@color/palette5"
+            android:text="STOP"
+            android:layout_margin="5dp"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+
+            />
+
+
+
+    </LinearLayout>
+
+
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddHangboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/palette3"
+        android:src="@drawable/ic_baseline_add_24"
+        android:contentDescription="@string/add_hangboard"
+        app:layout_constraintBottom_toTopOf="@id/llButtons"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
