@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.climbingtraining.databinding.ActivityMainBinding
 import com.example.climbingtraining.model.ExerciseState
@@ -28,7 +29,10 @@ class MainActivity : AppCompatActivity() {
                    } else {
                        result.data?.getParcelableExtra("HangboardConfig") as SimpleHangboard?
                    }
-                if (hangboardConfig != null ) viewModel.setHangboard(hangboardConfig)
+                if (hangboardConfig != null ) {
+                    viewModel.setHangboard(hangboardConfig)
+                    Toast.makeText(this@MainActivity,"Set", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

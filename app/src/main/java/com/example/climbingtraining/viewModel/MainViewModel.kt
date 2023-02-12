@@ -1,9 +1,12 @@
 package com.example.climbingtraining.viewModel
 
+import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.climbingtraining.model.*
 import com.example.climbingtraining.view.MainActivity
+import kotlinx.coroutines.NonDisposableHandle.parent
 
 class MainViewModel(application : MainActivity) : ViewModel()  {
 
@@ -14,6 +17,9 @@ class MainViewModel(application : MainActivity) : ViewModel()  {
     val _setsToFinish = MutableLiveData<Int>()
     val _repeatsToFinish = MutableLiveData<Int>()
     val runState = MutableLiveData<RunState>()
+
+    val setsToFinish : LiveData<Int>
+        get() = _setsToFinish
 
     //Others
     private lateinit var currentExercise : Exercise
@@ -29,11 +35,19 @@ class MainViewModel(application : MainActivity) : ViewModel()  {
         _repeatsToFinish.postValue(repeatsToFinish)
     }
 
+    private fun updateData(){
+        currentTimeToFinish.postValue(currentExercise.getTimeToFinish())
+        currentHangboardState.postValue(currentExercise.getState())
+        _setsToFinish.postValue(currentExercise.getHangboard().numberOfSets)
+        _repeatsToFinish.postValue(currentExercise.getHangboard().numberOfRepeats)
+        currentHangboard.postValue(currentExercise.getHangboard())
+    }
+
+
     private fun initHangboard(){
         currentExercise = Exercise(this)
-        currentHangboard.postValue(currentExercise.getHangboard())
         runState.postValue(RunState.INITIALIZED)
-        currentTimeToFinish.postValue(currentExercise.getHangboard().prepareTime)
+        updateData()
     }
 
 
@@ -54,9 +68,8 @@ class MainViewModel(application : MainActivity) : ViewModel()  {
     }
     private fun setHangboard(){
         currentExercise.setHangboard(chosenHangboard)
-        currentHangboard.postValue(currentExercise.getHangboard())
+        updateData()
     }
-
 
     fun onStart(){
         if (currentExercise.getState() == ExerciseState.INACTIVE
