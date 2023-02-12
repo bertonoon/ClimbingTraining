@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MainActivity"
-    android:background="@color/palette4"
+    tools:context=".ui.activities.HangboardActivity"
+    android:background="@color/white"
     >
 
+
     <TextView
-        android:id="@+id/tvCurrentSeries"
+        android:id="@+id/tvHangboardName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -27,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/tvCurrentSeries"
+        app:layout_constraintTop_toBottomOf="@id/tvHangboardName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         >
@@ -250,8 +251,6 @@
         android:textSize="30sp"
         />
 
-
-
     <FrameLayout
         android:id="@+id/flTimer"
         android:layout_width="200dp"
@@ -332,34 +331,34 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvCurrentState"
                     >
-            <ProgressBar
-                android:id="@+id/pbRepeats"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:background="@drawable/circular_progress_gray"
-                android:progressDrawable="@drawable/circular_progress_bar"
-                android:indeterminate="false"
-                android:max="10"
-                android:progress="100"
-                android:rotation="-90"
-                />
-            <LinearLayout
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:background="@drawable/item_circular_accent_background"
-                android:gravity="center">
-                <TextView
-                    android:id="@+id/tvLeftRepeats"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="28sp"
-                    android:textStyle="bold"
-                    tools:text="99"/>
-            </LinearLayout>
-        </FrameLayout>
+                    <ProgressBar
+                        android:id="@+id/pbRepeats"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circular_progress_gray"
+                        android:progressDrawable="@drawable/circular_progress_bar"
+                        android:indeterminate="false"
+                        android:max="10"
+                        android:progress="100"
+                        android:rotation="-90"
+                        />
+                    <LinearLayout
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/item_circular_accent_background"
+                        android:gravity="center">
+                        <TextView
+                            android:id="@+id/tvLeftRepeats"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            tools:text="99"/>
+                    </LinearLayout>
+                </FrameLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -385,34 +384,34 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvCurrentState"
                     >
-            <ProgressBar
-                android:id="@+id/pbSets"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:background="@drawable/circular_progress_gray"
-                android:progressDrawable="@drawable/circular_progress_bar"
-                android:indeterminate="false"
-                android:max="10"
-                android:progress="100"
-                android:rotation="-90"
-                />
-            <LinearLayout
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:background="@drawable/item_circular_accent_background"
-                android:gravity="center">
-                <TextView
-                    android:id="@+id/tvLeftSets"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="28sp"
-                    android:textStyle="bold"
-                    tools:text="99"/>
-            </LinearLayout>
-        </FrameLayout>
+                    <ProgressBar
+                        android:id="@+id/pbSets"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circular_progress_gray"
+                        android:progressDrawable="@drawable/circular_progress_bar"
+                        android:indeterminate="false"
+                        android:max="10"
+                        android:progress="100"
+                        android:rotation="-90"
+                        />
+                    <LinearLayout
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/item_circular_accent_background"
+                        android:gravity="center">
+                        <TextView
+                            android:id="@+id/tvLeftSets"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            tools:text="99"/>
+                    </LinearLayout>
+                </FrameLayout>
             </LinearLayout>
         </LinearLayout>
 
@@ -460,22 +459,5 @@
 
 
     </LinearLayout>
-
-
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddHangboard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:backgroundTint="@color/palette3"
-        android:src="@drawable/ic_baseline_add_24"
-        android:contentDescription="@string/add_hangboard"
-        app:layout_constraintBottom_toTopOf="@id/llButtons"
-        app:layout_constraintRight_toRightOf="parent"
-        />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

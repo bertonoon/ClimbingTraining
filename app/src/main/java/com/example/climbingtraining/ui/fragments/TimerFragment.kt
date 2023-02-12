@@ -1,61 +1,46 @@
-package com.example.climbingtraining.view
+package com.example.climbingtraining.ui.fragments
 
-import android.app.Activity
-import android.content.Intent
-import android.os.Build.VERSION
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import com.example.climbingtraining.databinding.ActivityMainBinding
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.climbingtraining.databinding.FragmentTimerBinding
 import com.example.climbingtraining.model.ExerciseState
 import com.example.climbingtraining.model.RunState
 import com.example.climbingtraining.model.SimpleHangboard
-import com.example.climbingtraining.viewModel.MainViewModel
+import com.example.climbingtraining.ui.activities.HangboardActivity
+import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 
-class MainActivity : AppCompatActivity() {
+class TimerFragment : Fragment(){
 
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel : MainViewModel
+    private lateinit var binding: FragmentTimerBinding
+    lateinit var viewModel: HangboardViewModel
 
-    private val getResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {result->
-            if (result.resultCode == Activity.RESULT_OK) {
-               val hangboardConfig =
-                   if ( VERSION.SDK_INT >= 33){
-                       result.data?.getParcelableExtra("HangboardConfig",SimpleHangboard::class.java)
-                   } else {
-                       result.data?.getParcelableExtra("HangboardConfig") as SimpleHangboard?
-                   }
-                if (hangboardConfig != null ) {
-                    viewModel.setHangboard(hangboardConfig)
-                    Toast.makeText(this@MainActivity,"Set", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val fragmentBinding = FragmentTimerBinding.inflate(inflater,container,false)
+        binding = fragmentBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        viewModel = MainViewModel(this)
-        supportActionBar?.hide()
-        setContentView(binding.root)
-
+        return fragmentBinding.root
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel = (activity as HangboardActivity).viewModel
         initializeUI()
         initializeObservers()
-        viewModel.onViewReady()
+        super.onViewCreated(view, savedInstanceState)
     }
 
+
     private fun initializeObservers() {
-        viewModel.currentHangboard.observe(this){onCurrentHangboardChange(it)}
-        viewModel.currentTimeToFinish.observe(this){onCurrentTimeToFinish(it)}
-        viewModel.currentHangboardState.observe(this){
+        viewModel.currentHangboard.observe(viewLifecycleOwner){onCurrentHangboardChange(it)}
+        viewModel.currentTimeToFinish.observe(viewLifecycleOwner){onCurrentTimeToFinish(it)}
+        viewModel.currentHangboardState.observe(viewLifecycleOwner){
             if (viewModel.runState.value != RunState.UNINITIALIZED ) {
                 binding.tvCurrentState.visibility = View.VISIBLE
                 if ( it == ExerciseState.INACTIVE )
@@ -66,17 +51,17 @@ class MainActivity : AppCompatActivity() {
                 binding.tvCurrentState.visibility = View.INVISIBLE
 
         }
-        viewModel.runState.observe(this){
+        viewModel.runState.observe(viewLifecycleOwner){
             onRunStateChange()
         }
-        viewModel._repeatsToFinish.observe(this){
+        viewModel.repeatsToFinish.observe(viewLifecycleOwner){
             binding.tvLeftRepeats.text = it.toString()
             viewModel.currentHangboard.value?.let { it1 ->
                 setupRepeatsProgressBar(it,
                     it1.numberOfRepeats)
             }
         }
-        viewModel._setsToFinish.observe(this){
+        viewModel.setsToFinish.observe(viewLifecycleOwner){
             binding.tvLeftSets.text = it.toString()
             viewModel.currentHangboard.value?.let { it1 ->
                 setupSetsProgressBar(it,
@@ -84,12 +69,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    private fun initializeUI() {
+        binding.btnStart.setOnClickListener { viewModel.onStart() }
+        binding.btnStopReset.setOnClickListener { onStopResetButton() }
+    }
 
     private fun setupTimeProgressBar(timeToFinish: Long, maxTime: Long){
         binding.pbProgressBar.max = maxTime.toInt()
         binding.pbProgressBar.progress = timeToFinish.toInt()
     }
-
     private fun setupSetsProgressBar(setsToFinish: Int,maxSets :Int){
         binding.pbSets.max = maxSets
         binding.pbSets.progress = setsToFinish
@@ -98,8 +86,6 @@ class MainActivity : AppCompatActivity() {
         binding.pbRepeats.max = maxRepeats
         binding.pbRepeats.progress = repeatsToFinish
     }
-
-
     private fun onRunStateChange() {
         when (viewModel.runState.value) {
             RunState.ACTIVE -> {
@@ -119,7 +105,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun onCurrentTimeToFinish(timeToFinish: Long) {
         binding.tvMainTimer.text = String.format("%.1f",timeToFinish.toFloat()/1000)
         setupTimeProgressBar(timeToFinish,
@@ -133,27 +118,13 @@ class MainActivity : AppCompatActivity() {
             }
         )
     }
-
-    private fun onCurrentHangboardChange(hangboardTimes:SimpleHangboard) {
+    private fun onCurrentHangboardChange(hangboardTimes: SimpleHangboard) {
         binding.tvHangTime.text = String.format("%.0f",hangboardTimes.hangTime.toFloat()/1000)
         binding.tvPauseTime.text = String.format("%.0f",hangboardTimes.pauseTime.toFloat()/1000)
         binding.tvRoundsToEnd.text = hangboardTimes.numberOfRepeats.toString()
         binding.tvRestTime.text = String.format("%.0f",hangboardTimes.restTime.toFloat()/1000)
         binding.tvSetsToEnd.text = hangboardTimes.numberOfSets.toString()
     }
-
-    private fun initializeUI() {
-        binding.btnStart.setOnClickListener { viewModel.onStart() }
-        binding.btnStopReset.setOnClickListener { onStopResetButton() }
-        binding.fabAddHangboard.setOnClickListener{ onAddHangboardButton() }
-
-    }
-
-    private fun onAddHangboardButton() {
-        val intent = Intent(this@MainActivity,AddHangboardActivity::class.java)
-        getResult.launch(intent)
-    }
-
     private fun onStopResetButton(){
         when (viewModel.runState.value) {
             RunState.ACTIVE -> {
@@ -169,3 +140,5 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
+

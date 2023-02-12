@@ -1,25 +1,37 @@
-package com.example.climbingtraining.viewModel
+package com.example.climbingtraining.ui.viewModels
 
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.climbingtraining.model.*
-import com.example.climbingtraining.view.MainActivity
-import kotlinx.coroutines.NonDisposableHandle.parent
 
-class MainViewModel(application : MainActivity) : ViewModel()  {
+class HangboardViewModel() : ViewModel()  {
 
     //Live data
-    val currentHangboard = MutableLiveData<SimpleHangboard>()
-    val currentTimeToFinish = MutableLiveData<Long>()
-    val currentHangboardState = MutableLiveData<ExerciseState>()
-    val _setsToFinish = MutableLiveData<Int>()
-    val _repeatsToFinish = MutableLiveData<Int>()
-    val runState = MutableLiveData<RunState>()
+    private val _currentHangboard = MutableLiveData<SimpleHangboard>()
+    val currentHangboard : LiveData<SimpleHangboard>
+        get() = _currentHangboard
 
+    private val _currentTimeToFinish = MutableLiveData<Long>()
+    val currentTimeToFinish : LiveData<Long>
+        get() = _currentTimeToFinish
+
+    private val _currentHangboardState = MutableLiveData<ExerciseState>()
+    val currentHangboardState : LiveData<ExerciseState>
+        get() = _currentHangboardState
+
+    private val _runState = MutableLiveData<RunState>()
+    val runState : LiveData<RunState>
+        get() = _runState
+
+    private val _setsToFinish = MutableLiveData<Int>()
     val setsToFinish : LiveData<Int>
         get() = _setsToFinish
+
+    private val _repeatsToFinish = MutableLiveData<Int>()
+    val repeatsToFinish : LiveData<Int>
+        get() = _repeatsToFinish
+
 
     //Others
     private lateinit var currentExercise : Exercise
@@ -29,24 +41,24 @@ class MainViewModel(application : MainActivity) : ViewModel()  {
                    currentState: ExerciseState,
                    setsToFinish : Int,
                    repeatsToFinish : Int){
-        currentTimeToFinish.postValue(timeToFinish)
-        currentHangboardState.postValue(currentState)
+        _currentTimeToFinish.postValue(timeToFinish)
+        _currentHangboardState.postValue(currentState)
         _setsToFinish.postValue(setsToFinish)
         _repeatsToFinish.postValue(repeatsToFinish)
     }
 
     private fun updateData(){
-        currentTimeToFinish.postValue(currentExercise.getTimeToFinish())
-        currentHangboardState.postValue(currentExercise.getState())
+        _currentTimeToFinish.postValue(currentExercise.getTimeToFinish())
+        _currentHangboardState.postValue(currentExercise.getState())
         _setsToFinish.postValue(currentExercise.getHangboard().numberOfSets)
         _repeatsToFinish.postValue(currentExercise.getHangboard().numberOfRepeats)
-        currentHangboard.postValue(currentExercise.getHangboard())
+        _currentHangboard.postValue(currentExercise.getHangboard())
     }
 
 
     private fun initHangboard(){
         currentExercise = Exercise(this)
-        runState.postValue(RunState.INITIALIZED)
+        _runState.postValue(RunState.INITIALIZED)
         updateData()
     }
 
@@ -73,22 +85,22 @@ class MainViewModel(application : MainActivity) : ViewModel()  {
 
     fun onStart(){
         if (currentExercise.getState() == ExerciseState.INACTIVE
-            && runState.value == RunState.INITIALIZED) {
+            && _runState.value == RunState.INITIALIZED) {
             currentExercise.run()
-        } else if (runState.value == RunState.STOPPED){
+        } else if (_runState.value == RunState.STOPPED){
             currentExercise.resume()
         }
-        runState.postValue(RunState.ACTIVE)
+        _runState.postValue(RunState.ACTIVE)
     }
     fun onStop(){
         if (currentExercise.getState() != ExerciseState.INACTIVE) {
             currentExercise.stop()
-            runState.postValue(RunState.STOPPED)
+            _runState.postValue(RunState.STOPPED)
         }
     }
     fun onReset(){
         currentExercise.reset()
-        runState.postValue(RunState.INITIALIZED)
+        _runState.postValue(RunState.INITIALIZED)
     }
 
 

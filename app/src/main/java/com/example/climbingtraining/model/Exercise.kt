@@ -1,12 +1,11 @@
 package com.example.climbingtraining.model
 
 import android.os.CountDownTimer
-import android.util.Log
-import com.example.climbingtraining.viewModel.MainViewModel
+import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 
 
 class Exercise(
-    private val viewModel: MainViewModel
+    private val viewModel: HangboardViewModel
 ) {
 
     private var timeToFinishCurrentState : Long
