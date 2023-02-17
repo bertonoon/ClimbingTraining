@@ -1,11 +1,21 @@
 package com.example.climbingtraining.ui.viewModels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.annotation.SuppressLint
+import android.app.Application
+import android.util.Log
+import androidx.lifecycle.*
+import com.example.climbingtraining.db.HangboardDao
+import com.example.climbingtraining.db.HangboardDatabase
 import com.example.climbingtraining.model.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class HangboardViewModel() : ViewModel()  {
+class HangboardViewModel(application: Application) : AndroidViewModel(application) {
+
+    @SuppressLint("StaticFieldLeak")
+    //private val context = getApplication<Application>().applicationContext // TODO Jakoś inaczej chyba trzeba
+    private val hangboardDao = HangboardDatabase.getInstance(application.applicationContext).hangboardDao()
+
 
     //Live data
     private val _currentHangboard = MutableLiveData<SimpleHangboard>()
@@ -31,6 +41,10 @@ class HangboardViewModel() : ViewModel()  {
     private val _repeatsToFinish = MutableLiveData<Int>()
     val repeatsToFinish : LiveData<Int>
         get() = _repeatsToFinish
+
+    private val _savedConfigs = MutableLiveData<List<SimpleHangboard>>()
+    val savedConfigs : LiveData<List<SimpleHangboard>>
+        get() = _savedConfigs
 
 
     //Others
@@ -68,6 +82,13 @@ class HangboardViewModel() : ViewModel()  {
         initHangboard()
     }
 
+    fun onSavedConfigsReady(){
+        if (_savedConfigs.value.isNullOrEmpty()){
+            fetchSavedConfigs()
+        }
+    }
+
+
     fun onFinish(){
         chosenHangboard = currentExercise.getHangboard()
         initHangboard()
@@ -103,5 +124,29 @@ class HangboardViewModel() : ViewModel()  {
         _runState.postValue(RunState.INITIALIZED)
     }
 
+
+    private fun addSavedConfig(hangboardDao: HangboardDao, newConfig : SimpleHangboard) {
+        viewModelScope.launch(Dispatchers.IO) {
+            hangboardDao.insert(newConfig)
+        }
+        fetchSavedConfigs()
+    }
+
+    private fun fetchSavedConfigs(){
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                hangboardDao.fetchAll().collect(){
+                    val result = ArrayList(it)
+                    _savedConfigs.postValue(result)
+                }
+            } catch(e : Exception) {
+                Log.i("dbFetch", e.toString())
+            }
+        }
+    }
+
+    fun saveHangboard(config: SimpleHangboard) {
+        addSavedConfig(hangboardDao,config)
+    }
 
 }
