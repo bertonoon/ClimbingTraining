@@ -18,8 +18,7 @@ class SavedConfigurationsFragment : Fragment(R.layout.fragment_saved_configurati
 
     private lateinit var binding: FragmentSavedConfigurationsBinding
     private lateinit var viewModel: HangboardViewModel
-    private val adapter = SavedConfigsAdapter(arrayListOf())
-
+    private lateinit var adapter : SavedConfigsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +32,7 @@ class SavedConfigurationsFragment : Fragment(R.layout.fragment_saved_configurati
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = (activity as HangboardActivity).viewModel
+        adapter = SavedConfigsAdapter(arrayListOf(),viewModel)
         initializeUI()
         initializeObservers()
         viewModel.onSavedConfigsReady()

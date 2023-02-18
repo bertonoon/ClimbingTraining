@@ -7,7 +7,8 @@ object BasicHangboardTimes {
         pauseTime = 500L,
         restTime = 500L,
         numberOfRepeats = 2,
-        numberOfSets = 2
+        numberOfSets = 2,
+        name = ""
     )
     fun getBasicTimes() = basicHangboardTimes
 }

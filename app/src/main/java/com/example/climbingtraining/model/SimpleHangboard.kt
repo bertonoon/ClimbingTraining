@@ -15,5 +15,6 @@ data class SimpleHangboard(
     val pauseTime: Long,
     val numberOfRepeats: Int,
     val restTime: Long,
-    val numberOfSets: Int
+    val numberOfSets: Int,
+    val name: String
 )

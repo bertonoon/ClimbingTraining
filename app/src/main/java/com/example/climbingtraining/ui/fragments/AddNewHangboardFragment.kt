@@ -48,6 +48,7 @@ class AddNewHangboardFragment : Fragment(R.layout.fragment_add_new_hangboard){
 
     private fun getHangboardFromEditTexts() : SimpleHangboard{
         return SimpleHangboard(
+            name = binding.etHangboardName.text.toString(),
             prepareTime = 5000L,
             hangTime = binding.etHangTime.text.toString().toLong() * 1000,
             restTime = binding.etRestTime.text.toString().toLong() * 1000,

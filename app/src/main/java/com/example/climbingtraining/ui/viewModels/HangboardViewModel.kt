@@ -149,4 +149,15 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         addSavedConfig(hangboardDao,config)
     }
 
+    private fun deleteHangboardFromDb(config: SimpleHangboard) {
+        viewModelScope.launch(Dispatchers.IO){
+            hangboardDao.delete(config)
+        }
+        fetchSavedConfigs()                           
+
+    }
+    fun deleteHangboard(config: SimpleHangboard){
+        deleteHangboardFromDb(config)
+    }
+
 }
