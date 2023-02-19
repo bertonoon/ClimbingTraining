@@ -2,6 +2,7 @@ package com.example.climbingtraining.ui.viewModels
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.media.MediaPlayer
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.climbingtraining.db.SavedConfigsDao
@@ -19,6 +20,7 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
 
     private val hangboardDao = HangboardDatabase.getInstance(application.applicationContext).hangboardDao()
     private val historyDao = HangboardDatabase.getInstance(application.applicationContext).historyDao()
+    private val lastHangboardDao = HangboardDatabase.getInstance(application.applicationContext).lastHangboardDao()
 
     //Live data
     private val _currentHangboard = MutableLiveData<SingleHangboard>()
@@ -53,11 +55,10 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
     val history : LiveData<List<SingleHangboardHistoryModel1>>
         get() = _history
 
-
-
     //Others
     private lateinit var currentExercise : Exercise
     private lateinit var chosenHangboard: SingleHangboard
+
 
     fun updateData(timeToFinish: Long,
                    currentState: ExerciseState,
@@ -79,7 +80,8 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
 
 
     private fun initHangboard(){
-        currentExercise = Exercise(this)
+        currentExercise = Exercise(this,getApplication())
+        setLastHangboard()
         _runState.postValue(RunState.INITIALIZED)
         updateData()
     }
@@ -99,10 +101,14 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun onFinish(){
         chosenHangboard = currentExercise.getHangboard()
-        saveToHistory(chosenHangboard)
+        _runState.postValue(RunState.FINISHED)
+    }
+
+    fun reload(){
         initHangboard()
         setHangboard()
     }
+
 
     fun setHangboard(hangboard: SingleHangboard){
         chosenHangboard =  hangboard
@@ -110,6 +116,7 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
     }
     private fun setHangboard(){
         currentExercise.setHangboard(chosenHangboard)
+        saveLastConfig(chosenHangboard)
         updateData()
     }
 
@@ -169,6 +176,10 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         deleteHangboardFromDb(config)
     }
 
+    fun saveCurrentHangboard(){
+        saveToHistory(chosenHangboard)
+        reload()
+    }
     private fun saveToHistory(hangboardType :SingleHangboard){
         viewModelScope.launch(Dispatchers.IO) {
             historyDao.insert(
@@ -179,7 +190,22 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
             )
         }
     }
-
+    private fun saveLastConfig(hangboard :SingleHangboard){
+        viewModelScope.launch(Dispatchers.IO) {
+            lastHangboardDao.insert(
+                LastHangboard(
+                    id = 1,
+                    prepareTime = hangboard.prepareTime,
+                    hangTime = hangboard.hangTime,
+                    pauseTime = hangboard.pauseTime,
+                    numberOfRepeats = hangboard.numberOfRepeats,
+                    restTime = hangboard.restTime,
+                    numberOfSets = hangboard.numberOfSets,
+                    name = hangboard.name,
+                )
+            )
+        }
+    }
     fun onHistoryReady() {
         if (_history.value.isNullOrEmpty()){
             fetchHistory()
@@ -195,6 +221,27 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
                 }
             } catch(e : Exception) {
                 Log.i("dbHistoryFetch", e.toString())
+            }
+        }
+    }
+
+    private fun setLastHangboard(){
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                val result = lastHangboardDao.fetchAll()
+                chosenHangboard = SingleHangboard(
+                    id = 0,
+                    prepareTime = result.prepareTime,
+                    hangTime = result.hangTime,
+                    pauseTime = result.pauseTime,
+                    numberOfRepeats = result.numberOfRepeats,
+                    restTime = result.restTime,
+                    numberOfSets = result.numberOfSets,
+                    name = result.name,
+                )
+                setHangboard()
+            } catch(e : Exception) {
+                Log.i("dbLastConfigFetch", e.toString())
             }
         }
     }

@@ -1,23 +1,33 @@
 package com.example.climbingtraining.utils
 
+import android.content.Context
+import android.media.MediaPlayer
+import android.net.Uri
 import android.os.CountDownTimer
+import android.util.Log
+import androidx.lifecycle.viewModelScope
+import com.example.climbingtraining.R
 import com.example.climbingtraining.model.BasicHangboardTimes
 import com.example.climbingtraining.model.ExerciseState
 import com.example.climbingtraining.model.SingleHangboard
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 
 class Exercise(
-    private val viewModel: HangboardViewModel
+    private val viewModel: HangboardViewModel,
+    private val context : Context
 ) {
 
     private var timeToFinishCurrentState : Long
     private lateinit var timer :CountDownTimer
     private var currentState : ExerciseState
-
+    private var mediaPlayer: MediaPlayer? = null
 
     private var config : SingleHangboard =
-        BasicHangboardTimes.getBasicTimes() // TODO Zmienić na ostatnie używane
+        BasicHangboardTimes.getBasicTimes()
     private var setsToFinish : Int = config.numberOfSets
     private var repeatsToFinish : Int = config.numberOfRepeats
 
@@ -50,6 +60,7 @@ class Exercise(
             }
             override fun onFinish() {
                 timeToFinishCurrentState = 0
+                playSound()
                 when(currentState){
                     ExerciseState.REST -> repeatsToFinish--
                     ExerciseState.PAUSE -> setsToFinish--
@@ -72,6 +83,19 @@ class Exercise(
     fun run(){
         nextState()
     }
+
+    private fun playSound(){
+        try{
+            val soundURI = Uri.parse(
+                "android.resource://com.example.climbingtraining/" + R.raw.start)
+            mediaPlayer = MediaPlayer.create(context,soundURI)
+            mediaPlayer?.isLooping = false
+            mediaPlayer?.start()
+        } catch (e: Exception){
+            e.printStackTrace()
+        }
+    }
+
 
     private fun nextState(){
         when(currentState){

@@ -4,5 +4,6 @@ enum class RunState {
     UNINITIALIZED,
     INITIALIZED,
     ACTIVE,
-    STOPPED
+    STOPPED,
+    FINISHED
 }

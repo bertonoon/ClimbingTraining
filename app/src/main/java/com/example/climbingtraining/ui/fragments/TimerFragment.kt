@@ -1,11 +1,14 @@
 package com.example.climbingtraining.ui.fragments
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.climbingtraining.databinding.DialogCustomQuestionBinding
 import com.example.climbingtraining.databinding.FragmentTimerBinding
 import com.example.climbingtraining.model.ExerciseState
 import com.example.climbingtraining.model.RunState
@@ -100,6 +103,9 @@ class TimerFragment : Fragment(){
                 setupRepeatsProgressBar(1,1)
                 setupSetsProgressBar(1,1)
             }
+            RunState.FINISHED -> {
+                showDialogForSave()
+            }
             else -> {
                 Log.e("UnknownState","Unknown state of viewModel.runState")
             }
@@ -137,6 +143,30 @@ class TimerFragment : Fragment(){
                 Log.e("UnknownState","Unknown state of viewModel.runState")
             }
         }
+    }
+
+
+    private fun showDialogForSave() {
+        val customDialog = Dialog(requireContext())
+        val dialogBinding  = DialogCustomQuestionBinding.inflate(layoutInflater)
+        dialogBinding.tvDialog.text = "Save training?"
+        customDialog.setContentView(dialogBinding.root)
+        customDialog.setCanceledOnTouchOutside(false)
+        dialogBinding.btnYes.setOnClickListener{
+            viewModel.saveCurrentHangboard()
+            customDialog.dismiss()
+        }
+        dialogBinding.btnNo.setOnClickListener {
+            viewModel.reload()
+            customDialog.dismiss()
+        }
+        customDialog.setOnCancelListener{
+            viewModel.reload()
+            customDialog.dismiss()
+        }
+
+
+        customDialog.show()
     }
 
 }

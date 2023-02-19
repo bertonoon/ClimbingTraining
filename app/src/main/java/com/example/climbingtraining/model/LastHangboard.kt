@@ -3,11 +3,10 @@ package com.example.climbingtraining.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-
-@Entity(tableName = "savedSingleConfigs")
-data class SingleHangboard(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+@Entity(tableName = "lastHangboard")
+data class LastHangboard(
+    @PrimaryKey
+    val id: Int = 1,
     val prepareTime: Long = 5000L,
     val hangTime: Long = 1000L,
     val pauseTime: Long = 1000L,
