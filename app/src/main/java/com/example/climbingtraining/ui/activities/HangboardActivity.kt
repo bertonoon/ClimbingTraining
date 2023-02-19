@@ -27,4 +27,13 @@ class HangboardActivity : AppCompatActivity() {
 
         viewModel.onViewReady()
     }
+
+    override fun onBackPressed() {
+        val count = supportFragmentManager.backStackEntryCount
+        if (count == 0){
+            onBackPressedDispatcher.onBackPressed()
+        } else {
+            supportFragmentManager.popBackStack()
+        }
+    }
 }

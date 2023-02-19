@@ -3,20 +3,26 @@ package com.example.climbingtraining.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.climbingtraining.databinding.FragmentHangboardBinding
-import com.example.climbingtraining.model.SimpleHangboard
+import com.example.climbingtraining.R
+import com.example.climbingtraining.databinding.ItemSingleHangboardBinding
+import com.example.climbingtraining.model.SingleHangboard
+import com.example.climbingtraining.ui.fragments.HistoryFragment
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 
 class SavedConfigsAdapter (
-    private val configsList : ArrayList<SimpleHangboard>,
-    private val viewModel: HangboardViewModel
+    private val configsList : ArrayList<SingleHangboard>,
+    private val viewModel: HangboardViewModel,
+    private val navController: NavController
         ) : RecyclerView.Adapter<SavedConfigsAdapter.ViewHolder>(){
 
     inner class ViewHolder (
-        private val binding: FragmentHangboardBinding
+        private val binding: ItemSingleHangboardBinding
             ) : RecyclerView.ViewHolder(binding.root) {
-                fun bind(config:SimpleHangboard){
+                fun bind(config:SingleHangboard){
                     binding.apply {
                         tvHangTime.text = (config.hangTime/1000).toString()
                         tvRestTime.text = (config.restTime/1000).toString()
@@ -41,9 +47,11 @@ class SavedConfigsAdapter (
 
     private fun setHangboard(idConfig: Int) {
         viewModel.setHangboard(configsList[idConfig])
+        navController.navigate(R.id.action_savedConfigurationsFragment_to_timerFragment)
+
     }
 
-    private fun expandView(position: Int, binding: FragmentHangboardBinding){
+    private fun expandView(position: Int, binding: ItemSingleHangboardBinding){
         if (binding.llButtons.visibility == View.GONE){
             binding.llButtons.visibility = View.VISIBLE}
         else {
@@ -52,7 +60,7 @@ class SavedConfigsAdapter (
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = FragmentHangboardBinding.inflate(LayoutInflater.from(parent.context),
+        val binding = ItemSingleHangboardBinding.inflate(LayoutInflater.from(parent.context),
         parent,
         false)
         return ViewHolder(binding)
@@ -64,7 +72,7 @@ class SavedConfigsAdapter (
 
     override fun getItemCount(): Int = configsList.size
 
-    fun updateList(newConfigsList: List<SimpleHangboard>?) {
+    fun updateList(newConfigsList: List<SingleHangboard>?) {
         if (newConfigsList.isNullOrEmpty()) return
         configsList.clear()
         configsList.addAll(newConfigsList)

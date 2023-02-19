@@ -1,6 +1,9 @@
-package com.example.climbingtraining.model
+package com.example.climbingtraining.utils
 
 import android.os.CountDownTimer
+import com.example.climbingtraining.model.BasicHangboardTimes
+import com.example.climbingtraining.model.ExerciseState
+import com.example.climbingtraining.model.SingleHangboard
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 
 
@@ -13,7 +16,8 @@ class Exercise(
     private var currentState : ExerciseState
 
 
-    private var config : SimpleHangboard = BasicHangboardTimes.getBasicTimes() // TODO Zmienić na ostatnie używane
+    private var config : SingleHangboard =
+        BasicHangboardTimes.getBasicTimes() // TODO Zmienić na ostatnie używane
     private var setsToFinish : Int = config.numberOfSets
     private var repeatsToFinish : Int = config.numberOfRepeats
 
@@ -27,7 +31,7 @@ class Exercise(
             repeatsToFinish)
     }
 
-    fun setHangboard(newConfig : SimpleHangboard){
+    fun setHangboard(newConfig : SingleHangboard){
         config = newConfig
         setsToFinish = config.numberOfSets
         repeatsToFinish = config.numberOfRepeats

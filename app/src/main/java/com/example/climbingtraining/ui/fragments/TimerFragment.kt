@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.climbingtraining.databinding.FragmentTimerBinding
 import com.example.climbingtraining.model.ExerciseState
 import com.example.climbingtraining.model.RunState
-import com.example.climbingtraining.model.SimpleHangboard
+import com.example.climbingtraining.model.SingleHangboard
 import com.example.climbingtraining.ui.activities.HangboardActivity
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 
@@ -118,7 +118,7 @@ class TimerFragment : Fragment(){
             }
         )
     }
-    private fun onCurrentHangboardChange(hangboardTimes: SimpleHangboard) {
+    private fun onCurrentHangboardChange(hangboardTimes: SingleHangboard) {
         binding.tvHangTime.text = String.format("%.0f",hangboardTimes.hangTime.toFloat()/1000)
         binding.tvPauseTime.text = String.format("%.0f",hangboardTimes.pauseTime.toFloat()/1000)
         binding.tvRoundsToEnd.text = hangboardTimes.numberOfRepeats.toString()

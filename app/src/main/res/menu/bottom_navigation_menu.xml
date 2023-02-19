@@ -3,9 +3,9 @@
 
 
     <item
-        android:id="@+id/addNewHangboardFragment"
-        android:title="Add new"
-        android:icon="@drawable/ic_baseline_add_24"
+        android:id="@+id/historyFragment"
+        android:title="History"
+        android:icon="@drawable/ic_baseline_history_24"
         />
     <item
         android:id="@+id/timerFragment"

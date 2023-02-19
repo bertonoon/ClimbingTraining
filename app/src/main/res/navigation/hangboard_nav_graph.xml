@@ -5,27 +5,33 @@
     app:startDestination="@id/timerFragment">
 
     <fragment
-        android:id="@+id/hangboardFragment"
-        android:name="com.example.climbingtraining.ui.fragments.HangboardFragment"
-        android:label="HangboardFragment" />
-    <fragment
-        android:id="@+id/addNewHangboardFragment"
-        android:name="com.example.climbingtraining.ui.fragments.AddNewHangboardFragment"
-        android:label="AddNewHangboardFragment" />
-    <fragment
         android:id="@+id/savedConfigurationsFragment"
         android:name="com.example.climbingtraining.ui.fragments.SavedConfigurationsFragment"
         android:label="SavedConfigurationsFragment" >
         <action
-            android:id="@+id/action_savedConfigurationsFragment_to_hangboardFragment"
-            app:destination="@id/hangboardFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            android:id="@+id/action_savedConfigurationsFragment_to_addNewHangboardFragment"
+            app:destination="@id/addNewHangboardFragment" />
+        <action
+            android:id="@+id/action_savedConfigurationsFragment_to_timerFragment"
+            app:destination="@id/timerFragment" />
     </fragment>
     <fragment
         android:id="@+id/timerFragment"
         android:name="com.example.climbingtraining.ui.fragments.TimerFragment"
         android:label="TimerFragment" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.climbingtraining.ui.fragments.HistoryFragment"
+        android:label="HistoryFragment" />
+    <fragment
+        android:id="@+id/addNewHangboardFragment"
+        android:name="com.example.climbingtraining.ui.fragments.AddNewHangboardFragment"
+        android:label="AddNewHangboardFragment" >
+        <action
+            android:id="@+id/action_addNewHangboardFragment_to_savedConfigurationsFragment2"
+            app:destination="@id/savedConfigurationsFragment" />
+        <action
+            android:id="@+id/action_addNewHangboardFragment_to_timerFragment2"
+            app:destination="@id/timerFragment" />
+    </fragment>
 </navigation>

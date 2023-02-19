@@ -4,22 +4,25 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.climbingtraining.db.HangboardDao
+import com.example.climbingtraining.db.SavedConfigsDao
 import com.example.climbingtraining.db.HangboardDatabase
 import com.example.climbingtraining.model.*
+import com.example.climbingtraining.utils.Exercise
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.Date
+import com.example.climbingtraining.model.SingleHangboardHistoryModel as SingleHangboardHistoryModel1
 
 class HangboardViewModel(application: Application) : AndroidViewModel(application) {
 
-    @SuppressLint("StaticFieldLeak")
-    //private val context = getApplication<Application>().applicationContext // TODO Jakoś inaczej chyba trzeba
     private val hangboardDao = HangboardDatabase.getInstance(application.applicationContext).hangboardDao()
-
+    private val historyDao = HangboardDatabase.getInstance(application.applicationContext).historyDao()
 
     //Live data
-    private val _currentHangboard = MutableLiveData<SimpleHangboard>()
-    val currentHangboard : LiveData<SimpleHangboard>
+    private val _currentHangboard = MutableLiveData<SingleHangboard>()
+    val currentHangboard : LiveData<SingleHangboard>
         get() = _currentHangboard
 
     private val _currentTimeToFinish = MutableLiveData<Long>()
@@ -42,14 +45,19 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
     val repeatsToFinish : LiveData<Int>
         get() = _repeatsToFinish
 
-    private val _savedConfigs = MutableLiveData<List<SimpleHangboard>>()
-    val savedConfigs : LiveData<List<SimpleHangboard>>
+    private val _savedConfigs = MutableLiveData<List<SingleHangboard>>()
+    val savedConfigs : LiveData<List<SingleHangboard>>
         get() = _savedConfigs
+
+    private val _history = MutableLiveData<List<SingleHangboardHistoryModel1>>()
+    val history : LiveData<List<SingleHangboardHistoryModel1>>
+        get() = _history
+
 
 
     //Others
     private lateinit var currentExercise : Exercise
-    private lateinit var chosenHangboard: SimpleHangboard
+    private lateinit var chosenHangboard: SingleHangboard
 
     fun updateData(timeToFinish: Long,
                    currentState: ExerciseState,
@@ -91,11 +99,12 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun onFinish(){
         chosenHangboard = currentExercise.getHangboard()
+        saveToHistory(chosenHangboard)
         initHangboard()
         setHangboard()
     }
 
-    fun setHangboard(hangboard: SimpleHangboard){
+    fun setHangboard(hangboard: SingleHangboard){
         chosenHangboard =  hangboard
         setHangboard()
     }
@@ -125,9 +134,9 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
 
-    private fun addSavedConfig(hangboardDao: HangboardDao, newConfig : SimpleHangboard) {
+    private fun addSavedConfig(savedConfigsDao: SavedConfigsDao, newConfig : SingleHangboard) {
         viewModelScope.launch(Dispatchers.IO) {
-            hangboardDao.insert(newConfig)
+            savedConfigsDao.insert(newConfig)
         }
         fetchSavedConfigs()
     }
@@ -145,19 +154,50 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    fun saveHangboard(config: SimpleHangboard) {
+    fun saveHangboard(config: SingleHangboard) {
         addSavedConfig(hangboardDao,config)
     }
 
-    private fun deleteHangboardFromDb(config: SimpleHangboard) {
+    private fun deleteHangboardFromDb(config: SingleHangboard) {
         viewModelScope.launch(Dispatchers.IO){
             hangboardDao.delete(config)
         }
         fetchSavedConfigs()                           
 
     }
-    fun deleteHangboard(config: SimpleHangboard){
+    fun deleteHangboard(config: SingleHangboard){
         deleteHangboardFromDb(config)
     }
+
+    private fun saveToHistory(hangboardType :SingleHangboard){
+        viewModelScope.launch(Dispatchers.IO) {
+            historyDao.insert(
+                SingleHangboardHistoryModel1(
+                    date = Date(),
+                    hangboardType = hangboardType
+                )
+            )
+        }
+    }
+
+    fun onHistoryReady() {
+        if (_history.value.isNullOrEmpty()){
+            fetchHistory()
+        }
+    }
+
+    private fun fetchHistory(){
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                historyDao.fetchAll().collect(){
+                    val result = ArrayList(it)
+                    _history.postValue(result)
+                }
+            } catch(e : Exception) {
+                Log.i("dbHistoryFetch", e.toString())
+            }
+        }
+    }
+
 
 }
