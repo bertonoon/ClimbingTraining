@@ -1,8 +1,6 @@
 package com.example.climbingtraining.ui.viewModels
 
-import android.annotation.SuppressLint
 import android.app.Application
-import android.media.MediaPlayer
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.climbingtraining.db.SavedConfigsDao
@@ -11,8 +9,6 @@ import com.example.climbingtraining.model.*
 import com.example.climbingtraining.utils.Exercise
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.Date
 import com.example.climbingtraining.model.SingleHangboardHistoryModel as SingleHangboardHistoryModel1
 
@@ -26,6 +22,10 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
     private val _currentHangboard = MutableLiveData<SingleHangboard>()
     val currentHangboard : LiveData<SingleHangboard>
         get() = _currentHangboard
+
+    private val _editedHangboard = MutableLiveData<SingleHangboard>()
+    val editedHangboard : LiveData<SingleHangboard>
+        get() = _editedHangboard
 
     private val _currentTimeToFinish = MutableLiveData<Long>()
     val currentTimeToFinish : LiveData<Long>
@@ -54,6 +54,10 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
     private val _history = MutableLiveData<List<SingleHangboardHistoryModel1>>()
     val history : LiveData<List<SingleHangboardHistoryModel1>>
         get() = _history
+
+    private val _dbResultStatus = MutableLiveData<DbResultState>()
+    val dbResultStatus : LiveData<DbResultState>
+        get() = _dbResultStatus
 
     //Others
     private lateinit var currentExercise : Exercise
@@ -143,7 +147,13 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
 
     private fun addSavedConfig(savedConfigsDao: SavedConfigsDao, newConfig : SingleHangboard) {
         viewModelScope.launch(Dispatchers.IO) {
-            savedConfigsDao.insert(newConfig)
+            try {
+                savedConfigsDao.insert(newConfig)
+                _dbResultStatus.postValue(DbResultState.CONFIG_SAVE_SUCCESS)
+            } catch (e:Exception){
+                Log.i("dbAddHangboard", e.toString())
+                _dbResultStatus.postValue(DbResultState.CONFIG_SAVE_FAILED)
+            }
         }
         fetchSavedConfigs()
     }
@@ -167,7 +177,13 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
 
     private fun deleteHangboardFromDb(config: SingleHangboard) {
         viewModelScope.launch(Dispatchers.IO){
-            hangboardDao.delete(config)
+            try {
+                hangboardDao.delete(config)
+                _dbResultStatus.postValue(DbResultState.CONFIG_DELETE_SUCCESS)
+            } catch (e:Exception){
+                Log.i("dbDelete", e.toString())
+                _dbResultStatus.postValue(DbResultState.CONFIG_DELETE_FAILED)
+            }
         }
         fetchSavedConfigs()                           
 
@@ -182,28 +198,39 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
     }
     private fun saveToHistory(hangboardType :SingleHangboard){
         viewModelScope.launch(Dispatchers.IO) {
-            historyDao.insert(
-                SingleHangboardHistoryModel1(
-                    date = Date(),
-                    hangboardType = hangboardType
+            try {
+                historyDao.insert(
+                    SingleHangboardHistoryModel1(
+                        date = Date(),
+                        hangboardType = hangboardType
+                    )
                 )
-            )
+                _dbResultStatus.postValue(DbResultState.HISTORY_SAVE_SUCCESS)
+            } catch (e:Exception){
+                Log.i("dbSaveToHistory", e.toString())
+                _dbResultStatus.postValue(DbResultState.HISTORY_SAVE_FAILED)
+            }
+
         }
     }
     private fun saveLastConfig(hangboard :SingleHangboard){
         viewModelScope.launch(Dispatchers.IO) {
-            lastHangboardDao.insert(
-                LastHangboard(
-                    id = 1,
-                    prepareTime = hangboard.prepareTime,
-                    hangTime = hangboard.hangTime,
-                    pauseTime = hangboard.pauseTime,
-                    numberOfRepeats = hangboard.numberOfRepeats,
-                    restTime = hangboard.restTime,
-                    numberOfSets = hangboard.numberOfSets,
-                    name = hangboard.name,
+            try{
+                lastHangboardDao.insert(
+                    LastHangboard(
+                        id = 1,
+                        prepareTime = hangboard.prepareTime,
+                        hangTime = hangboard.hangTime,
+                        pauseTime = hangboard.pauseTime,
+                        numberOfRepeats = hangboard.numberOfRepeats,
+                        restTime = hangboard.restTime,
+                        numberOfSets = hangboard.numberOfSets,
+                        name = hangboard.name,
+                    )
                 )
-            )
+            } catch(e : Exception){
+                Log.i("dbSaveLastConfig", e.toString())
+            }
         }
     }
     fun onHistoryReady() {
@@ -246,5 +273,34 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    fun setHangboardForEdit(hangboard: SingleHangboard) {
+        _editedHangboard.postValue(hangboard)
+    }
+
+    fun editHangboard(hangboard: SingleHangboard){
+        updateSavedConfigInDb(hangboard)
+        cancelEditing()
+    }
+
+    private fun updateSavedConfigInDb(newConfig : SingleHangboard) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                hangboardDao.update(newConfig)
+                _dbResultStatus.postValue(DbResultState.CONFIG_EDIT_SUCCESS)
+            } catch(e : Exception) {
+                Log.i("dbUpdate", e.toString())
+                _dbResultStatus.postValue(DbResultState.CONFIG_EDIT_FAILED)
+            }
+        }
+        fetchSavedConfigs()
+    }
+
+    fun cancelEditing() {
+        _editedHangboard.postValue(SingleHangboard())
+    }
+
+    fun zeroDbStatuses(){
+        _dbResultStatus.postValue(DbResultState.NEUTRAL)
+    }
 
 }

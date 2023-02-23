@@ -10,15 +10,35 @@
         android:label="SavedConfigurationsFragment" >
         <action
             android:id="@+id/action_savedConfigurationsFragment_to_addNewHangboardFragment"
-            app:destination="@id/addNewHangboardFragment" />
+            app:destination="@id/addNewHangboardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
         <action
             android:id="@+id/action_savedConfigurationsFragment_to_timerFragment"
-            app:destination="@id/timerFragment" />
+            app:destination="@id/timerFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+
+            />
     </fragment>
     <fragment
         android:id="@+id/timerFragment"
         android:name="com.example.climbingtraining.ui.fragments.TimerFragment"
-        android:label="TimerFragment" />
+        android:label="TimerFragment">
+        <action
+            android:id="@+id/action_timerFragment_to_savedConfigurationsFragment"
+            app:destination="@id/savedConfigurationsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
+    </fragment>
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.example.climbingtraining.ui.fragments.HistoryFragment"
@@ -26,12 +46,24 @@
     <fragment
         android:id="@+id/addNewHangboardFragment"
         android:name="com.example.climbingtraining.ui.fragments.AddNewHangboardFragment"
-        android:label="AddNewHangboardFragment" >
+        android:label="AddNewHangboardFragment">
         <action
             android:id="@+id/action_addNewHangboardFragment_to_savedConfigurationsFragment2"
-            app:destination="@id/savedConfigurationsFragment" />
+            app:destination="@id/savedConfigurationsFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            />
         <action
             android:id="@+id/action_addNewHangboardFragment_to_timerFragment2"
-            app:destination="@id/timerFragment" />
+            app:destination="@id/timerFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/hangboard_nav_graph"
+            />
     </fragment>
 </navigation>

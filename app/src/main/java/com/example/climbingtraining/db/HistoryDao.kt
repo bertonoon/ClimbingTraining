@@ -7,7 +7,8 @@ import com.example.climbingtraining.model.SingleHangboardHistoryModel
 
 @Dao
 interface HistoryDao {
-    @Insert
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert (singleHistoryEntity: SingleHangboardHistoryModel)
 
     @Update

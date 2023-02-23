@@ -5,7 +5,8 @@ import com.example.climbingtraining.model.SingleHangboard
 
 @Dao
 interface SavedConfigsDao {
-    @Insert
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert (singleHangboardEntity: SingleHangboard)
 
     @Update

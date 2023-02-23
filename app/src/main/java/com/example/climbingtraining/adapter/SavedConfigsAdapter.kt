@@ -1,17 +1,19 @@
 package com.example.climbingtraining.adapter
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.Transformation
 import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.climbingtraining.R
 import com.example.climbingtraining.databinding.ItemSingleHangboardBinding
 import com.example.climbingtraining.model.SingleHangboard
-import com.example.climbingtraining.ui.fragments.HistoryFragment
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
+
 
 class SavedConfigsAdapter (
     private val configsList : ArrayList<SingleHangboard>,
@@ -32,6 +34,7 @@ class SavedConfigsAdapter (
                         tvHangboardName.text = config.name.ifEmpty { "Unnamed" }
                         cvHangboard.setOnClickListener {expandView(adapterPosition,binding)}
                         btnSet.setOnClickListener { setHangboard(adapterPosition)}
+                        btnEdit.setOnClickListener { editHangboard(adapterPosition) }
                         btnDelete.setOnClickListener {
                             deleteHangboard(adapterPosition)
                             expandView(adapterPosition,binding)
@@ -43,6 +46,12 @@ class SavedConfigsAdapter (
 
     private fun deleteHangboard(idConfig: Int) {
         viewModel.deleteHangboard(configsList[idConfig])
+
+    }
+
+    private fun editHangboard(idConfig: Int){
+        viewModel.setHangboardForEdit(configsList[idConfig])
+        navController.navigate(R.id.action_savedConfigurationsFragment_to_addNewHangboardFragment)
     }
 
     private fun setHangboard(idConfig: Int) {
@@ -53,9 +62,11 @@ class SavedConfigsAdapter (
 
     private fun expandView(position: Int, binding: ItemSingleHangboardBinding){
         if (binding.llButtons.visibility == View.GONE){
-            binding.llButtons.visibility = View.VISIBLE}
+            expand(binding.llButtons)
+        }
         else {
-            binding.llButtons.visibility = View.GONE
+            binding.llButtons.animate()
+            collapse(binding.llButtons)
         }
     }
 
@@ -77,6 +88,55 @@ class SavedConfigsAdapter (
         configsList.clear()
         configsList.addAll(newConfigsList)
         notifyDataSetChanged()
+    }
+
+    private fun expand(v: View) {
+        val matchParentMeasureSpec =
+            View.MeasureSpec.makeMeasureSpec((v.parent as View).width, View.MeasureSpec.EXACTLY)
+        val wrapContentMeasureSpec =
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        v.measure(matchParentMeasureSpec, wrapContentMeasureSpec)
+        val targetHeight = v.measuredHeight
+
+        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
+        v.layoutParams.height = 1
+        v.visibility = View.VISIBLE
+        val a: Animation = object : Animation() {
+            override fun applyTransformation(interpolatedTime: Float, t: Transformation?) {
+                v.layoutParams.height =
+                    if (interpolatedTime == 1f) ViewGroup.LayoutParams.WRAP_CONTENT else (targetHeight * interpolatedTime).toInt()
+                v.requestLayout()
+            }
+
+            override fun willChangeBounds(): Boolean {
+                return true
+            }
+        }
+
+        a.duration = 2*(targetHeight / v.context.resources.displayMetrics.density).toInt().toLong()
+        v.startAnimation(a)
+    }
+
+    private fun collapse(v: View) {
+        val initialHeight = v.measuredHeight
+        val a: Animation = object : Animation() {
+            override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
+                if (interpolatedTime == 1f) {
+                    v.visibility = View.GONE
+                } else {
+                    v.layoutParams.height =
+                        initialHeight - (initialHeight * interpolatedTime).toInt()
+                    v.requestLayout()
+                }
+            }
+
+            override fun willChangeBounds(): Boolean {
+                return true
+            }
+        }
+
+        a.duration = 2*(initialHeight / v.context.resources.displayMetrics.density).toInt().toLong()
+        v.startAnimation(a)
     }
 
 

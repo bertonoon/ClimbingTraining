@@ -231,6 +231,7 @@
             android:orientation="horizontal"
             android:visibility="gone"
             tools:visibility="visible"
+            android:animateLayoutChanges="true"
             >
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnDelete"
