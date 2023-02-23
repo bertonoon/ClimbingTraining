@@ -42,7 +42,11 @@
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.example.climbingtraining.ui.fragments.HistoryFragment"
-        android:label="HistoryFragment" />
+        android:label="HistoryFragment" >
+        <action
+            android:id="@+id/action_historyFragment_to_historyDetailsFragment"
+            app:destination="@id/historyDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addNewHangboardFragment"
         android:name="com.example.climbingtraining.ui.fragments.AddNewHangboardFragment"
@@ -65,5 +69,13 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/hangboard_nav_graph"
             />
+    </fragment>
+    <fragment
+        android:id="@+id/historyDetailsFragment"
+        android:name="com.example.climbingtraining.ui.fragments.HistoryDetailsFragment"
+        android:label="HistoryDetailsFragment" >
+        <action
+            android:id="@+id/action_historyDetailsFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
     </fragment>
 </navigation>

@@ -1,6 +1,7 @@
 package com.example.climbingtraining.models
 
 enum class GripType {
+    UNDEFINED,
     EDGE,
     SLOPER,
     JUG,

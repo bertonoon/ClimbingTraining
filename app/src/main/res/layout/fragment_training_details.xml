@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,42 +10,39 @@
     >
 
     <TextView
-        android:id="@+id/tvAddSeries"
+        android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="ADD YOUR TRAINING"
+        android:text="DETAILS"
         android:gravity="center"
         android:textSize="20sp"
         android:visibility="visible"
         />
     <TextView
-        android:id="@+id/tvEditSeries"
+        android:id="@+id/tvHangboardName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:text="EDIT YOUR TRAINING"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:visibility="gone"
-        />
-    <EditText
-        android:id="@+id/etHangboardName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        tools:text = "Hangboard name"
+        android:textSize="18sp"
         android:layout_marginHorizontal="10dp"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@id/tvAddSeries"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:hint="Name"
-        android:imeOptions="actionNext"
+        />
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text = "2022.11.30 17:51"
+        android:textSize="16sp"
+        android:layout_marginHorizontal="10dp"
+        app:layout_constraintTop_toBottomOf="@id/tvHangboardName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         />
 
     <LinearLayout
@@ -52,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/etHangboardName"
+        app:layout_constraintTop_toBottomOf="@id/tvDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         >
@@ -66,6 +64,7 @@
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/ll_row_border"
             android:layout_marginVertical="10dp"
+
             >
 
             <TextView
@@ -105,7 +104,7 @@
                 android:textSize="@dimen/time"
                 />
             <TextView
-                android:id="@+id/tvHeaderSets"
+                android:id="@+id/tvHeaderSeries"
                 android:layout_width="65dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="5dp"
@@ -137,22 +136,18 @@
                 android:orientation="horizontal"
                 android:layout_margin="5dp"
                 >
-                <EditText
-                    android:id="@+id/etHangTime"
+                <TextView
+                    android:id="@+id/tvHangTime"
                     android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:digits="0123456789"
-                    android:gravity="center"
+                    android:layout_height="30dp"
                     tools:text = "15"
+                    android:gravity="center"
                     android:textSize="@dimen/time"
-                    android:autofillHints="7"
-                    android:imeOptions="actionNext"
                     />
                 <TextView
                     android:id="@+id/tvUnitHangTime"
                     android:layout_width="15dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:text = "s"
                     android:gravity="center"
                     android:textSize="@dimen/time"
@@ -170,23 +165,18 @@
                 android:orientation="horizontal"
                 android:layout_margin="5dp"
                 >
-                <EditText
-                    android:id="@+id/etRestTime"
+                <TextView
+                    android:id="@+id/tvRestTime"
                     android:layout_width="50dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     tools:text = "15"
                     android:gravity="center"
-                    android:inputType="numberDecimal"
-                    android:digits="0123456789"
-
                     android:textSize="@dimen/time"
-                    android:autofillHints="3"
-                    android:imeOptions="actionNext"
                     />
                 <TextView
                     android:id="@+id/tvUnitRestTime"
                     android:layout_width="15dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:text = "s"
                     android:gravity="center"
                     android:textSize="@dimen/time"
@@ -198,23 +188,19 @@
                 android:background="@color/palette3"
                 />
             <LinearLayout
-                android:id="@+id/llRounds"
+                android:id="@+id/llRoundsToEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_margin="5dp"
                 >
-                <EditText
-                    android:id="@+id/etRounds"
+                <TextView
+                    android:id="@+id/tvRepeats"
                     android:layout_width="65dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     tools:text = "15"
-                    android:inputType="numberDecimal"
-                    android:digits="0123456789"
                     android:gravity="center"
                     android:textSize="@dimen/time"
-                    android:autofillHints="6"
-                    android:imeOptions="actionNext"
                     />
             </LinearLayout>
             <View
@@ -229,22 +215,18 @@
                 android:orientation="horizontal"
                 android:layout_margin="5dp"
                 >
-                <EditText
-                    android:id="@+id/etPauseTime"
+                <TextView
+                    android:id="@+id/tvPauseTime"
                     android:layout_width="50dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     tools:text = "15"
-                    android:inputType="numberDecimal"
-                    android:digits="0123456789"
                     android:gravity="center"
                     android:textSize="@dimen/time"
-                    android:autofillHints="90"
-                    android:imeOptions="actionNext"
                     />
                 <TextView
                     android:id="@+id/tvUnitPauseTime"
                     android:layout_width="15dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:text = "s"
                     android:gravity="center"
                     android:textSize="@dimen/time"
@@ -256,22 +238,19 @@
                 android:background="@color/palette3"
                 />
             <LinearLayout
-                android:id="@+id/llSets"
+                android:id="@+id/llSetsToEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_margin="6dp"
                 >
-                <EditText
-                    android:id="@+id/etSets"
+                <TextView
+                    android:id="@+id/tvSets"
                     android:layout_width="65dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     tools:text = "15"
-                    android:inputType="numberDecimal"
-                    android:digits="0123456789"
                     android:gravity="center"
                     android:textSize="@dimen/time"
-                    android:autofillHints="3"
                     />
             </LinearLayout>
 
@@ -279,28 +258,193 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <LinearLayout
-        android:id="@+id/llButtonsFirstRow"
+        android:id="@+id/llDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/llSeries"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        >
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnSave"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/palette3"
-            android:text="SAVE"
-            android:layout_margin="10dp"
-            android:visibility="visible"
-            android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="10dp"
 
-            />
+        >
+
+        <LinearLayout
+            android:id="@+id/llGripType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:background="@drawable/ll_row_border"
+            >
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:layout_marginHorizontal="5dp"
+                android:src="@drawable/ic_baseline_drag_handle_24"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:textSize="16sp"
+                android:text="Grip type"
+                />
+            <TextView
+                android:id="@+id/tvGripType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:layout_marginHorizontal="5dp"
+                tools:text="Crimp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llEdgeSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:background="@drawable/ll_row_border"
+            >
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:layout_marginHorizontal="5dp"
+                android:src="@drawable/ic_baseline_height_24"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:textSize="16sp"
+                android:text="Edge size"
+                />
+            <TextView
+                android:id="@+id/tvEdgeSize"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:layout_marginHorizontal="5dp"
+                tools:text="20 mm"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llSlopeAngle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:background="@drawable/ll_row_border"
+            >
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:layout_marginHorizontal="5dp"
+                android:scaleX="-1"
+                android:src="@drawable/ic_baseline_rotate_90_degrees_cw_24"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:textSize="16sp"
+                android:text="Slope angle"
+                />
+            <TextView
+                android:id="@+id/tvSlopeAngle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:layout_marginHorizontal="5dp"
+                tools:text="30°"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/CrimpType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:background="@drawable/ll_row_border"
+            >
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:layout_marginHorizontal="5dp"
+                android:src="@drawable/ic_baseline_front_hand_24"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:textSize="16sp"
+                android:text="Crimp type"
+                />
+            <TextView
+                android:id="@+id/tvCrimpType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:layout_marginHorizontal="5dp"
+                tools:text="Open"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llAdditionalWeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:background="@drawable/ll_row_border"
+            >
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:layout_marginHorizontal="5dp"
+                android:src="@drawable/ic_baseline_balance_24"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:textSize="16sp"
+                android:text="Additional weight"
+                />
+            <TextView
+                android:id="@+id/tvAdditionalWeight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:layout_marginHorizontal="5dp"
+                tools:text="20 kg"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnEdit"
             android:layout_width="0dp"
@@ -309,75 +453,16 @@
             android:background="@color/palette3"
             android:text="EDIT"
             android:layout_margin="10dp"
-            android:visibility="gone"
             android:textColor="@color/white"
 
             />
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnSet"
+            android:id="@+id/btnClose"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/palette3"
-            android:text="SET"
-            android:layout_margin="10dp"
-            android:textColor="@color/white"
-
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/llButtonsSecondRow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/llButtonsFirstRow"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp"
-        android:layout_marginHorizontal="10dp"
-        android:gravity="center"
-        >
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnSaveAndSet"
-            android:layout_width="175dp"
-            android:layout_height="wrap_content"
-            android:background="@color/palette3"
-            android:text="SAVE AND SET"
-            android:layout_margin="10dp"
-            android:visibility="visible"
-            android:textColor="@color/white"
-
-            />
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnEditAndSet"
-            android:layout_width="175dp"
-            android:layout_height="wrap_content"
-            android:background="@color/palette3"
-            android:text="EDIT AND SET"
-            android:layout_margin="10dp"
-            android:visibility="gone"
-            android:textColor="@color/white"
-
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/llButtonsThirdRow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/llButtonsSecondRow"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp"
-        android:layout_marginHorizontal="10dp"
-        android:gravity="center"
-        >
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnCancel"
-            android:layout_width="175dp"
-            android:layout_height="wrap_content"
             android:background="@color/palette5"
-            android:text="CANCEL"
+            android:text="CLOSE"
             android:layout_margin="10dp"
             android:textColor="@color/white"
 

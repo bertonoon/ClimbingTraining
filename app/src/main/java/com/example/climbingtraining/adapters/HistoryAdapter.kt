@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.climbingtraining.R
 import com.example.climbingtraining.databinding.ItemSingleHistoryBinding
 import com.example.climbingtraining.models.SingleHangboardHistoryModel
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
@@ -23,8 +24,14 @@ class HistoryAdapter (
             binding.apply {
                 tvDate.text = sdf.format(item.date)
                 tvName.text = item.hangboardType.name
+                cvHangboard.setOnClickListener { openDetails(adapterPosition) }
             }
         }
+    }
+
+    private fun openDetails(id:Int) {
+        viewModel.setHistoryDetails(historyList[id])
+        navController.navigate(R.id.action_historyFragment_to_historyDetailsFragment)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

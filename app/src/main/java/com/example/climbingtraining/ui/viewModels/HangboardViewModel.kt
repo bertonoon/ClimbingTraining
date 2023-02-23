@@ -59,6 +59,10 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
     val dbResultStatus : LiveData<DbResultState>
         get() = _dbResultStatus
 
+    private val _historyDetailsHangboard = MutableLiveData<SingleHangboardHistoryModel>()
+    val historyDetailsHangboard : LiveData<SingleHangboardHistoryModel>
+        get() = _historyDetailsHangboard
+
     //Others
     private lateinit var currentExercise : Exercise
     private lateinit var chosenHangboard: SingleHangboard
@@ -320,6 +324,10 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         }
         fetchHistory()
 
+    }
+
+    fun setHistoryDetails(singleHangboardHistoryModel: SingleHangboardHistoryModel) {
+        _historyDetailsHangboard.postValue(singleHangboardHistoryModel)
     }
 
 }
