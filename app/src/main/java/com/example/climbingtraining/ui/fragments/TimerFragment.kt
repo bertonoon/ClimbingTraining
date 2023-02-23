@@ -3,16 +3,15 @@ package com.example.climbingtraining.ui.fragments
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.climbingtraining.databinding.DialogCustomQuestionBinding
 import com.example.climbingtraining.databinding.FragmentTimerBinding
-import com.example.climbingtraining.model.ExerciseState
-import com.example.climbingtraining.model.RunState
-import com.example.climbingtraining.model.SingleHangboard
+import com.example.climbingtraining.models.ExerciseState
+import com.example.climbingtraining.models.RunState
+import com.example.climbingtraining.models.SingleHangboard
 import com.example.climbingtraining.ui.activities.HangboardActivity
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 

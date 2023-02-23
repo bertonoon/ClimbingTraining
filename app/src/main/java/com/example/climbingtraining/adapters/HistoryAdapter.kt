@@ -1,18 +1,11 @@
-package com.example.climbingtraining.adapter
+package com.example.climbingtraining.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.climbingtraining.R
-import com.example.climbingtraining.databinding.ItemSingleHangboardBinding
 import com.example.climbingtraining.databinding.ItemSingleHistoryBinding
-import com.example.climbingtraining.model.SingleHangboard
-import com.example.climbingtraining.model.SingleHangboardHistoryModel
-import com.example.climbingtraining.ui.fragments.HistoryFragment
+import com.example.climbingtraining.models.SingleHangboardHistoryModel
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 import java.text.SimpleDateFormat
 
@@ -42,6 +35,14 @@ class HistoryAdapter (
         )
         return ViewHolder(binding)
     }
+
+    fun deleteRecord(idConfig: Int) {
+        viewModel.deleteRecordHistory(historyList[idConfig])
+        notifyDataSetChanged()
+    }
+
+
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(historyList[position])

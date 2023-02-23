@@ -1,7 +1,6 @@
-package com.example.climbingtraining.adapter
+package com.example.climbingtraining.adapters
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.climbingtraining.R
 import com.example.climbingtraining.databinding.ItemSingleHangboardBinding
-import com.example.climbingtraining.model.SingleHangboard
+import com.example.climbingtraining.models.SingleHangboard
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 
 
@@ -40,11 +39,11 @@ class SavedConfigsAdapter (
                 }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun deleteHangboard(idConfig: Int, binding: ItemSingleHangboardBinding) {
         viewModel.deleteHangboard(configsList[idConfig])
         binding.llButtons.visibility = View.GONE
         notifyDataSetChanged()
-
     }
 
     private fun editHangboard(idConfig: Int){
@@ -81,6 +80,7 @@ class SavedConfigsAdapter (
 
     override fun getItemCount(): Int = configsList.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateList(newConfigsList: List<SingleHangboard>?) {
         if (newConfigsList.isNullOrEmpty()) return
         configsList.clear()

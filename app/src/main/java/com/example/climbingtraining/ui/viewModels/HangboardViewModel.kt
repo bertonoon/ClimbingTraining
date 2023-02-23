@@ -5,12 +5,12 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.example.climbingtraining.db.SavedConfigsDao
 import com.example.climbingtraining.db.HangboardDatabase
-import com.example.climbingtraining.model.*
+import com.example.climbingtraining.models.*
 import com.example.climbingtraining.utils.Exercise
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Date
-import com.example.climbingtraining.model.SingleHangboardHistoryModel as SingleHangboardHistoryModel1
+import com.example.climbingtraining.models.SingleHangboardHistoryModel
 
 class HangboardViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -51,8 +51,8 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
     val savedConfigs : LiveData<List<SingleHangboard>>
         get() = _savedConfigs
 
-    private val _history = MutableLiveData<List<SingleHangboardHistoryModel1>>()
-    val history : LiveData<List<SingleHangboardHistoryModel1>>
+    private val _history = MutableLiveData<List<SingleHangboardHistoryModel>>()
+    val history : LiveData<List<SingleHangboardHistoryModel>>
         get() = _history
 
     private val _dbResultStatus = MutableLiveData<DbResultState>()
@@ -200,7 +200,7 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 historyDao.insert(
-                    SingleHangboardHistoryModel1(
+                    SingleHangboardHistoryModel(
                         date = Date(),
                         hangboardType = hangboardType
                     )
@@ -301,6 +301,25 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun zeroDbStatuses(){
         _dbResultStatus.postValue(DbResultState.NEUTRAL)
+    }
+
+
+    fun deleteRecordHistory(record: SingleHangboardHistoryModel){
+        deleteRecordHistoryFromDb(record)
+    }
+
+    private fun deleteRecordHistoryFromDb(record: SingleHangboardHistoryModel) {
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                historyDao.delete(record)
+                _dbResultStatus.postValue(DbResultState.HISTORY_DELETE_SUCCESS)
+            } catch (e:Exception){
+                Log.i("dbDelete", e.toString())
+                _dbResultStatus.postValue(DbResultState.HISTORY_DELETE_FAILED)
+            }
+        }
+        fetchHistory()
+
     }
 
 }

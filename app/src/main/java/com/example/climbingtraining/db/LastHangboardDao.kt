@@ -1,8 +1,7 @@
 package com.example.climbingtraining.db
 
 import androidx.room.*
-import com.example.climbingtraining.model.LastHangboard
-import com.example.climbingtraining.model.SingleHangboard
+import com.example.climbingtraining.models.LastHangboard
 
 
 @Dao

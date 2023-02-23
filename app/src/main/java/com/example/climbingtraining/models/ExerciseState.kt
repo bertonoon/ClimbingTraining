@@ -1,4 +1,4 @@
-package com.example.climbingtraining.model
+package com.example.climbingtraining.models
 
 enum class ExerciseState(val state: Int) {
     INACTIVE(0),

@@ -1,4 +1,4 @@
-package com.example.climbingtraining.model
+package com.example.climbingtraining.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,7 +1,7 @@
 package com.example.climbingtraining.db
 
 import androidx.room.TypeConverter
-import com.example.climbingtraining.model.SingleHangboard
+import com.example.climbingtraining.models.SingleHangboard
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.util.*

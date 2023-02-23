@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -12,11 +11,12 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.climbingtraining.R
-import com.example.climbingtraining.adapter.SavedConfigsAdapter
+import com.example.climbingtraining.adapters.HistoryAdapter
+import com.example.climbingtraining.adapters.SavedConfigsAdapter
 import com.example.climbingtraining.databinding.FragmentSavedConfigurationsBinding
-import com.example.climbingtraining.model.DbResultState
 import com.example.climbingtraining.ui.activities.HangboardActivity
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
+import com.example.climbingtraining.utils.SwipeToDeleteCallback
 
 class SavedConfigurationsFragment : Fragment(R.layout.fragment_saved_configurations){
 
@@ -57,4 +57,8 @@ class SavedConfigurationsFragment : Fragment(R.layout.fragment_saved_configurati
             navController.navigate(R.id.action_savedConfigurationsFragment_to_addNewHangboardFragment)
         }
     }
+
+
+
+
 }

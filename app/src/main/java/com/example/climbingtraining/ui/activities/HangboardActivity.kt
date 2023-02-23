@@ -8,7 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.climbingtraining.R
 import com.example.climbingtraining.databinding.ActivityHangboardBinding
-import com.example.climbingtraining.model.DbResultState
+import com.example.climbingtraining.models.DbResultState
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 
 class HangboardActivity : AppCompatActivity() {
