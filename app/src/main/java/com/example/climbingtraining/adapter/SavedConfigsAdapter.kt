@@ -35,17 +35,15 @@ class SavedConfigsAdapter (
                         cvHangboard.setOnClickListener {expandView(adapterPosition,binding)}
                         btnSet.setOnClickListener { setHangboard(adapterPosition)}
                         btnEdit.setOnClickListener { editHangboard(adapterPosition) }
-                        btnDelete.setOnClickListener {
-                            deleteHangboard(adapterPosition)
-                            expandView(adapterPosition,binding)
-                            notifyDataSetChanged()
-                        }
+                        btnDelete.setOnClickListener { deleteHangboard(adapterPosition,binding) }
                     }
                 }
     }
 
-    private fun deleteHangboard(idConfig: Int) {
+    private fun deleteHangboard(idConfig: Int, binding: ItemSingleHangboardBinding) {
         viewModel.deleteHangboard(configsList[idConfig])
+        binding.llButtons.visibility = View.GONE
+        notifyDataSetChanged()
 
     }
 

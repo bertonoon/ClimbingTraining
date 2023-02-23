@@ -15,7 +15,7 @@ interface SavedConfigsDao {
     @Delete
     suspend fun delete(singleHangboardEntity: SingleHangboard)
 
-    @Query("SELECT * FROM `savedSingleConfigs` ORDER BY id DESC")
+    @Query("SELECT * FROM `savedSingleConfigs` ORDER BY name")
     fun fetchAll():kotlinx.coroutines.flow.Flow<List<SingleHangboard>>
 
 }
