@@ -9,6 +9,8 @@ import com.example.climbingtraining.databinding.ItemSingleHistoryBinding
 import com.example.climbingtraining.models.SingleHangboardHistoryModel
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HistoryAdapter (
     private val historyList : ArrayList<SingleHangboardHistoryModel>,
@@ -20,7 +22,8 @@ class HistoryAdapter (
         private val binding: ItemSingleHistoryBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: SingleHangboardHistoryModel) {
-            val sdf = SimpleDateFormat("yyyy-mm-dd HH:mm")
+            val sdf = SimpleDateFormat(this.itemView.context.getString(R.string.date_format),
+                Locale.US)
             binding.apply {
                 tvDate.text = sdf.format(item.date)
                 tvName.text = item.hangboardType.name

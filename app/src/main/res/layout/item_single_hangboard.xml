@@ -241,6 +241,7 @@
                 android:background="@color/palette5"
                 android:text="DELETE"
                 android:layout_margin="10dp"
+                android:textColor="@color/white"
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnEdit"
@@ -250,6 +251,7 @@
                 android:background="@color/palette3"
                 android:text="EDIT"
                 android:layout_margin="10dp"
+                android:textColor="@color/white"
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnSet"
@@ -259,6 +261,7 @@
                 android:background="@color/palette3"
                 android:text="SET"
                 android:layout_margin="10dp"
+                android:textColor="@color/white"
                 />
         </LinearLayout>
     </LinearLayout>

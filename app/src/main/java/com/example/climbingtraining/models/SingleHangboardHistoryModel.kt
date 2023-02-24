@@ -13,7 +13,7 @@ data class SingleHangboardHistoryModel(
     val notes: String = "",
     val gripType: GripType = GripType.UNDEFINED,
     val crimpType: CrimpType = CrimpType.UNDEFINED,
-    val edgeSize : Float = 0.0f,
-    val slopeAngle : Float = 0.0f,
+    val edgeSize : Int = 0,
+    val slopeAngle : Int = 0,
     val additionalWeight : Float = 0.0f,
 )

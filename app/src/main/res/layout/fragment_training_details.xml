@@ -271,6 +271,15 @@
         android:layout_marginHorizontal="10dp"
 
         >
+        <TextView
+            android:id="@+id/tvMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Add details to your training."
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:visibility="visible"
+            />
 
         <LinearLayout
             android:id="@+id/llGripType"
@@ -370,7 +379,7 @@
                 />
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/CrimpType"
+            android:id="@+id/llCrimpType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
