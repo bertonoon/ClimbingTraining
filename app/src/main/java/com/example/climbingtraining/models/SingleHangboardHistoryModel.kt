@@ -8,7 +8,7 @@ import java.util.Date
 data class SingleHangboardHistoryModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val date: Date,
+    val date: Date = Date(),
     val hangboardType : SingleHangboard = SingleHangboard(),
     val notes: String = "",
     val gripType: GripType = GripType.UNDEFINED,

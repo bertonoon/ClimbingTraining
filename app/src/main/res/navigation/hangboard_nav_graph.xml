@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/hangboard_nav_graph"
     app:startDestination="@id/timerFragment">
 
@@ -46,6 +47,9 @@
         <action
             android:id="@+id/action_historyFragment_to_historyDetailsFragment"
             app:destination="@id/historyDetailsFragment" />
+        <action
+            android:id="@+id/action_historyFragment_to_historyEditDetailsFragment"
+            app:destination="@id/historyEditDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewHangboardFragment"
@@ -77,5 +81,20 @@
         <action
             android:id="@+id/action_historyDetailsFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_historyDetailsFragment_to_historyEditDetailsFragment"
+            app:destination="@id/historyEditDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyEditDetailsFragment"
+        android:name="com.example.climbingtraining.ui.fragments.HistoryEditDetailsFragment"
+        android:label="fragment_history_edit_details"
+        tools:layout="@layout/fragment_history_edit_details" >
+        <action
+            android:id="@+id/action_historyEditDetailsFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_historyEditDetailsFragment_to_historyDetailsFragment"
+            app:destination="@id/historyDetailsFragment" />
     </fragment>
 </navigation>

@@ -37,6 +37,7 @@ class HistoryAdapter (
         navController.navigate(R.id.action_historyFragment_to_historyDetailsFragment)
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemSingleHistoryBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -46,8 +47,8 @@ class HistoryAdapter (
         return ViewHolder(binding)
     }
 
-    fun deleteRecord(idConfig: Int) {
-        viewModel.deleteRecordHistory(historyList[idConfig])
+    fun deleteRecord(id: Int) {
+        viewModel.deleteRecordHistory(historyList[id])
         notifyDataSetChanged()
     }
 
@@ -65,6 +66,11 @@ class HistoryAdapter (
         historyList.clear()
         historyList.addAll(newHistory)
         notifyDataSetChanged()
+    }
+
+    fun openEditDetails(id:Int) {
+        viewModel.setEditHistoryDetails(historyList[id])
+        navController.navigate(R.id.action_historyFragment_to_historyEditDetailsFragment)
     }
 
 

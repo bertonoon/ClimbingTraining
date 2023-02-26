@@ -10,39 +10,31 @@
     >
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvEditDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="DETAILS"
+        android:text="@string/edit_details"
         android:gravity="center"
         android:textSize="20sp"
         android:visibility="visible"
         />
-    <TextView
-        android:id="@+id/tvHangboardName"
+
+    <EditText
+        android:id="@+id/etHangboardName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text = "Hangboard name"
-        android:textSize="18sp"
         android:layout_marginHorizontal="10dp"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/tvEditDetails"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
-    <TextView
-        android:id="@+id/tvDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text = "2022.11.30 17:51"
-        android:textSize="16sp"
-        android:layout_marginHorizontal="10dp"
-        app:layout_constraintTop_toBottomOf="@id/tvHangboardName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="@string/edit_details_name"
+        android:imeOptions="actionNext"
+        android:autofillHints="Name"
         />
 
     <LinearLayout
@@ -50,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/tvDate"
+        app:layout_constraintTop_toBottomOf="@id/etHangboardName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         >
@@ -64,7 +56,6 @@
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/ll_row_border"
             android:layout_marginVertical="10dp"
-
             >
 
             <TextView
@@ -72,7 +63,7 @@
                 android:layout_width="65dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="5dp"
-                android:text = "Hang"
+                android:text = "@string/header_hang"
                 android:gravity="center"
                 android:textSize="@dimen/time"
                 />
@@ -81,7 +72,7 @@
                 android:layout_width="65dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="7dp"
-                android:text = "Rest"
+                android:text = "@string/header_rest"
                 android:gravity="center"
                 android:textSize="@dimen/time"
                 />
@@ -90,7 +81,7 @@
                 android:layout_width="65dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="5dp"
-                android:text = "Repeats"
+                android:text = "@string/header_repeats"
                 android:gravity="center"
                 android:textSize="@dimen/time"
                 />
@@ -99,16 +90,16 @@
                 android:layout_width="65dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="7dp"
-                android:text = "Pause"
+                android:text = "@string/header_pause"
                 android:gravity="center"
                 android:textSize="@dimen/time"
                 />
             <TextView
-                android:id="@+id/tvHeaderSeries"
+                android:id="@+id/tvHeaderSets"
                 android:layout_width="65dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="5dp"
-                android:text = "Sets"
+                android:text = "@string/header_sets"
                 android:gravity="center"
                 android:textSize="@dimen/time"
                 />
@@ -127,8 +118,6 @@
             android:background="@drawable/ll_row_border"
             >
 
-
-
             <LinearLayout
                 android:id="@+id/llHangTime"
                 android:layout_width="wrap_content"
@@ -136,19 +125,23 @@
                 android:orientation="horizontal"
                 android:layout_margin="5dp"
                 >
-                <TextView
-                    android:id="@+id/tvHangTime"
+                <EditText
+                    android:id="@+id/etHangTime"
                     android:layout_width="50dp"
-                    android:layout_height="30dp"
-                    tools:text = "15"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:digits="0123456789"
                     android:gravity="center"
+                    tools:text = "15"
                     android:textSize="@dimen/time"
+                    android:autofillHints="7"
+                    android:imeOptions="actionNext"
                     />
                 <TextView
                     android:id="@+id/tvUnitHangTime"
                     android:layout_width="15dp"
-                    android:layout_height="30dp"
-                    android:text = "s"
+                    android:layout_height="wrap_content"
+                    android:text = "@string/unit_seconds"
                     android:gravity="center"
                     android:textSize="@dimen/time"
                     />
@@ -165,19 +158,24 @@
                 android:orientation="horizontal"
                 android:layout_margin="5dp"
                 >
-                <TextView
-                    android:id="@+id/tvRestTime"
+                <EditText
+                    android:id="@+id/etRestTime"
                     android:layout_width="50dp"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     tools:text = "15"
                     android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:digits="0123456789"
+
                     android:textSize="@dimen/time"
+                    android:autofillHints="3"
+                    android:imeOptions="actionNext"
                     />
                 <TextView
                     android:id="@+id/tvUnitRestTime"
                     android:layout_width="15dp"
-                    android:layout_height="30dp"
-                    android:text = "s"
+                    android:layout_height="wrap_content"
+                    android:text = "@string/unit_seconds"
                     android:gravity="center"
                     android:textSize="@dimen/time"
                     />
@@ -188,19 +186,23 @@
                 android:background="@color/palette3"
                 />
             <LinearLayout
-                android:id="@+id/llRoundsToEnd"
+                android:id="@+id/llRepeats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_margin="5dp"
                 >
-                <TextView
-                    android:id="@+id/tvRepeats"
+                <EditText
+                    android:id="@+id/etRepeats"
                     android:layout_width="65dp"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     tools:text = "15"
+                    android:inputType="numberDecimal"
+                    android:digits="0123456789"
                     android:gravity="center"
                     android:textSize="@dimen/time"
+                    android:autofillHints="6"
+                    android:imeOptions="actionNext"
                     />
             </LinearLayout>
             <View
@@ -215,19 +217,23 @@
                 android:orientation="horizontal"
                 android:layout_margin="5dp"
                 >
-                <TextView
-                    android:id="@+id/tvPauseTime"
+                <EditText
+                    android:id="@+id/etPauseTime"
                     android:layout_width="50dp"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     tools:text = "15"
+                    android:inputType="numberDecimal"
+                    android:digits="0123456789"
                     android:gravity="center"
                     android:textSize="@dimen/time"
+                    android:autofillHints="90"
+                    android:imeOptions="actionNext"
                     />
                 <TextView
                     android:id="@+id/tvUnitPauseTime"
                     android:layout_width="15dp"
-                    android:layout_height="30dp"
-                    android:text = "s"
+                    android:layout_height="wrap_content"
+                    android:text = "@string/unit_seconds"
                     android:gravity="center"
                     android:textSize="@dimen/time"
                     />
@@ -238,23 +244,24 @@
                 android:background="@color/palette3"
                 />
             <LinearLayout
-                android:id="@+id/llSetsToEnd"
+                android:id="@+id/llSets"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_margin="6dp"
                 >
-                <TextView
-                    android:id="@+id/tvSets"
+                <EditText
+                    android:id="@+id/etSets"
                     android:layout_width="65dp"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     tools:text = "15"
+                    android:inputType="numberDecimal"
+                    android:digits="0123456789"
                     android:gravity="center"
                     android:textSize="@dimen/time"
+                    android:autofillHints="3"
                     />
             </LinearLayout>
-
-
         </LinearLayout>
 
     </LinearLayout>
@@ -271,15 +278,6 @@
         android:layout_marginHorizontal="10dp"
 
         >
-        <TextView
-            android:id="@+id/tvMessage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Add details to your training."
-            android:gravity="center"
-            android:layout_marginBottom="10dp"
-            android:visibility="visible"
-            />
 
         <LinearLayout
             android:id="@+id/llGripType"
@@ -289,7 +287,6 @@
             android:padding="8dp"
             android:background="@drawable/ll_row_border"
             android:gravity="center"
-
             >
             <ImageView
                 android:layout_width="0dp"
@@ -303,17 +300,21 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:textSize="16sp"
-                android:text="Grip type"
+                android:text="@string/header_grip_type"
                 />
-            <TextView
-                android:id="@+id/tvGripType"
+
+            <EditText
+                android:id="@+id/etGripType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="16sp"
-                android:layout_marginHorizontal="5dp"
-                tools:text="Crimp"
-                />
+                tools:text="@string/header_grip_type"
+                android:gravity="center"
+                android:importantForAutofill="no"
+                android:inputType="none" />
+
+
         </LinearLayout>
         <LinearLayout
             android:id="@+id/llEdgeSize"
@@ -337,16 +338,28 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:textSize="16sp"
-                android:text="Edge size"
+                android:text="@string/header_edge_size"
                 />
-            <TextView
-                android:id="@+id/tvEdgeSize"
+            <EditText
+                android:id="@+id/etEdgeSize"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.75"
                 android:textSize="16sp"
                 android:layout_marginHorizontal="5dp"
-                tools:text="20 mm"
+                tools:text="20"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                android:gravity="end"
+
+                />
+            <TextView
+                android:id="@+id/tvEdgeSizeUnit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:textSize="16sp"
+                android:text="@string/unit_milimeters"
                 />
         </LinearLayout>
         <LinearLayout
@@ -356,8 +369,6 @@
             android:orientation="horizontal"
             android:padding="8dp"
             android:background="@drawable/ll_row_border"
-            android:gravity="center"
-
             >
             <ImageView
                 android:layout_width="0dp"
@@ -372,16 +383,27 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:textSize="16sp"
-                android:text="Slope angle"
+                android:text="@string/header_slope_angle"
                 />
-            <TextView
-                android:id="@+id/tvSlopeAngle"
+            <EditText
+                android:id="@+id/etSlopeAngle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.75"
                 android:textSize="16sp"
                 android:layout_marginHorizontal="5dp"
-                tools:text="30°"
+                tools:text="30"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                android:gravity="end"
+                />
+            <TextView
+                android:id="@+id/tvSlopeAngleUnit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:textSize="16sp"
+                android:text="@string/unit_degree"
                 />
         </LinearLayout>
         <LinearLayout
@@ -406,17 +428,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:textSize="16sp"
-                android:text="Crimp type"
+                android:text="@string/header_crimp_type"
                 />
-            <TextView
-                android:id="@+id/tvCrimpType"
+            <EditText
+                android:id="@+id/etCrimpType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="16sp"
-                android:layout_marginHorizontal="5dp"
-                tools:text="Open"
-                />
+                tools:text="@string/header_crimp_type"
+                android:gravity="center"
+                android:importantForAutofill="no"
+                android:inputType="none" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/llAdditionalWeight"
@@ -426,6 +449,7 @@
             android:padding="8dp"
             android:background="@drawable/ll_row_border"
             android:gravity="center"
+
             >
             <ImageView
                 android:layout_width="0dp"
@@ -439,21 +463,32 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:textSize="16sp"
-                android:text="Additional weight"
+                android:text="@string/header_additional_weight"
                 />
-            <TextView
-                android:id="@+id/tvAdditionalWeight"
+            <EditText
+                android:id="@+id/etAdditionalWeight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.75"
                 android:textSize="16sp"
                 android:layout_marginHorizontal="5dp"
-                tools:text="20 kg"
+                tools:text = "20"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                android:gravity="end"
+
+                />
+            <TextView
+                android:id="@+id/tvAdditionalWeightUnit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:textSize="16sp"
+                android:text="@string/unit_kg"
                 />
         </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/llNotes"
+            android:id="@+id/llNote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -461,11 +496,12 @@
             android:background="@drawable/ll_row_border"
             android:layout_marginVertical="10dp"
             >
-            <TextView
-                android:id="@+id/tvNotes"
+            <EditText
+                android:id="@+id/etNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:ignore="Autofill"
+                android:inputType="textMultiLine"
                 android:maxLines="6"
                 android:lines="6"
                 android:minLines="6"
@@ -474,8 +510,6 @@
                 android:scrollbars="vertical"
                 android:hint="@string/history_note_hint"/>
         </LinearLayout>
-
-
 
     </LinearLayout>
 
@@ -489,12 +523,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         >
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnEdit"
+            android:id="@+id/btnSave"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/palette3"
-            android:text="@string/btn_edit"
+            android:text="@string/btn_save"
             android:layout_margin="10dp"
             android:textColor="@color/white"
 

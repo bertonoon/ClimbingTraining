@@ -2,13 +2,13 @@ package com.example.climbingtraining.models
 
 object BasicHangboardTimes {
     private val basicHangboardTimes = SingleHangboard(
-        prepareTime = 500L,
-        hangTime = 500L,
-        pauseTime = 500L,
-        restTime = 500L,
-        numberOfRepeats = 2,
-        numberOfSets = 2,
-        name = ""
+        prepareTime = 1000L,
+        hangTime = 1000L,
+        pauseTime = 1000L,
+        restTime = 1000L,
+        numberOfRepeats = 1,
+        numberOfSets = 1,
+        name = "Default"
     )
     fun getBasicTimes() = basicHangboardTimes
 }

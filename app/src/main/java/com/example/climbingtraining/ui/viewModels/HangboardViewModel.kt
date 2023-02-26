@@ -63,6 +63,11 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
     val historyDetailsHangboard : LiveData<SingleHangboardHistoryModel>
         get() = _historyDetailsHangboard
 
+    private val _historyEditDetailsHangboard = MutableLiveData<SingleHangboardHistoryModel>()
+    val historyEditDetailsHangboard : LiveData<SingleHangboardHistoryModel>
+        get() = _historyEditDetailsHangboard
+
+
     //Others
     private lateinit var currentExercise : Exercise
     private lateinit var chosenHangboard: SingleHangboard
@@ -328,6 +333,28 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun setHistoryDetails(singleHangboardHistoryModel: SingleHangboardHistoryModel) {
         _historyDetailsHangboard.postValue(singleHangboardHistoryModel)
+    }
+
+    fun setEditHistoryDetails(singleHangboardHistoryModel: SingleHangboardHistoryModel){
+        _historyEditDetailsHangboard.postValue(singleHangboardHistoryModel)
+    }
+
+    fun updateHistoryDetails(newHangboardHistoryModel: SingleHangboardHistoryModel) {
+        updateHistoryDetailsInDb(newHangboardHistoryModel)
+    }
+
+    private fun updateHistoryDetailsInDb(newHangboardHistoryModel: SingleHangboardHistoryModel){
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                historyDao.update(newHangboardHistoryModel)
+                _dbResultStatus.postValue(DbResultState.HISTORY_EDIT_SUCCESS)
+                _historyDetailsHangboard.postValue(newHangboardHistoryModel)
+            } catch(e : Exception) {
+                Log.i("dbUpdate", e.toString())
+                _dbResultStatus.postValue(DbResultState.HISTORY_EDIT_FAILED)
+            }
+        }
+        fetchHistory()
     }
 
 }

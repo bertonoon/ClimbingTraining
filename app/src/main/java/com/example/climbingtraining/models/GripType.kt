@@ -8,5 +8,6 @@ enum class GripType {
     PINCH,
     ONE_FINGER,
     TWO_FINGER,
-    THREE_FINGER
+    THREE_FINGER,
+    OTHER
 }

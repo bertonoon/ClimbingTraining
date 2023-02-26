@@ -16,6 +16,7 @@ import com.example.climbingtraining.databinding.FragmentHistoryBinding
 import com.example.climbingtraining.ui.activities.HangboardActivity
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 import com.example.climbingtraining.utils.SwipeToDeleteCallback
+import com.example.climbingtraining.utils.SwipeToEditCallback
 
 class HistoryFragment : Fragment(R.layout.fragment_history){
 
@@ -62,6 +63,15 @@ class HistoryFragment : Fragment(R.layout.fragment_history){
         }
         val deleteItemTouchHelper = ItemTouchHelper(deleteSwipeHandler)
         deleteItemTouchHelper.attachToRecyclerView(binding.rvHistory)
+
+        val editSwipeHandler = object : SwipeToEditCallback(requireContext()){
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val adapter = binding.rvHistory.adapter as HistoryAdapter
+                adapter.openEditDetails(viewHolder.adapterPosition)
+            }
+        }
+        val editItemTouchHelper = ItemTouchHelper(editSwipeHandler)
+        editItemTouchHelper.attachToRecyclerView(binding.rvHistory)
 
 
     }
