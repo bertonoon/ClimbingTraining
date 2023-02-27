@@ -23,26 +23,62 @@
         android:visibility="visible"
         />
 
-    <EditText
-        android:id="@+id/etHangboardName"
+    <TextView
+        android:id="@+id/tvAddTraining"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:inputType="text"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/add_training"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:visibility="gone"
+        />
+
+    <LinearLayout
+        android:id="@+id/llNameAndDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/tvEditDetails"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:hint="@string/edit_details_name"
-        android:imeOptions="actionNext"
-        android:autofillHints="Name"
-        />
+        >
+
+        <EditText
+            android:id="@+id/etHangboardName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:inputType="text"
+            android:hint="@string/edit_details_name"
+            android:imeOptions="actionNext"
+            android:autofillHints="Name"
+            />
+
+        <EditText
+            android:id="@+id/etDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:inputType="date"
+            android:hint="@string/date"
+            android:imeOptions="actionNext"
+            android:autofillHints="Name"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/llSeries"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/etHangboardName"
+        app:layout_constraintTop_toBottomOf="@id/llNameAndDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         >
@@ -531,7 +567,6 @@
             android:text="@string/btn_save"
             android:layout_margin="10dp"
             android:textColor="@color/white"
-
             />
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnClose"

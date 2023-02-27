@@ -1,7 +1,7 @@
 package com.example.climbingtraining.ui.fragments
 
+import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +18,8 @@ import com.example.climbingtraining.models.SingleHangboard
 import com.example.climbingtraining.models.SingleHangboardHistoryModel
 import com.example.climbingtraining.ui.activities.HangboardActivity
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
-
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_details) {
@@ -27,6 +28,9 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
     private lateinit var viewModel: HangboardViewModel
     private lateinit var navController : NavController
     private lateinit var oldHangboardHistoryModel : SingleHangboardHistoryModel
+    private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
+    private val cal = Calendar.getInstance()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,8 +56,15 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
         super.onViewCreated(view, savedInstanceState)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.setHistoryEditFlag(false)
+    }
+
     private fun initializeUI() {
-        binding.btnClose.setOnClickListener { navController.navigateUp() }
+        binding.btnClose.setOnClickListener {
+            viewModel.setHistoryEditFlag(false)
+            navController.navigateUp() }
         binding.etGripType.apply {
             isFocusable = false
             setOnClickListener { showGripTypeMenu() }
@@ -63,44 +74,92 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
             setOnClickListener { showCrimpTypeMenu() }
         }
         binding.btnSave.setOnClickListener {
-            updateHistoryDetails()
+            if (viewModel.historyEditFlag.value == true) {
+                addNewToHistory()
+                viewModel.setHistoryEditFlag(false)
+            } else {
+                updateHistoryDetails()
+            }
             navController.navigateUp()
+        }
+
+        if ( viewModel.historyEditFlag.value == true) {
+            binding.etDate.visibility = View.VISIBLE
+            binding.etDate.setOnClickListener {
+                DatePickerDialog(
+                    requireContext(), dateSetListener,
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH)
+                ).show()
+            }
+            dateSetListener =
+                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                    cal.set(Calendar.YEAR, year)
+                    cal.set(Calendar.MONTH, month)
+                    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    updateDateInView()
+                }
+            updateDateInView()
+        }else {
+            binding.etDate.visibility = View.GONE
         }
     }
 
+    private fun updateDateInView(){
+        val myFormat = getString(R.string.date_format)
+        val sdf = SimpleDateFormat(myFormat,Locale.getDefault())
+        binding.etDate.setText(sdf.format(cal.time).toString())
+    }
+
+    private fun getDateFromEditText(): Date {
+        val myFormat = getString(R.string.date_format)
+        val dateString = binding.etDate.text.toString()
+        val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
+        return sdf.parse(dateString) as Date
+    }
+
     private fun setDetails(details: SingleHangboardHistoryModel) {
-        binding.apply {
-            etHangTime.setText((details.hangboardType.hangTime/1000).toString())
-            etRestTime.setText((details.hangboardType.restTime/1000).toString())
-            etRepeats.setText((details.hangboardType.numberOfRepeats).toString())
-            etPauseTime.setText((details.hangboardType.pauseTime/1000).toString())
-            etSets.setText((details.hangboardType.numberOfSets).toString())
-            etHangboardName.setText(details.hangboardType.name)
-            etEdgeSize.setText(details.edgeSize.toString())
-            etSlopeAngle.setText(details.slopeAngle.toString())
-            etAdditionalWeight.setText(details.additionalWeight.toString())
-            etGripType.setText(
-                when(details.gripType){
-                    GripType.ONE_FINGER -> getString(R.string.grip_menu_option_one_finger)
-                    GripType.THREE_FINGER -> getString(R.string.grip_menu_option_three_fingers)
-                    GripType.SLOPER -> getString(R.string.grip_menu_option_sloper)
-                    GripType.EDGE -> getString(R.string.grip_menu_option_edge)
-                    GripType.JUG -> getString(R.string.grip_menu_option_jug)
-                    GripType.TWO_FINGER -> getString(R.string.grip_menu_option_two_fingers)
-                    GripType.PINCH -> getString(R.string.grip_menu_option_pinch)
-                    GripType.OTHER -> getString(R.string.grip_menu_option_other)
-                    else -> getString(R.string.undefined)
-            })
-            etCrimpType.setText(
-                when(details.crimpType){
-                    CrimpType.CLOSED_CRIMP -> getString(R.string.crimp_menu_option_closed_crimp)
-                    CrimpType.OPEN_CRIMP -> getString(R.string.crimp_menu_option_open_crimp)
-                    CrimpType.OPEN_HAND -> getString(R.string.crimp_menu_option_open_hand)
-                    else -> getString(R.string.undefined)
-                })
-            etNote.setText(details.notes)
+
+        if (viewModel.historyEditFlag.value == false) {
+            binding.apply {
+                etHangTime.setText((details.hangboardType.hangTime / 1000).toString())
+                etRestTime.setText((details.hangboardType.restTime / 1000).toString())
+                etRepeats.setText((details.hangboardType.numberOfRepeats).toString())
+                etPauseTime.setText((details.hangboardType.pauseTime / 1000).toString())
+                etSets.setText((details.hangboardType.numberOfSets).toString())
+                etHangboardName.setText(details.hangboardType.name)
+                etEdgeSize.setText(details.edgeSize.toString())
+                etSlopeAngle.setText(details.slopeAngle.toString())
+                etAdditionalWeight.setText(details.additionalWeight.toString())
+                etGripType.setText(
+                    when (details.gripType) {
+                        GripType.ONE_FINGER -> getString(R.string.grip_menu_option_one_finger)
+                        GripType.THREE_FINGER -> getString(R.string.grip_menu_option_three_fingers)
+                        GripType.SLOPER -> getString(R.string.grip_menu_option_sloper)
+                        GripType.EDGE -> getString(R.string.grip_menu_option_edge)
+                        GripType.JUG -> getString(R.string.grip_menu_option_jug)
+                        GripType.TWO_FINGER -> getString(R.string.grip_menu_option_two_fingers)
+                        GripType.PINCH -> getString(R.string.grip_menu_option_pinch)
+                        GripType.OTHER -> getString(R.string.grip_menu_option_other)
+                        else -> getString(R.string.undefined)
+                    }
+                )
+                etCrimpType.setText(
+                    when (details.crimpType) {
+                        CrimpType.CLOSED_CRIMP -> getString(R.string.crimp_menu_option_closed_crimp)
+                        CrimpType.OPEN_CRIMP -> getString(R.string.crimp_menu_option_open_crimp)
+                        CrimpType.OPEN_HAND -> getString(R.string.crimp_menu_option_open_hand)
+                        else -> getString(R.string.undefined)
+                    }
+                )
+                etNote.setText(details.notes)
+            }
+            showSuitableLayout()
+        } else {
+            binding.tvEditDetails.visibility = View.INVISIBLE
+            binding.tvAddTraining.visibility = View.VISIBLE
         }
-        showSuitableLayout()
     }
 
     private fun showGripTypeMenu() {
@@ -204,15 +263,33 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
     }
 
     private fun updateHistoryDetails(){
-        val newHangboardHistoryModel = getHistoryDetails()
-        Log.i("NewHangboard",newHangboardHistoryModel.toString())
+        val newHangboardHistoryModel = getEditHistoryDetails()
         viewModel.updateHistoryDetails(newHangboardHistoryModel)
     }
 
-    private fun getHistoryDetails(): SingleHangboardHistoryModel {
+    private fun addNewToHistory(){
+        val newHangboardHistoryModel = getNewHistoryDetails()
+        viewModel.saveHangboardToHistory(newHangboardHistoryModel)
+    }
+
+    private fun getEditHistoryDetails(): SingleHangboardHistoryModel {
         return SingleHangboardHistoryModel(
             id = oldHangboardHistoryModel.id,
             date = oldHangboardHistoryModel.date,
+            hangboardType = getHangboardType(),
+            notes = getNotes(),
+            gripType = getGripType(),
+            crimpType = getCrimpType(),
+            edgeSize = getEdgeSize(),
+            slopeAngle = getSlopeAngle(),
+            additionalWeight = getAdditionalWeight()
+        )
+    }
+
+    private fun getNewHistoryDetails(): SingleHangboardHistoryModel {
+        return SingleHangboardHistoryModel(
+            id = 0,
+            date = getDateFromEditText(),
             hangboardType = getHangboardType(),
             notes = getNotes(),
             gripType = getGripType(),

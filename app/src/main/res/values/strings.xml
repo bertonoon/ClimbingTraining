@@ -36,5 +36,9 @@
     <string name="crimp_menu_option_open_crimp">Open crimp</string>
     <string name="crimp_menu_option_closed_crimp">Closed crimp</string>
     <string name="undefined">Undefined</string>
+    <string name="fab_saved_configuration_description">Add confgiuration</string>
+    <string name="fab_history_description">Add training</string>
+    <string name="add_training">ADD TRAINING</string>
+    <string name="date">Date</string>
 
 </resources>

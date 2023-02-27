@@ -67,6 +67,9 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
     val historyEditDetailsHangboard : LiveData<SingleHangboardHistoryModel>
         get() = _historyEditDetailsHangboard
 
+    private val _historyEditFlag = MutableLiveData<Boolean>()
+    val historyEditFlag : LiveData<Boolean>
+        get() = _historyEditFlag
 
     //Others
     private lateinit var currentExercise : Exercise
@@ -205,6 +208,12 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         saveToHistory(chosenHangboard)
         reload()
     }
+
+    fun saveHangboardToHistory(hangboard: SingleHangboardHistoryModel){
+        addNewToHistory(hangboard)
+        reload()
+    }
+
     private fun saveToHistory(hangboardType :SingleHangboard){
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -222,6 +231,20 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
 
         }
     }
+
+    private fun addNewToHistory(hangboard: SingleHangboardHistoryModel){
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                historyDao.insert(hangboard)
+                _dbResultStatus.postValue(DbResultState.HISTORY_SAVE_SUCCESS)
+            } catch (e:Exception){
+                Log.i("dbSaveToHistory", e.toString())
+                _dbResultStatus.postValue(DbResultState.HISTORY_SAVE_FAILED)
+            }
+
+        }
+    }
+
     private fun saveLastConfig(hangboard :SingleHangboard){
         viewModelScope.launch(Dispatchers.IO) {
             try{
@@ -355,6 +378,10 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
             }
         }
         fetchHistory()
+    }
+
+    fun setHistoryEditFlag(flag : Boolean){
+        _historyEditFlag.postValue(flag)
     }
 
 }
