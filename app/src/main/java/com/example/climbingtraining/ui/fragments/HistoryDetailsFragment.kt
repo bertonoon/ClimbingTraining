@@ -160,7 +160,7 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details){
             llEdgeSize.visibility = View.GONE
             llSlopeAngle.visibility = View.GONE
             llCrimpType.visibility = View.GONE
-            llGripType.visibility = View.GONE
+            llGripType.visibility = View.VISIBLE
             tvMessage.visibility = View.GONE
         }
 
@@ -168,6 +168,7 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details){
     private fun showDetailsForEdge(){
         binding.apply{
             llEdgeSize.visibility = View.VISIBLE
+            llGripType.visibility = View.VISIBLE
             llSlopeAngle.visibility = View.GONE
             llCrimpType.visibility = View.VISIBLE
             tvMessage.visibility = View.GONE
@@ -176,6 +177,7 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details){
     private fun showDetailsForSloper(){
         binding.apply{
             llEdgeSize.visibility = View.GONE
+            llGripType.visibility = View.VISIBLE
             llSlopeAngle.visibility = View.VISIBLE
             llCrimpType.visibility = View.GONE
             tvMessage.visibility = View.GONE

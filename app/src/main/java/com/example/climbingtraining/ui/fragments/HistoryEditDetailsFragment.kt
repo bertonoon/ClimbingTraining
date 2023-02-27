@@ -371,7 +371,7 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
     }
 
     private fun getAdditionalWeight(): Float {
-        return binding.etSlopeAngle.text.toString().ifEmpty {
+        return binding.etAdditionalWeight.text.toString().ifEmpty {
             "0.0"
         }.toFloat()
     }
