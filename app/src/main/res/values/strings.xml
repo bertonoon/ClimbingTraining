@@ -40,5 +40,8 @@
     <string name="fab_history_description">Add training</string>
     <string name="add_training">ADD TRAINING</string>
     <string name="date">Date</string>
+    <string name="notificationRequestMessage">We will ask you for notification permission. If you want to see the hangboard timer in the notification bar, you should accept request. Otherwise, you can reject it now and manually grant it later in the settings</string>
+    <string name="notificationRequestTitle">Notification Timer</string>
+    <string name="notificationRequestButtonText">Ok</string>
 
 </resources>

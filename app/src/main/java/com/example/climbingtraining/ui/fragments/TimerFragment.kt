@@ -136,6 +136,7 @@ class TimerFragment : Fragment(){
                 viewModel.onStop()
             }
             RunState.STOPPED -> {
+                showDialogForSave()
                 viewModel.onReset()
             }
             else -> {

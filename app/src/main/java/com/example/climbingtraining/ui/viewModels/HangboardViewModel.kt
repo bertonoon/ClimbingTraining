@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Date
 import com.example.climbingtraining.models.SingleHangboardHistoryModel
+import com.example.climbingtraining.utils.HangboardReceiver
 
 class HangboardViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -71,6 +72,13 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
     val historyEditFlag : LiveData<Boolean>
         get() = _historyEditFlag
 
+    private val _secondsToFinish = MutableLiveData<Int>()
+    val secondsToFinish : LiveData<Int>
+        get() = _secondsToFinish
+
+
+
+
     //Others
     private lateinit var currentExercise : Exercise
     private lateinit var chosenHangboard: SingleHangboard
@@ -84,6 +92,8 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         _currentHangboardState.postValue(currentState)
         _setsToFinish.postValue(setsToFinish)
         _repeatsToFinish.postValue(repeatsToFinish)
+        _secondsToFinish.postValue((timeToFinish/1000).toInt())
+
     }
 
     private fun updateData(){

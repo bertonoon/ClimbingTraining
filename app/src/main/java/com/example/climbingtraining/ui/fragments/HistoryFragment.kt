@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.climbingtraining.R
-import com.example.climbingtraining.adapters.HistoryAdapter
+import com.example.climbingtraining.ui.adapters.HistoryAdapter
 import com.example.climbingtraining.databinding.FragmentHistoryBinding
 import com.example.climbingtraining.ui.activities.HangboardActivity
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel

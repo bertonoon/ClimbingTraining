@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.climbingtraining.R
-import com.example.climbingtraining.adapters.HistoryAdapter
-import com.example.climbingtraining.adapters.SavedConfigsAdapter
+import com.example.climbingtraining.ui.adapters.HistoryAdapter
+import com.example.climbingtraining.ui.adapters.SavedConfigsAdapter
 import com.example.climbingtraining.databinding.FragmentSavedConfigurationsBinding
 import com.example.climbingtraining.databinding.FragmentTrainingDetailsBinding
 import com.example.climbingtraining.models.CrimpType

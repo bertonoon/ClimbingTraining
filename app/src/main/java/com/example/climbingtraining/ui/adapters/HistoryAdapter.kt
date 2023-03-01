@@ -1,4 +1,4 @@
-package com.example.climbingtraining.adapters
+package com.example.climbingtraining.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
