@@ -42,6 +42,7 @@ import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 import com.example.climbingtraining.utils.Constants
 import com.example.climbingtraining.utils.HangboardReceiver
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlin.math.floor
 import kotlin.math.round
@@ -51,7 +52,8 @@ class HangboardActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHangboardBinding
     lateinit var viewModel: HangboardViewModel
-    private lateinit var notificationBuilder : NotificationCompat.Builder
+    private var notificationBuilder : NotificationCompat.Builder? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,30 +76,30 @@ class HangboardActivity : AppCompatActivity() {
         viewModel.onViewReady()
         requestPermissions()
 
-//        initNotification()
-//
-//        viewModel.currentHangboardState.observe(this@HangboardActivity) {
-//            if (it != ExerciseState.INACTIVE) {
-//                lifecycleScope.launch(Dispatchers.IO) {
-//                    with(NotificationManagerCompat.from(this@HangboardActivity)) {
-//                        notificationBuilder.setContentTitle(it.toString())
-//                        notify(1, notificationBuilder.build())
-//                    }
-//                }
-//                var oldSecondsValue = 0
-//                viewModel.secondsToFinish.observe(this@HangboardActivity) {
-//                    if (it != oldSecondsValue) {
-//                        lifecycleScope.launch(Dispatchers.IO) {
-//                            with(NotificationManagerCompat.from(this@HangboardActivity)) {
-//                                notificationBuilder.setContentText(it.toString())
-//                                notify(1, notificationBuilder.build())
-//                            }
-//                            oldSecondsValue = it
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        if (notificationBuilder == null){
+            initNotification()
+        }
+
+        var oldSecondsValue = 0
+        viewModel.secondsToFinish.observe(this@HangboardActivity) {
+            if (it != oldSecondsValue && viewModel.currentHangboardState.value != ExerciseState.INACTIVE) {
+                lifecycleScope.launch(Dispatchers.Main) {
+                    with(NotificationManagerCompat.from(this@HangboardActivity)) {
+                        notificationBuilder!!.setContentText(
+                            "Time to finish: $it s")
+                        notificationBuilder!!.setContentTitle(viewModel.currentHangboardState.value.toString())
+                        notify(1, notificationBuilder!!.build())
+                        oldSecondsValue = it
+                    }
+                }
+            }
+        }
+        viewModel.runState.observe(this@HangboardActivity){
+            if ( it == RunState.INITIALIZED) {
+                val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                manager.cancel(1)
+            }
+        }
     }
 
     @Deprecated("Deprecated in Java")
@@ -111,22 +113,21 @@ class HangboardActivity : AppCompatActivity() {
     }
 
     private fun initNotification() {
-        val intent = Intent(this, HangboardActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        val flag =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                PendingIntent.FLAG_IMMUTABLE
-            else
-                0
+//        val intent = Intent(this@HangboardActivity, HangboardActivity::class.java).apply {
+//            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        }
+//        val flag =
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+//                PendingIntent.FLAG_IMMUTABLE
+//            else
+//                0
+//
+//        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, flag)
 
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, flag)
-
-        notificationBuilder = NotificationCompat.Builder(this, Constants.NOTIFICATION_CHANNEL_ID).apply {
+        notificationBuilder = NotificationCompat.Builder(this@HangboardActivity, Constants.NOTIFICATION_CHANNEL_ID).apply {
             setSmallIcon(R.drawable.ic_launcher_foreground)
             setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-            setContentTitle("Hangboard Timer")
-            setContentIntent(pendingIntent)
+          //setContentIntent(pendingIntent)
             setAutoCancel(false)
             setOngoing(true)
             setDefaults(0)

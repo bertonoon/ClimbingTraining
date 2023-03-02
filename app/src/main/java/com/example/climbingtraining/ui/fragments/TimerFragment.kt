@@ -1,12 +1,17 @@
 package com.example.climbingtraining.ui.fragments
 
 import android.app.Dialog
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import com.example.climbingtraining.R
 import com.example.climbingtraining.databinding.DialogCustomQuestionBinding
 import com.example.climbingtraining.databinding.FragmentTimerBinding
 import com.example.climbingtraining.models.ExerciseState
@@ -19,6 +24,8 @@ class TimerFragment : Fragment(){
 
     private lateinit var binding: FragmentTimerBinding
     lateinit var viewModel: HangboardViewModel
+    private lateinit var navController : NavController
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +42,7 @@ class TimerFragment : Fragment(){
         viewModel = (activity as HangboardActivity).viewModel
         initializeUI()
         initializeObservers()
+        navController = findNavController()
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -46,9 +54,18 @@ class TimerFragment : Fragment(){
             if (viewModel.runState.value != RunState.UNINITIALIZED ) {
                 binding.tvCurrentState.visibility = View.VISIBLE
                 if ( it == ExerciseState.INACTIVE )
-                    binding.tvCurrentState.text = "WAITING FOR START"
-                else
-                    binding.tvCurrentState.text = it.toString()
+                    binding.tvCurrentState.text = getString(R.string.hangboardStateWaiting)
+                else {
+                    binding.tvCurrentState.text = it.toString().uppercase()
+                    when(it){
+                        ExerciseState.HANG ->
+                            binding.tvCurrentState.setTextColor(
+                                ContextCompat.getColor(requireContext(),R.color.green))
+                        else->
+                            binding.tvCurrentState.setTextColor(
+                                ContextCompat.getColor(requireContext(),R.color.palette5))
+                    }
+                }
             } else
                 binding.tvCurrentState.visibility = View.INVISIBLE
 
@@ -91,13 +108,13 @@ class TimerFragment : Fragment(){
     private fun onRunStateChange() {
         when (viewModel.runState.value) {
             RunState.ACTIVE -> {
-                binding.btnStopReset.text = "STOP"
+                binding.btnStopReset.text = getString(R.string.ButtonStop)
             }
             RunState.STOPPED -> {
-                binding.btnStopReset.text = "RESET"
+                binding.btnStopReset.text = getString(R.string.ButtonReset)
             }
             RunState.INITIALIZED -> {
-                binding.btnStopReset.text = "STOP"
+                binding.btnStopReset.text = getString(R.string.ButtonStop)
                 setupTimeProgressBar(1,1)
                 setupRepeatsProgressBar(1,1)
                 setupSetsProgressBar(1,1)
@@ -160,12 +177,10 @@ class TimerFragment : Fragment(){
             viewModel.reload()
             customDialog.dismiss()
         }
-        customDialog.setOnCancelListener{
+        customDialog.setOnCancelListener {
             viewModel.reload()
             customDialog.dismiss()
         }
-
-
         customDialog.show()
     }
 

@@ -71,7 +71,6 @@ class AddNewHangboardFragment : Fragment(R.layout.fragment_add_new_hangboard){
                 navController.navigate(R.id.action_addNewHangboardFragment_to_timerFragment2)
             }
         }
-
     }
 
     private fun initializeObservers() {

@@ -8,11 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-<!--Palette colors from coolors.co-->
     <color name="palette1">#1D3557</color>
     <color name="palette2">#457B9D</color>
     <color name="palette3">#A8DADC</color>
     <color name="palette4">#F1FAEE</color>
     <color name="palette5">#E63946</color>
+
+    <color name="green">#13AE13</color>
 
 </resources>

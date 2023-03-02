@@ -75,7 +75,6 @@ class HistoryFragment : Fragment(R.layout.fragment_history){
 
         binding.fabNewHistoryRecord.setOnClickListener{
             viewModel.setHistoryEditFlag(true)
-            navController.navigate(R.id.action_historyFragment_to_historyEditDetailsFragment)
         }
 
     }

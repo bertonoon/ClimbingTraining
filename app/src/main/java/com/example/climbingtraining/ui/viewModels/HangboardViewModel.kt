@@ -1,7 +1,10 @@
 package com.example.climbingtraining.ui.viewModels
 
 import android.app.Application
+import android.app.NotificationManager
+import android.content.Context
 import android.util.Log
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.*
 import com.example.climbingtraining.db.SavedConfigsDao
 import com.example.climbingtraining.db.HangboardDatabase
