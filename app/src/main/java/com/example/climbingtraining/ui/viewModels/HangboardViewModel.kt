@@ -1,10 +1,6 @@
 package com.example.climbingtraining.ui.viewModels
 
 import android.app.Application
-import android.app.NotificationManager
-import android.content.Context
-import android.util.Log
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.*
 import com.example.climbingtraining.db.SavedConfigsDao
 import com.example.climbingtraining.db.HangboardDatabase
@@ -14,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Date
 import com.example.climbingtraining.models.SingleHangboardHistoryModel
-import com.example.climbingtraining.utils.HangboardReceiver
 
 class HangboardViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -84,7 +79,7 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
 
     //Others
     private lateinit var currentExercise : Exercise
-    private lateinit var chosenHangboard: SingleHangboard
+    private  var chosenHangboard: SingleHangboard = BasicHangboardTimes.getBasicTimes()
 
 
     fun updateData(timeToFinish: Long,
@@ -176,7 +171,7 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
                 savedConfigsDao.insert(newConfig)
                 _dbResultStatus.postValue(DbResultState.CONFIG_SAVE_SUCCESS)
             } catch (e:Exception){
-                Log.i("dbAddHangboard", e.toString())
+                //Log.i("dbAddHangboard", e.toString())
                 _dbResultStatus.postValue(DbResultState.CONFIG_SAVE_FAILED)
             }
         }
@@ -191,7 +186,8 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
                     _savedConfigs.postValue(result)
                 }
             } catch(e : Exception) {
-                Log.i("dbFetch", e.toString())
+               // Log.i("dbFetch", e.toString())
+                _dbResultStatus.postValue(DbResultState.CONFIG_FETCH_FAILED)
             }
         }
     }
@@ -206,7 +202,7 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
                 hangboardDao.delete(config)
                 _dbResultStatus.postValue(DbResultState.CONFIG_DELETE_SUCCESS)
             } catch (e:Exception){
-                Log.i("dbDelete", e.toString())
+               // Log.i("dbDelete", e.toString())
                 _dbResultStatus.postValue(DbResultState.CONFIG_DELETE_FAILED)
             }
         }
@@ -238,7 +234,7 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
                 )
                 _dbResultStatus.postValue(DbResultState.HISTORY_SAVE_SUCCESS)
             } catch (e:Exception){
-                Log.i("dbSaveToHistory", e.toString())
+                //Log.i("dbSaveToHistory", e.toString())
                 _dbResultStatus.postValue(DbResultState.HISTORY_SAVE_FAILED)
             }
 
@@ -251,7 +247,7 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
                 historyDao.insert(hangboard)
                 _dbResultStatus.postValue(DbResultState.HISTORY_SAVE_SUCCESS)
             } catch (e:Exception){
-                Log.i("dbSaveToHistory", e.toString())
+                //Log.i("dbSaveToHistory", e.toString())
                 _dbResultStatus.postValue(DbResultState.HISTORY_SAVE_FAILED)
             }
 
@@ -274,7 +270,8 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
                     )
                 )
             } catch(e : Exception){
-                Log.i("dbSaveLastConfig", e.toString())
+                _dbResultStatus.postValue(DbResultState.CONFIG_SAVE_FAILED)
+                //Log.i("dbSaveLastConfig", e.toString())
             }
         }
     }
@@ -292,7 +289,8 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
                     _history.postValue(result)
                 }
             } catch(e : Exception) {
-                Log.i("dbHistoryFetch", e.toString())
+                _dbResultStatus.postValue(DbResultState.HISTORY_FETCH_FAILED)
+                //Log.i("dbHistoryFetch", e.toString())
             }
         }
     }
@@ -313,7 +311,7 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
                 )
                 setHangboard()
             } catch(e : Exception) {
-                Log.i("dbLastConfigFetch", e.toString())
+                //Log.i("dbLastConfigFetch", e.toString())
             }
         }
     }
@@ -333,7 +331,7 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
                 hangboardDao.update(newConfig)
                 _dbResultStatus.postValue(DbResultState.CONFIG_EDIT_SUCCESS)
             } catch(e : Exception) {
-                Log.i("dbUpdate", e.toString())
+                //Log.i("dbUpdate", e.toString())
                 _dbResultStatus.postValue(DbResultState.CONFIG_EDIT_FAILED)
             }
         }
@@ -359,7 +357,7 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
                 historyDao.delete(record)
                 _dbResultStatus.postValue(DbResultState.HISTORY_DELETE_SUCCESS)
             } catch (e:Exception){
-                Log.i("dbDelete", e.toString())
+                //Log.i("dbDelete", e.toString())
                 _dbResultStatus.postValue(DbResultState.HISTORY_DELETE_FAILED)
             }
         }
@@ -386,7 +384,7 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
                 _dbResultStatus.postValue(DbResultState.HISTORY_EDIT_SUCCESS)
                 _historyDetailsHangboard.postValue(newHangboardHistoryModel)
             } catch(e : Exception) {
-                Log.i("dbUpdate", e.toString())
+                //Log.i("dbUpdate", e.toString())
                 _dbResultStatus.postValue(DbResultState.HISTORY_EDIT_FAILED)
             }
         }

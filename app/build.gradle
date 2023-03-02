@@ -12,13 +12,14 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.climbingtraining"
+        applicationId "com.climbingtraining.hangboard"
         minSdk 21
         targetSdk 33
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.debug
     }
 
     buildTypes {
@@ -65,8 +66,6 @@ dependencies {
     implementation("androidx.room:room-ktx:2.5.0")
 
     implementation 'com.google.code.gson:gson:2.9.0'
-
-
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

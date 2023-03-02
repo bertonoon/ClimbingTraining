@@ -8,11 +8,11 @@ import androidx.room.PrimaryKey
 data class SingleHangboard(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val prepareTime: Long = 5000L,
-    val hangTime: Long = 1000L,
-    val pauseTime: Long = 1000L,
-    val numberOfRepeats: Int = 1,
-    val restTime: Long = 1000,
-    val numberOfSets: Int = 1,
+    val prepareTime: Long = 10000L,
+    val hangTime: Long = 7000L,
+    val pauseTime: Long = 90000L,
+    val numberOfRepeats: Int = 6,
+    val restTime: Long = 3000L,
+    val numberOfSets: Int = 2,
     val name: String = "Unnamed"
 )

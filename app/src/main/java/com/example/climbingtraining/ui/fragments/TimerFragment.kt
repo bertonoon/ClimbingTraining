@@ -1,9 +1,7 @@
 package com.example.climbingtraining.ui.fragments
 
 import android.app.Dialog
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -123,7 +121,7 @@ class TimerFragment : Fragment(){
                 showDialogForSave()
             }
             else -> {
-                Log.e("UnknownState","Unknown state of viewModel.runState")
+                binding.btnStopReset.text = getString(R.string.ButtonStop)
             }
         }
     }
@@ -157,7 +155,8 @@ class TimerFragment : Fragment(){
                 viewModel.onReset()
             }
             else -> {
-                Log.e("UnknownState","Unknown state of viewModel.runState")
+                viewModel.onStop()
+               // Log.e("UnknownState","Unknown state of viewModel.runState")
             }
         }
     }

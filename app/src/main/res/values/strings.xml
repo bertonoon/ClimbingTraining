@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Climbing Training</string>
+    <string name="app_name">Hangboard</string>
     <string name="add_hangboard">Add hangboard</string>
     <string name="history_add_details">Add details to your training by edit.</string>
     <string name="date_format">yyyy-MM-dd HH:mm</string>
