@@ -369,7 +369,8 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         _historyDetailsHangboard.postValue(singleHangboardHistoryModel)
     }
 
-    fun setEditHistoryDetails(singleHangboardHistoryModel: SingleHangboardHistoryModel){
+    fun setEditHistoryDetails(singleHangboardHistoryModel: SingleHangboardHistoryModel) {
+        setHistoryEditFlag(false)
         _historyEditDetailsHangboard.postValue(singleHangboardHistoryModel)
     }
 

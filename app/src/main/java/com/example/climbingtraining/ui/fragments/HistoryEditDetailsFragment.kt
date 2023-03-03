@@ -43,17 +43,19 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = (activity as HangboardActivity).viewModel
-
-        oldHangboardHistoryModel = if (viewModel.historyEditDetailsHangboard.value != null) {
-            viewModel.historyEditDetailsHangboard.value!!
-        } else {
-            SingleHangboardHistoryModel()
-        }
-        setDetails(oldHangboardHistoryModel)
-        navController = findNavController()
-        initializeUI()
         super.onViewCreated(view, savedInstanceState)
+        viewModel = (activity as HangboardActivity).viewModel
+        navController = findNavController()
+        initializeObservers()
+        initializeUI()
+
+    }
+
+    private fun initializeObservers(){
+        viewModel.historyEditDetailsHangboard.observe(viewLifecycleOwner){
+            oldHangboardHistoryModel = it ?: SingleHangboardHistoryModel()
+            setDetails(oldHangboardHistoryModel)
+        }
     }
 
     override fun onDestroyView() {
