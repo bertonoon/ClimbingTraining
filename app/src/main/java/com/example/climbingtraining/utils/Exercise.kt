@@ -81,8 +81,9 @@ class Exercise(
 
     private fun playSound(){
         try{
+            val packageName = context.packageName
             val soundURI = Uri.parse(
-                "android.resource://com.example.climbingtraining/" + R.raw.start)
+                "android.resource://$packageName/" + R.raw.start)
             mediaPlayer = MediaPlayer.create(context,soundURI)
             mediaPlayer?.isLooping = false
             mediaPlayer?.start()

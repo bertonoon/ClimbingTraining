@@ -323,7 +323,8 @@
             android:padding="8dp"
             android:background="@drawable/ll_row_border"
             android:gravity="center"
-
+            android:visibility="visible"
+            tools:visibility="visible"
             >
             <ImageView
                 android:layout_width="0dp"
@@ -361,6 +362,8 @@
             android:padding="8dp"
             android:background="@drawable/ll_row_border"
             android:gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible"
 
             >
             <ImageView
@@ -406,6 +409,8 @@
             android:orientation="horizontal"
             android:padding="8dp"
             android:background="@drawable/ll_row_border"
+            android:visibility="gone"
+            tools:visibility="visible"
             >
             <ImageView
                 android:layout_width="0dp"
@@ -451,6 +456,8 @@
             android:padding="8dp"
             android:background="@drawable/ll_row_border"
             android:gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible"
 
             >
             <ImageView
@@ -486,6 +493,8 @@
             android:padding="8dp"
             android:background="@drawable/ll_row_border"
             android:gravity="center"
+            android:visibility="visible"
+            tools:visibility="visible"
 
             >
             <ImageView
@@ -532,6 +541,8 @@
             android:gravity="center"
             android:background="@drawable/ll_row_border"
             android:layout_marginVertical="10dp"
+            android:visibility="visible"
+            tools:visibility="visible"
             >
             <EditText
                 android:id="@+id/etNote"
