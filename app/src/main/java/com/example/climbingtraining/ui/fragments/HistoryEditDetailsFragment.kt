@@ -65,7 +65,6 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
 
     private fun initializeUI() {
         binding.btnClose.setOnClickListener {
-            viewModel.setHistoryEditFlag(false)
             navController.navigateUp() }
         binding.etGripType.apply {
             isFocusable = false
@@ -78,7 +77,6 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
         binding.btnSave.setOnClickListener {
             if (viewModel.historyEditFlag.value == true) {
                 addNewToHistory()
-                viewModel.setHistoryEditFlag(false)
             } else {
                 updateHistoryDetails()
             }
@@ -86,6 +84,8 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
         }
 
         if ( viewModel.historyEditFlag.value == true) {
+            binding.tvEditDetails.visibility = View.INVISIBLE
+            binding.tvAddTraining.visibility = View.VISIBLE
             binding.etDate.visibility = View.VISIBLE
             binding.etDate.setOnClickListener {
                 DatePickerDialog(
@@ -122,7 +122,6 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
     }
 
     private fun setDetails(details: SingleHangboardHistoryModel) {
-
         if (viewModel.historyEditFlag.value == false) {
             binding.apply {
                 etHangTime.setText((details.hangboardType.hangTime / 1000).toString())
@@ -158,9 +157,6 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
                 etNote.setText(details.notes)
             }
             showSuitableLayout()
-        } else {
-            binding.tvEditDetails.visibility = View.INVISIBLE
-            binding.tvAddTraining.visibility = View.VISIBLE
         }
     }
 
@@ -198,8 +194,6 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
         }
         menuCrimpType.show()
     }
-
-
     private fun showSuitableLayout(){
         var showEdgeOption = false
         var showSlopeAngleOption = false
@@ -287,7 +281,6 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
             additionalWeight = getAdditionalWeight()
         )
     }
-
     private fun getNewHistoryDetails(): SingleHangboardHistoryModel {
         return SingleHangboardHistoryModel(
             id = 0,
@@ -301,7 +294,6 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
             additionalWeight = getAdditionalWeight()
         )
     }
-
     private fun getHangboardType() : SingleHangboard{
         return SingleHangboard(
             id = 0,
@@ -315,7 +307,6 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
 
         )
     }
-
     private fun getNumberOf(et : EditText) : Int {
         return et.text.toString().ifEmpty {
             "0"
@@ -336,7 +327,6 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
             ""
         }
     }
-
     private fun getGripType(): GripType {
         return when(binding.etGripType.text.toString()){
             getString(R.string.grip_menu_option_edge) -> GripType.EDGE
@@ -350,7 +340,6 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
             else -> GripType.UNDEFINED
         }
     }
-
     private fun getCrimpType(): CrimpType {
         return when(binding.etCrimpType.text.toString()){
             getString(R.string.crimp_menu_option_open_hand) -> CrimpType.OPEN_HAND
@@ -359,19 +348,16 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
             else -> CrimpType.UNDEFINED
         }
     }
-
     private fun getEdgeSize(): Int {
         return binding.etEdgeSize.text.toString().ifEmpty {
             "0"
         }.toInt()
     }
-
     private fun getSlopeAngle(): Int {
         return binding.etSlopeAngle.text.toString().ifEmpty {
             "0"
         }.toInt()
     }
-
     private fun getAdditionalWeight(): Float {
         return binding.etAdditionalWeight.text.toString().ifEmpty {
             "0.0"

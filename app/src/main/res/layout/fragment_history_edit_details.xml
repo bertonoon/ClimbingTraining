@@ -323,6 +323,7 @@
             android:padding="8dp"
             android:background="@drawable/ll_row_border"
             android:gravity="center"
+
             >
             <ImageView
                 android:layout_width="0dp"
