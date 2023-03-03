@@ -317,7 +317,7 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
     }
     private fun getName() : String{
         return binding.etHangboardName.text.toString().ifEmpty {
-            ""
+            "Unnamed"
         }
     }
     private fun getTimeFromEditText(et : EditText) : Long{
