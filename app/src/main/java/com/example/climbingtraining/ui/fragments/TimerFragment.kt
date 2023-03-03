@@ -51,17 +51,25 @@ class TimerFragment : Fragment(){
         viewModel.currentHangboardState.observe(viewLifecycleOwner){
             if (viewModel.runState.value != RunState.UNINITIALIZED ) {
                 binding.tvCurrentState.visibility = View.VISIBLE
-                if ( it == ExerciseState.INACTIVE )
+                if ( it == ExerciseState.INACTIVE ) {
                     binding.tvCurrentState.text = getString(R.string.hangboardStateWaiting)
-                else {
+                    binding.tvCurrentState.setTextColor(
+                        ContextCompat.getColor(requireContext(),R.color.green))
+                    binding.llTimer.background = ContextCompat.getDrawable(requireContext(),R.drawable.item_circular_accent_background)
+                } else {
                     binding.tvCurrentState.text = it.toString().uppercase()
                     when(it){
-                        ExerciseState.HANG ->
+                        ExerciseState.HANG -> {
                             binding.tvCurrentState.setTextColor(
                                 ContextCompat.getColor(requireContext(),R.color.green))
-                        else->
+                            binding.llTimer.background = ContextCompat.getDrawable(requireContext(),R.drawable.item_circular_hang_background)
+                        }
+                        else-> {
                             binding.tvCurrentState.setTextColor(
                                 ContextCompat.getColor(requireContext(),R.color.palette5))
+                            binding.llTimer.background = ContextCompat.getDrawable(requireContext(),R.drawable.item_circular_rest_background)
+
+                        }
                     }
                 }
             } else

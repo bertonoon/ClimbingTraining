@@ -245,6 +245,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="30dp"
+        android:textColor="@color/material_dynamic_neutral_variant50"
         app:layout_constraintTop_toBottomOf="@id/llSeries"
         tools:text="CURRENT STATE"
         android:gravity="center"
@@ -275,6 +276,7 @@
             android:rotation="-90"
             />
         <LinearLayout
+            android:id="@+id/llTimer"
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:layout_gravity="center"
