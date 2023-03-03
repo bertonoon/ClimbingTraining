@@ -89,6 +89,12 @@ class TimerFragment : Fragment(){
     private fun initializeUI() {
         binding.btnStart.setOnClickListener { viewModel.onStart() }
         binding.btnStopReset.setOnClickListener { onStopResetButton() }
+        binding.llHeaders.setOnClickListener{
+            navController.navigate(R.id.action_timerFragment_to_addNewHangboardFragment)
+        }
+        binding.llTimes.setOnClickListener{
+            navController.navigate(R.id.action_timerFragment_to_addNewHangboardFragment)
+        }
     }
 
     private fun setupTimeProgressBar(timeToFinish: Long, maxTime: Long){
