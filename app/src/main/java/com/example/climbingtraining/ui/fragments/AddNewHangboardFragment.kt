@@ -110,9 +110,13 @@ class AddNewHangboardFragment : Fragment(R.layout.fragment_add_new_hangboard){
     }
 
     private fun getHangboardFromEditTexts() : SingleHangboard{
+        var name = binding.etHangboardName.text.toString()
+        if ( name.isEmpty()){
+            name = "Unnamed"
+        }
         return SingleHangboard(
             id = viewModel.editedHangboard.value?.id ?: 0,
-            name = binding.etHangboardName.text.toString(),
+            name = name,
             prepareTime = 5000L,
             hangTime = binding.etHangTime.text.toString().toLong() * 1000,
             restTime = binding.etRestTime.text.toString().toLong() * 1000,
@@ -133,7 +137,7 @@ class AddNewHangboardFragment : Fragment(R.layout.fragment_add_new_hangboard){
     }
 
     private fun setHangboard() : Boolean{
-        if (!validateData()) return false
+        if (!validateData(true)) return false
         viewModel.setHangboard(getHangboardFromEditTexts())
         activity?.currentFocus?.let { view ->
             val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
@@ -148,18 +152,20 @@ class AddNewHangboardFragment : Fragment(R.layout.fragment_add_new_hangboard){
         return true
     }
 
-    private fun validateData() : Boolean{
-        if(binding.etHangboardName.text.isNullOrEmpty()) {
-            Toast.makeText(context,"Please enter name.",Toast.LENGTH_SHORT).show()
-            return false
-        }
-        if(binding.etHangboardName.text.length > 30) {
-            Toast.makeText(context,"The name can contain up to 30 characters.",Toast.LENGTH_SHORT).show()
-            return false
-        }
-        if(binding.etHangboardName.text.toString().contains("\n")) {
-            Toast.makeText(context,"The name cannot contain new line character.",Toast.LENGTH_SHORT).show()
-            return false
+    private fun validateData(setFlag:Boolean=false) : Boolean{
+        if(!setFlag){
+            if(binding.etHangboardName.text.isNullOrEmpty()) {
+                Toast.makeText(context,"Please enter name.",Toast.LENGTH_SHORT).show()
+                return false
+            }
+            if(binding.etHangboardName.text.length > 30) {
+                Toast.makeText(context,"The name can contain up to 30 characters.",Toast.LENGTH_SHORT).show()
+                return false
+            }
+            if(binding.etHangboardName.text.toString().contains("\n")) {
+                Toast.makeText(context,"The name cannot contain new line character.",Toast.LENGTH_SHORT).show()
+                return false
+            }
         }
         if(binding.etHangTime.text.isNullOrEmpty()) {
             Toast.makeText(context,"Please enter hang time.",Toast.LENGTH_SHORT).show()
@@ -202,7 +208,22 @@ class AddNewHangboardFragment : Fragment(R.layout.fragment_add_new_hangboard){
             return false
         }
 
-
+        if(binding.etHangTime.text.toString().toInt() <= 0) {
+            Toast.makeText(context,"Please enter hang time.",Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if(binding.etRestTime.text.toString().toInt() <= 0) {
+            Toast.makeText(context,"Please enter rest time.",Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if(binding.etRounds.text.toString().toInt() <= 0) {
+            Toast.makeText(context,"Please enter number of repeats.",Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if(binding.etSets.text.toString().toInt() <= 0) {
+            Toast.makeText(context,"Please enter number of sets.",Toast.LENGTH_SHORT).show()
+            return false
+        }
         return true
     }
 

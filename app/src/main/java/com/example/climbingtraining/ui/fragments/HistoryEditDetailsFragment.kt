@@ -52,9 +52,13 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
     }
 
     private fun initializeObservers(){
-        viewModel.historyEditDetailsHangboard.observe(viewLifecycleOwner){
-            oldHangboardHistoryModel = it ?: SingleHangboardHistoryModel()
-            setDetails(oldHangboardHistoryModel)
+        if (viewModel.historyEditFlag.value == true) {
+            oldHangboardHistoryModel = SingleHangboardHistoryModel()
+        } else {
+            viewModel.historyEditDetailsHangboard.observe(viewLifecycleOwner) {
+                oldHangboardHistoryModel = it ?: SingleHangboardHistoryModel()
+                setDetails(oldHangboardHistoryModel)
+            }
         }
     }
 
@@ -262,7 +266,6 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
         val newHangboardHistoryModel = getEditHistoryDetails()
         viewModel.updateHistoryDetails(newHangboardHistoryModel)
     }
-
     private fun addNewToHistory(){
         val newHangboardHistoryModel = getNewHistoryDetails()
         viewModel.saveHangboardToHistory(newHangboardHistoryModel)
