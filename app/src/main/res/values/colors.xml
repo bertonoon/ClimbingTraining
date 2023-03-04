@@ -15,5 +15,7 @@
     <color name="palette5">#E63946</color>
 
     <color name="green">#13AE13</color>
+    <color name="basic_text_color">#737070</color>
+    <color name="hang_color">#9DCA85</color>
 
 </resources>

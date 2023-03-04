@@ -44,6 +44,21 @@ class TimerFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
     }
 
+    private fun bindHangColors(){
+        binding.tvCurrentState.setTextColor(ContextCompat.getColor(requireContext(),R.color.hang_color))
+        binding.llTimer.background = ContextCompat.getDrawable(requireContext(),R.drawable.item_circular_hang_background)
+        binding.flTimer.background = ContextCompat.getDrawable(requireContext(),R.drawable.item_circular_color_accent_hang_border)
+
+
+    }
+
+    private fun bindBasicColors(){
+        binding.tvCurrentState.setTextColor(ContextCompat.getColor(requireContext(),R.color.basic_text_color))
+        binding.llTimer.background = ContextCompat.getDrawable(requireContext(),R.drawable.item_circular_accent_background)
+        binding.flTimer.background = ContextCompat.getDrawable(requireContext(),R.drawable.item_circular_color_accent_border)
+
+    }
+
 
     private fun initializeObservers() {
         viewModel.currentHangboard.observe(viewLifecycleOwner){onCurrentHangboardChange(it)}
@@ -53,23 +68,12 @@ class TimerFragment : Fragment(){
                 binding.tvCurrentState.visibility = View.VISIBLE
                 if ( it == ExerciseState.INACTIVE ) {
                     binding.tvCurrentState.text = getString(R.string.hangboardStateWaiting)
-                    binding.tvCurrentState.setTextColor(
-                        ContextCompat.getColor(requireContext(),R.color.green))
-                    binding.llTimer.background = ContextCompat.getDrawable(requireContext(),R.drawable.item_circular_accent_background)
+                  bindBasicColors()
                 } else {
                     binding.tvCurrentState.text = it.toString().uppercase()
                     when(it){
-                        ExerciseState.HANG -> {
-                            binding.tvCurrentState.setTextColor(
-                                ContextCompat.getColor(requireContext(),R.color.green))
-                            binding.llTimer.background = ContextCompat.getDrawable(requireContext(),R.drawable.item_circular_hang_background)
-                        }
-                        else-> {
-                            binding.tvCurrentState.setTextColor(
-                                ContextCompat.getColor(requireContext(),R.color.palette5))
-                            binding.llTimer.background = ContextCompat.getDrawable(requireContext(),R.drawable.item_circular_rest_background)
-
-                        }
+                        ExerciseState.HANG -> bindHangColors()
+                        else-> bindBasicColors()
                     }
                 }
             } else

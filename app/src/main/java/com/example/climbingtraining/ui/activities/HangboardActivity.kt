@@ -43,7 +43,7 @@ class HangboardActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(
             this,
             defaultViewModelProviderFactory
-        ).get(HangboardViewModel::class.java)
+        )[HangboardViewModel::class.java]
         binding = ActivityHangboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

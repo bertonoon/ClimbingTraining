@@ -245,7 +245,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="30dp"
-        android:textColor="@color/material_dynamic_neutral_variant50"
         app:layout_constraintTop_toBottomOf="@id/llSeries"
         tools:text="CURRENT STATE"
         android:gravity="center"
