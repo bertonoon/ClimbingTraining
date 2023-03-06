@@ -1,13 +1,6 @@
 # Hangboard
 ![Logo](././app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
 
-## Table of contents
-
-* [General](#General)
-* [Tech](#Technologies)
-* [Other](#Project Status)
-* [Screenshots](#Screenshots)
-
 ## Describe
 
 Hangboard - application dedicated for climbers to training on hangboard.
