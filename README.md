@@ -49,6 +49,9 @@ Project is in progress.
 
 Created by [@Bartosz Filipów](https://www.linkedin.com/in/bartosz-filipow/) - feel free to contact me.
 
+## License
+
+[MIT](./LICENSE.md)
 
 ## Screenshots
 
