@@ -1,5 +1,5 @@
 # Hangboard
-![Logo](././app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
+![Logo](././app/src/main/res/mipmap-xxhdpi/ic_launcher.png)
 
 ## Describe
 
@@ -52,8 +52,8 @@ Created by [@Bartosz Filipów](https://www.linkedin.com/in/bartosz-filipow/) - f
 
 ## Screenshots
 
-![Main screen](./Screenshots/Main.png)
-![Configurations](./Screenshots/SavedConfigs.png)
-![Slopers details](./Screenshots/SloperDetails.png)
-![Edge details](./Screenshots/EdgeDetails.png)
-![History](./Screenshots/History.png)
+<img src="./Screenshots/Main.png" alt="Main screen" width="50%" height="50%">
+<img src="./Screenshots/SavedConfigs.png" alt="Configurations" width="50%" height="50%">
+<img src="./Screenshots/SloperDetails.png" alt="Slopers details" width="50%" height="50%">
+<img src="./Screenshots/EdgeDetails.png" alt="Edge details" width="50%" height="50%">
+<img src="./Screenshots/History.png" alt="History" width="50%" height="50%">
