@@ -3,7 +3,7 @@
 
 ## Describe
 
-Hangboard - application dedicated for climbers to training on hangboard.
+Application dedicated for climbers to training on hangboard.
 
 
 ## Features
