@@ -1,6 +1,4 @@
-#<img src="./app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" style=vertical-align:middle;margin-top:-8px alt= “logo” width="60dp" height="60dp">Hangboard</img> 
-
----
+<img src="./app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" style=vertical-align:middle;margin-top:-8px alt= “logo” width="60dp" height="60dp">Hangboard</img> 
 
 ## Table of contents
 
@@ -8,13 +6,11 @@
 * [Tech](#Technologies)
 * [Other](#Project Status)
 * [Screenshots](#Screenshots)
----
 
 ## Describe
 
 Hangboard - application dedicated for climbers to training on hangboard.
 
----
 
 ## Features
 
@@ -23,20 +19,15 @@ Hangboard - application dedicated for climbers to training on hangboard.
 - Ability to save training history with details about: grip type, crimp type, additional weight and more.
 - Sound alarm when exercise step ends.
 - Notification in the notification bar with the current status of the exercise.
-- --
 
 ## Installation
 
 To install and use app use build option in Android Studio or use this [APK](https://1drv.ms/u/s!ArukgIiDJtcOkjvV4spuIkwKQKB3?e=4Yb42q)
 file.
----
 
 ## Supported devices
 
 The application works on devices with Android 5.0 or higher.
-
----
-
 
 ## Technologies
 
@@ -46,8 +37,6 @@ The application works on devices with Android 5.0 or higher.
 - Navigation Component
 - Fragments
 - RecyclerView
-- 
-- --
 
 ## Architecture
 
@@ -61,13 +50,11 @@ the time and running the exercise. `RoomDb` support is located in the db folder.
 
 Project is in progress. 
 
----
 
 ## Contact
 
 Created by [@Bartosz Filipów](https://www.linkedin.com/in/bartosz-filipow/) - feel free to contact me.
 
----
 
 ## Screenshots
 
