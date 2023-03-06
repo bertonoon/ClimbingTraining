@@ -17,6 +17,7 @@ import com.example.climbingtraining.models.RunState
 import com.example.climbingtraining.models.SingleHangboard
 import com.example.climbingtraining.ui.activities.HangboardActivity
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
+import java.util.*
 
 class TimerFragment : Fragment(){
 
@@ -51,7 +52,6 @@ class TimerFragment : Fragment(){
 
 
     }
-
     private fun bindBasicColors(){
         binding.tvCurrentState.setTextColor(ContextCompat.getColor(requireContext(),R.color.basic_text_color))
         binding.llTimer.background = ContextCompat.getDrawable(requireContext(),R.drawable.item_circular_accent_background)
@@ -144,7 +144,7 @@ class TimerFragment : Fragment(){
         }
     }
     private fun onCurrentTimeToFinish(timeToFinish: Long) {
-        binding.tvMainTimer.text = String.format("%.1f",timeToFinish.toFloat()/1000)
+        binding.tvMainTimer.text = String.format("%.1f",timeToFinish.toFloat()/1000).replace(',','.')
         setupTimeProgressBar(timeToFinish,
             when(viewModel.currentHangboardState.value){
                 ExerciseState.INACTIVE -> 0
