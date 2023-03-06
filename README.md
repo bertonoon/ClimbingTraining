@@ -1,4 +1,5 @@
-<img src="./app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" style=vertical-align:middle;margin-top:-8px alt= “logo” width="60dp" height="60dp">Hangboard</img> 
+# Hangboard
+![Logo](././app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
 
 ## Table of contents
 
