@@ -16,7 +16,7 @@ Hangboard - application dedicated for climbers to training on hangboard.
 
 ## Installation
 
-- use build option in Android Studio
+- Use build option in Android Studio
 - [APK](https://1drv.ms/u/s!ArukgIiDJtcOkjvV4spuIkwKQKB3?e=4Yb42q)
 
 ## Supported devices
