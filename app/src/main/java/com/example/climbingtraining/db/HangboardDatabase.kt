@@ -15,22 +15,23 @@ import com.example.climbingtraining.models.SingleHangboardHistoryModel
         SingleHangboard::class,
         SingleHangboardHistoryModel::class,
         LastHangboard::class],
-    version = 2)
+    version = 2
+)
 @TypeConverters(Converters::class)
-abstract class HangboardDatabase: RoomDatabase() {
+abstract class HangboardDatabase : RoomDatabase() {
 
     abstract fun hangboardDao(): SavedConfigsDao
-    abstract fun historyDao() : HistoryDao
-    abstract fun lastHangboardDao() : LastHangboardDao
+    abstract fun historyDao(): HistoryDao
+    abstract fun lastHangboardDao(): LastHangboardDao
 
-    companion object{
+    companion object {
         @Volatile
         private var INSTANCE: HangboardDatabase? = null
 
         fun getInstance(context: Context): HangboardDatabase {
-            synchronized(this){
+            synchronized(this) {
                 var instance = INSTANCE
-                if (instance == null){
+                if (instance == null) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         HangboardDatabase::class.java,

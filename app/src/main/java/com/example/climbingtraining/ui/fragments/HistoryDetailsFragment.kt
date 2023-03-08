@@ -17,18 +17,18 @@ import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details){
+class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details) {
 
     private lateinit var binding: FragmentTrainingDetailsBinding
     private lateinit var viewModel: HangboardViewModel
-    private lateinit var navController : NavController
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val fragmentBinding = FragmentTrainingDetailsBinding.inflate(inflater,container,false)
+        val fragmentBinding = FragmentTrainingDetailsBinding.inflate(inflater, container, false)
         binding = fragmentBinding
         return fragmentBinding.root
     }
@@ -43,7 +43,7 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details){
     }
 
     private fun initializeObservers() {
-        viewModel.historyDetailsHangboard.observe(viewLifecycleOwner){setDetails(it)}
+        viewModel.historyDetailsHangboard.observe(viewLifecycleOwner) { setDetails(it) }
     }
 
     private fun initializeUI() {
@@ -56,15 +56,15 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details){
         navController.navigate(R.id.action_historyDetailsFragment_to_historyEditDetailsFragment)
     }
 
-    private fun setDetails(details: SingleHangboardHistoryModel){
+    private fun setDetails(details: SingleHangboardHistoryModel) {
         val sdf = SimpleDateFormat(getString(R.string.date_format), Locale.US)
         binding.apply {
             tvHangboardName.text = details.hangboardType.name
             tvDate.text = sdf.format(details.date)
-            tvHangTime.text = (details.hangboardType.hangTime/1000).toString()
-            tvRestTime.text = (details.hangboardType.restTime/1000).toString()
+            tvHangTime.text = (details.hangboardType.hangTime / 1000).toString()
+            tvRestTime.text = (details.hangboardType.restTime / 1000).toString()
             tvRepeats.text = details.hangboardType.numberOfRepeats.toString()
-            tvPauseTime.text = (details.hangboardType.pauseTime/1000).toString()
+            tvPauseTime.text = (details.hangboardType.pauseTime / 1000).toString()
             tvSets.text = details.hangboardType.numberOfSets.toString()
             tvGripType.text = showGripType(details.gripType)
             tvEdgeSize.text = details.edgeSize.toString()
@@ -74,7 +74,7 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details){
             tvNotes.text = details.notes
         }
 
-        if (details.gripType == GripType.UNDEFINED && details.additionalWeight <= 0){
+        if (details.gripType == GripType.UNDEFINED && details.additionalWeight <= 0) {
             showAddDetailsMessage()
         } else {
             when (details.gripType) {
@@ -88,15 +88,14 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details){
                 GripType.JUG -> showDetailsForOthers()
                 else -> showDefaultDetails()
             }
-            if (details.additionalWeight > 0 ) {
+            if (details.additionalWeight > 0) {
                 binding.llAdditionalWeight.visibility = View.VISIBLE
-            }
-            else {
+            } else {
                 binding.llAdditionalWeight.visibility = View.GONE
             }
 
         }
-        if (details.notes.isEmpty()){
+        if (details.notes.isEmpty()) {
             binding.llNotes.visibility = View.GONE
         } else {
             binding.llNotes.visibility = View.VISIBLE
@@ -106,15 +105,16 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details){
 
 
     private fun showCrimpType(crimpType: CrimpType): String {
-        return when(crimpType){
+        return when (crimpType) {
             CrimpType.CLOSED_CRIMP -> getString(R.string.crimp_menu_option_closed_crimp)
             CrimpType.OPEN_CRIMP -> getString(R.string.crimp_menu_option_open_crimp)
             CrimpType.OPEN_HAND -> getString(R.string.crimp_menu_option_open_hand)
             else -> getString(R.string.undefined)
         }
     }
+
     private fun showGripType(gripType: GripType): String {
-        return when(gripType){
+        return when (gripType) {
             GripType.ONE_FINGER -> getString(R.string.grip_menu_option_one_finger)
             GripType.THREE_FINGER -> getString(R.string.grip_menu_option_three_fingers)
             GripType.SLOPER -> getString(R.string.grip_menu_option_sloper)
@@ -138,8 +138,9 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details){
             llAdditionalWeight.visibility = View.GONE
         }
     }
+
     private fun showDetailsForOthers() {
-        binding.apply{
+        binding.apply {
             llEdgeSize.visibility = View.GONE
             llSlopeAngle.visibility = View.GONE
             llCrimpType.visibility = View.GONE
@@ -147,8 +148,9 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details){
             tvMessage.visibility = View.GONE
         }
     }
-    private fun showDefaultDetails(){
-        binding.apply{
+
+    private fun showDefaultDetails() {
+        binding.apply {
             llEdgeSize.visibility = View.GONE
             llSlopeAngle.visibility = View.GONE
             llCrimpType.visibility = View.GONE
@@ -157,8 +159,9 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details){
         }
 
     }
-    private fun showDetailsForEdge(){
-        binding.apply{
+
+    private fun showDetailsForEdge() {
+        binding.apply {
             llEdgeSize.visibility = View.VISIBLE
             llGripType.visibility = View.VISIBLE
             llSlopeAngle.visibility = View.GONE
@@ -166,8 +169,9 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details){
             tvMessage.visibility = View.GONE
         }
     }
-    private fun showDetailsForSloper(){
-        binding.apply{
+
+    private fun showDetailsForSloper() {
+        binding.apply {
             llEdgeSize.visibility = View.GONE
             llGripType.visibility = View.VISIBLE
             llSlopeAngle.visibility = View.VISIBLE
@@ -175,7 +179,6 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details){
             tvMessage.visibility = View.GONE
         }
     }
-
 
 
 }

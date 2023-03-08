@@ -13,88 +13,91 @@ import com.example.climbingtraining.models.SingleHangboardHistoryModel
 
 class HangboardViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val hangboardDao = HangboardDatabase.getInstance(application.applicationContext).hangboardDao()
-    private val historyDao = HangboardDatabase.getInstance(application.applicationContext).historyDao()
-    private val lastHangboardDao = HangboardDatabase.getInstance(application.applicationContext).lastHangboardDao()
+    private val hangboardDao =
+        HangboardDatabase.getInstance(application.applicationContext).hangboardDao()
+    private val historyDao =
+        HangboardDatabase.getInstance(application.applicationContext).historyDao()
+    private val lastHangboardDao =
+        HangboardDatabase.getInstance(application.applicationContext).lastHangboardDao()
 
     //Live data
     private val _currentHangboard = MutableLiveData<SingleHangboard>()
-    val currentHangboard : LiveData<SingleHangboard>
+    val currentHangboard: LiveData<SingleHangboard>
         get() = _currentHangboard
 
     private val _editedHangboard = MutableLiveData<SingleHangboard>()
-    val editedHangboard : LiveData<SingleHangboard>
+    val editedHangboard: LiveData<SingleHangboard>
         get() = _editedHangboard
 
     private val _currentTimeToFinish = MutableLiveData<Long>()
-    val currentTimeToFinish : LiveData<Long>
+    val currentTimeToFinish: LiveData<Long>
         get() = _currentTimeToFinish
 
     private val _currentHangboardState = MutableLiveData<ExerciseState>()
-    val currentHangboardState : LiveData<ExerciseState>
+    val currentHangboardState: LiveData<ExerciseState>
         get() = _currentHangboardState
 
     private val _runState = MutableLiveData<RunState>()
-    val runState : LiveData<RunState>
+    val runState: LiveData<RunState>
         get() = _runState
 
     private val _setsToFinish = MutableLiveData<Int>()
-    val setsToFinish : LiveData<Int>
+    val setsToFinish: LiveData<Int>
         get() = _setsToFinish
 
     private val _repeatsToFinish = MutableLiveData<Int>()
-    val repeatsToFinish : LiveData<Int>
+    val repeatsToFinish: LiveData<Int>
         get() = _repeatsToFinish
 
     private val _savedConfigs = MutableLiveData<List<SingleHangboard>>()
-    val savedConfigs : LiveData<List<SingleHangboard>>
+    val savedConfigs: LiveData<List<SingleHangboard>>
         get() = _savedConfigs
 
     private val _history = MutableLiveData<List<SingleHangboardHistoryModel>>()
-    val history : LiveData<List<SingleHangboardHistoryModel>>
+    val history: LiveData<List<SingleHangboardHistoryModel>>
         get() = _history
 
     private val _dbResultStatus = MutableLiveData<DbResultState>()
-    val dbResultStatus : LiveData<DbResultState>
+    val dbResultStatus: LiveData<DbResultState>
         get() = _dbResultStatus
 
     private val _historyDetailsHangboard = MutableLiveData<SingleHangboardHistoryModel>()
-    val historyDetailsHangboard : LiveData<SingleHangboardHistoryModel>
+    val historyDetailsHangboard: LiveData<SingleHangboardHistoryModel>
         get() = _historyDetailsHangboard
 
     private val _historyEditDetailsHangboard = MutableLiveData<SingleHangboardHistoryModel>()
-    val historyEditDetailsHangboard : LiveData<SingleHangboardHistoryModel>
+    val historyEditDetailsHangboard: LiveData<SingleHangboardHistoryModel>
         get() = _historyEditDetailsHangboard
 
     private val _historyEditFlag = MutableLiveData<Boolean>()
-    val historyEditFlag : LiveData<Boolean>
+    val historyEditFlag: LiveData<Boolean>
         get() = _historyEditFlag
 
     private val _secondsToFinish = MutableLiveData<Int>()
-    val secondsToFinish : LiveData<Int>
+    val secondsToFinish: LiveData<Int>
         get() = _secondsToFinish
 
 
-
-
     //Others
-    private lateinit var currentExercise : Exercise
-    private  var chosenHangboard: SingleHangboard = BasicHangboardTimes.getBasicTimes()
+    private lateinit var currentExercise: Exercise
+    private var chosenHangboard: SingleHangboard = BasicHangboardTimes.getBasicTimes()
 
 
-    fun updateData(timeToFinish: Long,
-                   currentState: ExerciseState,
-                   setsToFinish : Int,
-                   repeatsToFinish : Int){
+    fun updateData(
+        timeToFinish: Long,
+        currentState: ExerciseState,
+        setsToFinish: Int,
+        repeatsToFinish: Int
+    ) {
         _currentTimeToFinish.postValue(timeToFinish)
         _currentHangboardState.postValue(currentState)
         _setsToFinish.postValue(setsToFinish)
         _repeatsToFinish.postValue(repeatsToFinish)
-        _secondsToFinish.postValue((timeToFinish/1000).toInt())
+        _secondsToFinish.postValue((timeToFinish / 1000).toInt())
 
     }
 
-    private fun updateData(){
+    private fun updateData() {
         _currentTimeToFinish.postValue(currentExercise.getTimeToFinish())
         _currentHangboardState.postValue(currentExercise.getState())
         _setsToFinish.postValue(currentExercise.getHangboard().numberOfSets)
@@ -103,74 +106,78 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
 
-    private fun initHangboard(){
-        currentExercise = Exercise(this,getApplication())
+    private fun initHangboard() {
+        currentExercise = Exercise(this, getApplication())
         setLastHangboard()
         _runState.postValue(RunState.INITIALIZED)
         updateData()
     }
 
 
-    fun onViewReady(){
+    fun onViewReady() {
         if (this::currentExercise.isInitialized) return
         initHangboard()
     }
 
-    fun onSavedConfigsReady(){
-        if (_savedConfigs.value.isNullOrEmpty()){
+    fun onSavedConfigsReady() {
+        if (_savedConfigs.value.isNullOrEmpty()) {
             fetchSavedConfigs()
         }
     }
 
 
-    fun onFinish(){
+    fun onFinish() {
         chosenHangboard = currentExercise.getHangboard()
         _runState.postValue(RunState.FINISHED)
     }
 
-    fun reload(){
+    fun reload() {
         initHangboard()
         setHangboard()
     }
 
 
-    fun setHangboard(hangboard: SingleHangboard){
-        chosenHangboard =  hangboard
+    fun setHangboard(hangboard: SingleHangboard) {
+        chosenHangboard = hangboard
         setHangboard()
     }
-    private fun setHangboard(){
+
+    private fun setHangboard() {
         currentExercise.setHangboard(chosenHangboard)
         saveLastConfig(chosenHangboard)
         updateData()
     }
 
-    fun onStart(){
+    fun onStart() {
         if (currentExercise.getState() == ExerciseState.INACTIVE
-            && _runState.value == RunState.INITIALIZED) {
+            && _runState.value == RunState.INITIALIZED
+        ) {
             currentExercise.run()
-        } else if (_runState.value == RunState.STOPPED){
+        } else if (_runState.value == RunState.STOPPED) {
             currentExercise.resume()
         }
         _runState.postValue(RunState.ACTIVE)
     }
-    fun onStop(){
+
+    fun onStop() {
         if (currentExercise.getState() != ExerciseState.INACTIVE) {
             currentExercise.stop()
             _runState.postValue(RunState.STOPPED)
         }
     }
-    fun onReset(){
+
+    fun onReset() {
         currentExercise.reset()
         _runState.postValue(RunState.INITIALIZED)
     }
 
 
-    private fun addSavedConfig(savedConfigsDao: SavedConfigsDao, newConfig : SingleHangboard) {
+    private fun addSavedConfig(savedConfigsDao: SavedConfigsDao, newConfig: SingleHangboard) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 savedConfigsDao.insert(newConfig)
                 _dbResultStatus.postValue(DbResultState.CONFIG_SAVE_SUCCESS)
-            } catch (e:Exception){
+            } catch (e: Exception) {
                 //Log.i("dbAddHangboard", e.toString())
                 _dbResultStatus.postValue(DbResultState.CONFIG_SAVE_FAILED)
             }
@@ -178,52 +185,53 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         fetchSavedConfigs()
     }
 
-    private fun fetchSavedConfigs(){
-        viewModelScope.launch(Dispatchers.IO){
+    private fun fetchSavedConfigs() {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
-                hangboardDao.fetchAll().collect(){
+                hangboardDao.fetchAll().collect() {
                     val result = ArrayList(it)
                     _savedConfigs.postValue(result)
                 }
-            } catch(e : Exception) {
-               // Log.i("dbFetch", e.toString())
+            } catch (e: Exception) {
+                // Log.i("dbFetch", e.toString())
                 _dbResultStatus.postValue(DbResultState.CONFIG_FETCH_FAILED)
             }
         }
     }
 
     fun saveHangboard(config: SingleHangboard) {
-        addSavedConfig(hangboardDao,config)
+        addSavedConfig(hangboardDao, config)
     }
 
     private fun deleteHangboardFromDb(config: SingleHangboard) {
-        viewModelScope.launch(Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 hangboardDao.delete(config)
                 _dbResultStatus.postValue(DbResultState.CONFIG_DELETE_SUCCESS)
-            } catch (e:Exception){
-               // Log.i("dbDelete", e.toString())
+            } catch (e: Exception) {
+                // Log.i("dbDelete", e.toString())
                 _dbResultStatus.postValue(DbResultState.CONFIG_DELETE_FAILED)
             }
         }
-        fetchSavedConfigs()                           
+        fetchSavedConfigs()
 
     }
-    fun deleteHangboard(config: SingleHangboard){
+
+    fun deleteHangboard(config: SingleHangboard) {
         deleteHangboardFromDb(config)
     }
 
-    fun saveCurrentHangboard(){
+    fun saveCurrentHangboard() {
         saveToHistory(chosenHangboard)
         reload()
     }
 
-    fun saveHangboardToHistory(hangboard: SingleHangboardHistoryModel){
+    fun saveHangboardToHistory(hangboard: SingleHangboardHistoryModel) {
         addNewToHistory(hangboard)
         reload()
     }
 
-    private fun saveToHistory(hangboardType :SingleHangboard){
+    private fun saveToHistory(hangboardType: SingleHangboard) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 historyDao.insert(
@@ -233,7 +241,7 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
                     )
                 )
                 _dbResultStatus.postValue(DbResultState.HISTORY_SAVE_SUCCESS)
-            } catch (e:Exception){
+            } catch (e: Exception) {
                 //Log.i("dbSaveToHistory", e.toString())
                 _dbResultStatus.postValue(DbResultState.HISTORY_SAVE_FAILED)
             }
@@ -241,12 +249,12 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    private fun addNewToHistory(hangboard: SingleHangboardHistoryModel){
+    private fun addNewToHistory(hangboard: SingleHangboardHistoryModel) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 historyDao.insert(hangboard)
                 _dbResultStatus.postValue(DbResultState.HISTORY_SAVE_SUCCESS)
-            } catch (e:Exception){
+            } catch (e: Exception) {
                 //Log.i("dbSaveToHistory", e.toString())
                 _dbResultStatus.postValue(DbResultState.HISTORY_SAVE_FAILED)
             }
@@ -254,9 +262,9 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    private fun saveLastConfig(hangboard :SingleHangboard){
+    private fun saveLastConfig(hangboard: SingleHangboard) {
         viewModelScope.launch(Dispatchers.IO) {
-            try{
+            try {
                 lastHangboardDao.insert(
                     LastHangboard(
                         id = 1,
@@ -269,34 +277,35 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
                         name = hangboard.name,
                     )
                 )
-            } catch(e : Exception){
+            } catch (e: Exception) {
                 _dbResultStatus.postValue(DbResultState.CONFIG_SAVE_FAILED)
                 //Log.i("dbSaveLastConfig", e.toString())
             }
         }
     }
+
     fun onHistoryReady() {
-        if (_history.value.isNullOrEmpty()){
+        if (_history.value.isNullOrEmpty()) {
             fetchHistory()
         }
     }
 
-    private fun fetchHistory(){
-        viewModelScope.launch(Dispatchers.IO){
+    private fun fetchHistory() {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
-                historyDao.fetchAll().collect(){
+                historyDao.fetchAll().collect() {
                     val result = ArrayList(it)
                     _history.postValue(result)
                 }
-            } catch(e : Exception) {
+            } catch (e: Exception) {
                 _dbResultStatus.postValue(DbResultState.HISTORY_FETCH_FAILED)
                 //Log.i("dbHistoryFetch", e.toString())
             }
         }
     }
 
-    private fun setLastHangboard(){
-        viewModelScope.launch(Dispatchers.IO){
+    private fun setLastHangboard() {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = lastHangboardDao.fetchAll()
                 chosenHangboard = SingleHangboard(
@@ -310,7 +319,7 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
                     name = result.name,
                 )
                 setHangboard()
-            } catch(e : Exception) {
+            } catch (e: Exception) {
                 //Log.i("dbLastConfigFetch", e.toString())
             }
         }
@@ -320,17 +329,17 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         _editedHangboard.postValue(hangboard)
     }
 
-    fun editHangboard(hangboard: SingleHangboard){
+    fun editHangboard(hangboard: SingleHangboard) {
         updateSavedConfigInDb(hangboard)
         cancelEditing()
     }
 
-    private fun updateSavedConfigInDb(newConfig : SingleHangboard) {
+    private fun updateSavedConfigInDb(newConfig: SingleHangboard) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 hangboardDao.update(newConfig)
                 _dbResultStatus.postValue(DbResultState.CONFIG_EDIT_SUCCESS)
-            } catch(e : Exception) {
+            } catch (e: Exception) {
                 //Log.i("dbUpdate", e.toString())
                 _dbResultStatus.postValue(DbResultState.CONFIG_EDIT_FAILED)
             }
@@ -342,21 +351,21 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         _editedHangboard.postValue(SingleHangboard())
     }
 
-    fun zeroDbStatuses(){
+    fun zeroDbStatuses() {
         _dbResultStatus.postValue(DbResultState.NEUTRAL)
     }
 
 
-    fun deleteRecordHistory(record: SingleHangboardHistoryModel){
+    fun deleteRecordHistory(record: SingleHangboardHistoryModel) {
         deleteRecordHistoryFromDb(record)
     }
 
     private fun deleteRecordHistoryFromDb(record: SingleHangboardHistoryModel) {
-        viewModelScope.launch(Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 historyDao.delete(record)
                 _dbResultStatus.postValue(DbResultState.HISTORY_DELETE_SUCCESS)
-            } catch (e:Exception){
+            } catch (e: Exception) {
                 //Log.i("dbDelete", e.toString())
                 _dbResultStatus.postValue(DbResultState.HISTORY_DELETE_FAILED)
             }
@@ -378,13 +387,13 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         updateHistoryDetailsInDb(newHangboardHistoryModel)
     }
 
-    private fun updateHistoryDetailsInDb(newHangboardHistoryModel: SingleHangboardHistoryModel){
+    private fun updateHistoryDetailsInDb(newHangboardHistoryModel: SingleHangboardHistoryModel) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 historyDao.update(newHangboardHistoryModel)
                 _dbResultStatus.postValue(DbResultState.HISTORY_EDIT_SUCCESS)
                 _historyDetailsHangboard.postValue(newHangboardHistoryModel)
-            } catch(e : Exception) {
+            } catch (e: Exception) {
                 //Log.i("dbUpdate", e.toString())
                 _dbResultStatus.postValue(DbResultState.HISTORY_EDIT_FAILED)
             }
@@ -392,7 +401,7 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         fetchHistory()
     }
 
-    fun setHistoryEditFlag(flag : Boolean){
+    fun setHistoryEditFlag(flag: Boolean) {
         _historyEditFlag.postValue(flag)
     }
 

@@ -18,7 +18,7 @@ import com.example.climbingtraining.ui.activities.HangboardActivity
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 
 
-class AddNewHangboardFragment : Fragment(R.layout.fragment_add_new_hangboard){
+class AddNewHangboardFragment : Fragment(R.layout.fragment_add_new_hangboard) {
 
     private lateinit var binding: FragmentAddNewHangboardBinding
     lateinit var viewModel: HangboardViewModel
@@ -30,7 +30,7 @@ class AddNewHangboardFragment : Fragment(R.layout.fragment_add_new_hangboard){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val fragmentBinding = FragmentAddNewHangboardBinding.inflate(inflater,container,false)
+        val fragmentBinding = FragmentAddNewHangboardBinding.inflate(inflater, container, false)
         binding = fragmentBinding
         return fragmentBinding.root
     }
@@ -62,27 +62,27 @@ class AddNewHangboardFragment : Fragment(R.layout.fragment_add_new_hangboard){
             navController.navigateUp()
         }
         binding.btnEdit.setOnClickListener {
-            if (editHangboard()){
+            if (editHangboard()) {
                 navController.navigate(R.id.action_addNewHangboardFragment_to_savedConfigurationsFragment2)
             }
         }
         binding.btnEditAndSet.setOnClickListener {
-            if (editHangboard() && setHangboard()){
+            if (editHangboard() && setHangboard()) {
                 navController.navigate(R.id.action_addNewHangboardFragment_to_timerFragment2)
             }
         }
     }
 
     private fun initializeObservers() {
-        viewModel.editedHangboard.observe(viewLifecycleOwner){
+        viewModel.editedHangboard.observe(viewLifecycleOwner) {
             if (it.id > 0) {
                 showEditView()
                 binding.etHangboardName.setText(it.name)
                 binding.etSets.setText(it.numberOfSets.toString())
                 binding.etRounds.setText(it.numberOfRepeats.toString())
-                binding.etHangTime.setText((it.hangTime/1000).toString())
-                binding.etRestTime.setText((it.restTime/1000).toString())
-                binding.etPauseTime.setText((it.pauseTime/1000).toString())
+                binding.etHangTime.setText((it.hangTime / 1000).toString())
+                binding.etRestTime.setText((it.restTime / 1000).toString())
+                binding.etPauseTime.setText((it.pauseTime / 1000).toString())
             } else {
                 showAddView()
             }
@@ -109,9 +109,9 @@ class AddNewHangboardFragment : Fragment(R.layout.fragment_add_new_hangboard){
         binding.btnEditAndSet.visibility = View.VISIBLE
     }
 
-    private fun getHangboardFromEditTexts() : SingleHangboard{
+    private fun getHangboardFromEditTexts(): SingleHangboard {
         var name = binding.etHangboardName.text.toString()
-        if ( name.isEmpty()){
+        if (name.isEmpty()) {
             name = "Unnamed"
         }
         return SingleHangboard(
@@ -126,102 +126,114 @@ class AddNewHangboardFragment : Fragment(R.layout.fragment_add_new_hangboard){
         )
     }
 
-    private fun editHangboard() : Boolean{
+    private fun editHangboard(): Boolean {
         if (!validateData()) return false
         viewModel.editHangboard(getHangboardFromEditTexts())
         activity?.currentFocus?.let { view ->
-            val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            val imm =
+                activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             imm?.hideSoftInputFromWindow(view.windowToken, 0)
         }
         return true
     }
 
-    private fun setHangboard() : Boolean{
+    private fun setHangboard(): Boolean {
         if (!validateData(true)) return false
         viewModel.setHangboard(getHangboardFromEditTexts())
         activity?.currentFocus?.let { view ->
-            val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            val imm =
+                activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             imm?.hideSoftInputFromWindow(view.windowToken, 0)
         }
         return true
     }
-    private fun saveHangboard() : Boolean{
+
+    private fun saveHangboard(): Boolean {
         if (!validateData()) return false
         viewModel.saveHangboard(getHangboardFromEditTexts())
         setHangboard()
         return true
     }
 
-    private fun validateData(setFlag:Boolean=false) : Boolean{
-        if(!setFlag){
-            if(binding.etHangboardName.text.isNullOrEmpty()) {
-                Toast.makeText(context,"Please enter name.",Toast.LENGTH_SHORT).show()
+    private fun validateData(setFlag: Boolean = false): Boolean {
+        if (!setFlag) {
+            if (binding.etHangboardName.text.isNullOrEmpty()) {
+                Toast.makeText(context, "Please enter name.", Toast.LENGTH_SHORT).show()
                 return false
             }
-            if(binding.etHangboardName.text.length > 30) {
-                Toast.makeText(context,"The name can contain up to 30 characters.",Toast.LENGTH_SHORT).show()
+            if (binding.etHangboardName.text.length > 30) {
+                Toast.makeText(
+                    context,
+                    "The name can contain up to 30 characters.",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return false
             }
-            if(binding.etHangboardName.text.toString().contains("\n")) {
-                Toast.makeText(context,"The name cannot contain new line character.",Toast.LENGTH_SHORT).show()
+            if (binding.etHangboardName.text.toString().contains("\n")) {
+                Toast.makeText(
+                    context,
+                    "The name cannot contain new line character.",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return false
             }
         }
-        if(binding.etHangTime.text.isNullOrEmpty()) {
-            Toast.makeText(context,"Please enter hang time.",Toast.LENGTH_SHORT).show()
+        if (binding.etHangTime.text.isNullOrEmpty()) {
+            Toast.makeText(context, "Please enter hang time.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.etRestTime.text.isNullOrEmpty()) {
-            Toast.makeText(context,"Please enter rest time.",Toast.LENGTH_SHORT).show()
+        if (binding.etRestTime.text.isNullOrEmpty()) {
+            Toast.makeText(context, "Please enter rest time.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.etRounds.text.isNullOrEmpty()) {
-            Toast.makeText(context,"Please enter number of repeats.",Toast.LENGTH_SHORT).show()
+        if (binding.etRounds.text.isNullOrEmpty()) {
+            Toast.makeText(context, "Please enter number of repeats.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.etPauseTime.text.isNullOrEmpty()) {
-            Toast.makeText(context,"Please enter pause time.",Toast.LENGTH_SHORT).show()
+        if (binding.etPauseTime.text.isNullOrEmpty()) {
+            Toast.makeText(context, "Please enter pause time.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.etSets.text.isNullOrEmpty()) {
-            Toast.makeText(context,"Please enter number of sets.",Toast.LENGTH_SHORT).show()
+        if (binding.etSets.text.isNullOrEmpty()) {
+            Toast.makeText(context, "Please enter number of sets.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(!binding.etHangTime.text.isDigitsOnly()) {
-            Toast.makeText(context,"Please enter valid hang time.",Toast.LENGTH_SHORT).show()
+        if (!binding.etHangTime.text.isDigitsOnly()) {
+            Toast.makeText(context, "Please enter valid hang time.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(!binding.etRestTime.text.isDigitsOnly()) {
-            Toast.makeText(context,"Please enter valid rest time.",Toast.LENGTH_SHORT).show()
+        if (!binding.etRestTime.text.isDigitsOnly()) {
+            Toast.makeText(context, "Please enter valid rest time.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(!binding.etRounds.text.isDigitsOnly()) {
-            Toast.makeText(context,"Please enter valid number of repeats.",Toast.LENGTH_SHORT).show()
+        if (!binding.etRounds.text.isDigitsOnly()) {
+            Toast.makeText(context, "Please enter valid number of repeats.", Toast.LENGTH_SHORT)
+                .show()
             return false
         }
-        if(!binding.etPauseTime.text.isDigitsOnly()) {
-            Toast.makeText(context,"Please enter valid pause time.",Toast.LENGTH_SHORT).show()
+        if (!binding.etPauseTime.text.isDigitsOnly()) {
+            Toast.makeText(context, "Please enter valid pause time.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(!binding.etSets.text.isDigitsOnly()) {
-            Toast.makeText(context,"Please enter valid number of sets.",Toast.LENGTH_SHORT).show()
+        if (!binding.etSets.text.isDigitsOnly()) {
+            Toast.makeText(context, "Please enter valid number of sets.", Toast.LENGTH_SHORT).show()
             return false
         }
 
-        if(binding.etHangTime.text.toString().toInt() <= 0) {
-            Toast.makeText(context,"Please enter hang time.",Toast.LENGTH_SHORT).show()
+        if (binding.etHangTime.text.toString().toInt() <= 0) {
+            Toast.makeText(context, "Please enter hang time.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.etRestTime.text.toString().toInt() <= 0) {
-            Toast.makeText(context,"Please enter rest time.",Toast.LENGTH_SHORT).show()
+        if (binding.etRestTime.text.toString().toInt() <= 0) {
+            Toast.makeText(context, "Please enter rest time.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.etRounds.text.toString().toInt() <= 0) {
-            Toast.makeText(context,"Please enter number of repeats.",Toast.LENGTH_SHORT).show()
+        if (binding.etRounds.text.toString().toInt() <= 0) {
+            Toast.makeText(context, "Please enter number of repeats.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.etSets.text.toString().toInt() <= 0) {
-            Toast.makeText(context,"Please enter number of sets.",Toast.LENGTH_SHORT).show()
+        if (binding.etSets.text.toString().toInt() <= 0) {
+            Toast.makeText(context, "Please enter number of sets.", Toast.LENGTH_SHORT).show()
             return false
         }
         return true

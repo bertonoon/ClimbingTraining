@@ -8,15 +8,15 @@ import com.example.climbingtraining.models.SingleHangboardHistoryModel
 interface HistoryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert (singleHistoryEntity: SingleHangboardHistoryModel)
+    suspend fun insert(singleHistoryEntity: SingleHangboardHistoryModel)
 
     @Update
-    suspend fun update (singleHistoryEntity: SingleHangboardHistoryModel)
+    suspend fun update(singleHistoryEntity: SingleHangboardHistoryModel)
 
     @Delete
     suspend fun delete(singleHistoryEntity: SingleHangboardHistoryModel)
 
     @Query("SELECT * FROM `singleTrainingHistory` ORDER BY id DESC")
-    fun fetchAll():kotlinx.coroutines.flow.Flow<List<SingleHangboardHistoryModel>>
+    fun fetchAll(): kotlinx.coroutines.flow.Flow<List<SingleHangboardHistoryModel>>
 
 }

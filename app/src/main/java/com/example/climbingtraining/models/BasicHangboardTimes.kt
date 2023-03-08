@@ -10,5 +10,6 @@ object BasicHangboardTimes {
         numberOfSets = 2,
         name = "Default"
     )
+
     fun getBasicTimes() = basicHangboardTimes
 }

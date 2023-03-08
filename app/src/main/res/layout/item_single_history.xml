@@ -13,16 +13,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="start"
-        android:padding="10dp"
-        >
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/tvDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            tools:text = "2023-05-03 17:52"
-            />
+            tools:text="2023-05-03 17:52" />
 
         <TextView
             android:id="@+id/tvName"
@@ -35,8 +33,6 @@
 
 
     </LinearLayout>
-
-
 
 
 </androidx.cardview.widget.CardView>

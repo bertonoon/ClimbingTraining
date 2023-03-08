@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/tvDialog"
-        tools:text = "Question"
+        tools:text="Question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
@@ -20,8 +20,7 @@
         android:layout_marginTop="5dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,57 +29,55 @@
         android:layout_marginHorizontal="10dp"
         app:layout_constraintTop_toBottomOf="@id/tvDialog"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        >
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginVertical="10dp">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnExtras"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/palette3"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="10dp"
-            tools:text="extras"
-            tools:visibility="visible"
-            android:visibility="gone"
-            />
+            android:orientation="horizontal"
+            android:layout_marginVertical="10dp">
 
-    </LinearLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnExtras"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/palette3"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="10dp"
+                tools:text="extras"
+                tools:visibility="visible"
+                android:visibility="gone" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnYes"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/dialogCustomQuestionButtonYes"
-            android:background="@color/palette3"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="10dp"
-            />
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnNo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/dialogCustomQuestionButtonNo"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            android:layout_weight="1"
-            android:background="@color/palette5"
-            android:layout_marginHorizontal="10dp"
-            />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnYes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/dialogCustomQuestionButtonYes"
+                android:background="@color/palette3"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="10dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnNo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/dialogCustomQuestionButtonNo"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:layout_weight="1"
+                android:background="@color/palette5"
+                android:layout_marginHorizontal="10dp" />
         </LinearLayout>
     </LinearLayout>
 

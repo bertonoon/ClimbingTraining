@@ -7,15 +7,15 @@ import com.example.climbingtraining.models.SingleHangboard
 interface SavedConfigsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert (singleHangboardEntity: SingleHangboard)
+    suspend fun insert(singleHangboardEntity: SingleHangboard)
 
     @Update
-    suspend fun update (singleHangboardEntity: SingleHangboard)
+    suspend fun update(singleHangboardEntity: SingleHangboard)
 
     @Delete
     suspend fun delete(singleHangboardEntity: SingleHangboard)
 
     @Query("SELECT * FROM `savedSingleConfigs` ORDER BY name")
-    fun fetchAll():kotlinx.coroutines.flow.Flow<List<SingleHangboard>>
+    fun fetchAll(): kotlinx.coroutines.flow.Flow<List<SingleHangboard>>
 
 }

@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activities.HangboardActivity"
-    android:background="@color/white"
-    >
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/tvAddSeries"
@@ -19,8 +18,8 @@
         android:text="ADD YOUR TRAINING"
         android:gravity="center"
         android:textSize="20sp"
-        android:visibility="visible"
-        />
+        android:visibility="visible" />
+
     <TextView
         android:id="@+id/tvEditSeries"
         android:layout_width="match_parent"
@@ -32,8 +31,8 @@
         android:text="EDIT YOUR TRAINING"
         android:gravity="center"
         android:textSize="20sp"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
+
     <EditText
         android:id="@+id/etHangboardName"
         android:layout_width="match_parent"
@@ -44,8 +43,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:hint="Name"
-        android:imeOptions="actionNext"
-        />
+        android:imeOptions="actionNext" />
 
     <LinearLayout
         android:id="@+id/llSeries"
@@ -54,8 +52,7 @@
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/etHangboardName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        >
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:id="@+id/llHeaders"
@@ -65,54 +62,52 @@
             android:gravity="center"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/ll_row_border"
-            android:layout_marginVertical="10dp"
-            >
+            android:layout_marginVertical="10dp">
 
             <TextView
                 android:id="@+id/tvHeaderHang"
                 android:layout_width="65dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="5dp"
-                android:text = "Hang"
+                android:text="Hang"
                 android:gravity="center"
-                android:textSize="@dimen/time"
-                />
+                android:textSize="@dimen/time" />
+
             <TextView
                 android:id="@+id/tvHeaderRest"
                 android:layout_width="65dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="7dp"
-                android:text = "Rest"
+                android:text="Rest"
                 android:gravity="center"
-                android:textSize="@dimen/time"
-                />
+                android:textSize="@dimen/time" />
+
             <TextView
                 android:id="@+id/tvHeaderRepeats"
                 android:layout_width="65dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="5dp"
-                android:text = "Repeats"
+                android:text="Repeats"
                 android:gravity="center"
-                android:textSize="@dimen/time"
-                />
+                android:textSize="@dimen/time" />
+
             <TextView
                 android:id="@+id/tvHeaderPause"
                 android:layout_width="65dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="7dp"
-                android:text = "Pause"
+                android:text="Pause"
                 android:gravity="center"
-                android:textSize="@dimen/time"
-                />
+                android:textSize="@dimen/time" />
+
             <TextView
                 android:id="@+id/tvHeaderSets"
                 android:layout_width="65dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="5dp"
-                android:text = "Sets"
+                android:text="Sets"
                 android:gravity="center"
-                android:textSize="@dimen/time"
-                />
+                android:textSize="@dimen/time" />
         </LinearLayout>
 
         <LinearLayout
@@ -125,9 +120,7 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_marginHorizontal="10dp"
-            android:background="@drawable/ll_row_border"
-            >
-
+            android:background="@drawable/ll_row_border">
 
 
             <LinearLayout
@@ -135,8 +128,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="5dp"
-                >
+                android:layout_margin="5dp">
+
                 <EditText
                     android:id="@+id/etHangTime"
                     android:layout_width="50dp"
@@ -144,141 +137,141 @@
                     android:inputType="numberDecimal"
                     android:digits="0123456789"
                     android:gravity="center"
-                    tools:text = "15"
+                    tools:text="15"
                     android:textSize="@dimen/time"
                     android:autofillHints="7"
-                    android:imeOptions="actionNext"
-                    />
+                    android:imeOptions="actionNext" />
+
                 <TextView
                     android:id="@+id/tvUnitHangTime"
                     android:layout_width="15dp"
                     android:layout_height="wrap_content"
-                    android:text = "s"
+                    android:text="s"
                     android:gravity="center"
-                    android:textSize="@dimen/time"
-                    />
+                    android:textSize="@dimen/time" />
             </LinearLayout>
+
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/palette3"
-                />
+                android:background="@color/palette3" />
+
             <LinearLayout
                 android:id="@+id/llRestTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="5dp"
-                >
+                android:layout_margin="5dp">
+
                 <EditText
                     android:id="@+id/etRestTime"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    tools:text = "15"
+                    tools:text="15"
                     android:gravity="center"
                     android:inputType="numberDecimal"
                     android:digits="0123456789"
 
                     android:textSize="@dimen/time"
                     android:autofillHints="3"
-                    android:imeOptions="actionNext"
-                    />
+                    android:imeOptions="actionNext" />
+
                 <TextView
                     android:id="@+id/tvUnitRestTime"
                     android:layout_width="15dp"
                     android:layout_height="wrap_content"
-                    android:text = "s"
+                    android:text="s"
                     android:gravity="center"
-                    android:textSize="@dimen/time"
-                    />
+                    android:textSize="@dimen/time" />
             </LinearLayout>
+
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/palette3"
-                />
+                android:background="@color/palette3" />
+
             <LinearLayout
                 android:id="@+id/llRounds"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="5dp"
-                >
+                android:layout_margin="5dp">
+
                 <EditText
                     android:id="@+id/etRounds"
                     android:layout_width="65dp"
                     android:layout_height="wrap_content"
-                    tools:text = "15"
+                    tools:text="15"
                     android:inputType="numberDecimal"
                     android:digits="0123456789"
                     android:gravity="center"
                     android:textSize="@dimen/time"
                     android:autofillHints="6"
-                    android:imeOptions="actionNext"
-                    />
+                    android:imeOptions="actionNext" />
             </LinearLayout>
+
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/palette3"
-                />
+                android:background="@color/palette3" />
+
             <LinearLayout
                 android:id="@+id/llPauseTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="5dp"
-                >
+                android:layout_margin="5dp">
+
                 <EditText
                     android:id="@+id/etPauseTime"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    tools:text = "15"
+                    tools:text="15"
                     android:inputType="numberDecimal"
                     android:digits="0123456789"
                     android:gravity="center"
                     android:textSize="@dimen/time"
                     android:autofillHints="90"
-                    android:imeOptions="actionNext"
-                    />
+                    android:imeOptions="actionNext" />
+
                 <TextView
                     android:id="@+id/tvUnitPauseTime"
                     android:layout_width="15dp"
                     android:layout_height="wrap_content"
-                    android:text = "s"
+                    android:text="s"
                     android:gravity="center"
-                    android:textSize="@dimen/time"
-                    />
+                    android:textSize="@dimen/time" />
             </LinearLayout>
+
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/palette3"
-                />
+                android:background="@color/palette3" />
+
             <LinearLayout
                 android:id="@+id/llSets"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="6dp"
-                >
+                android:layout_margin="6dp">
+
                 <EditText
                     android:id="@+id/etSets"
                     android:layout_width="65dp"
                     android:layout_height="wrap_content"
-                    tools:text = "15"
+                    tools:text="15"
                     android:inputType="numberDecimal"
                     android:digits="0123456789"
                     android:gravity="center"
                     android:textSize="@dimen/time"
-                    android:autofillHints="3"
-                    />
+                    android:autofillHints="3" />
             </LinearLayout>
 
 
         </LinearLayout>
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/llButtonsFirstRow"
         android:layout_width="match_parent"
@@ -287,8 +280,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:orientation="horizontal"
-        android:layout_margin="10dp"
-        >
+        android:layout_margin="10dp">
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSave"
             android:layout_width="0dp"
@@ -301,6 +294,7 @@
             android:textColor="@color/white"
 
             />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnEdit"
             android:layout_width="0dp"
@@ -313,6 +307,7 @@
             android:textColor="@color/white"
 
             />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSet"
             android:layout_width="0dp"
@@ -325,6 +320,7 @@
 
             />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/llButtonsSecondRow"
         android:layout_width="match_parent"
@@ -335,8 +331,8 @@
         android:orientation="horizontal"
         android:layout_marginBottom="10dp"
         android:layout_marginHorizontal="10dp"
-        android:gravity="center"
-        >
+        android:gravity="center">
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSaveAndSet"
             android:layout_width="175dp"
@@ -348,6 +344,7 @@
             android:textColor="@color/white"
 
             />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnEditAndSet"
             android:layout_width="175dp"
@@ -360,6 +357,7 @@
 
             />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/llButtonsThirdRow"
         android:layout_width="match_parent"
@@ -370,8 +368,8 @@
         android:orientation="horizontal"
         android:layout_marginBottom="10dp"
         android:layout_marginHorizontal="10dp"
-        android:gravity="center"
-        >
+        android:gravity="center">
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnCancel"
             android:layout_width="175dp"

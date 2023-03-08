@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/openHandOption"
+    <item
+        android:id="@+id/openHandOption"
         android:title="@string/crimp_menu_option_open_hand" />
-    <item android:id="@+id/openCrimpOption"
+    <item
+        android:id="@+id/openCrimpOption"
         android:title="@string/crimp_menu_option_open_crimp" />
-    <item android:id="@+id/closedCrimpOption"
-        android:title="@string/crimp_menu_option_closed_crimp"
-        />
+    <item
+        android:id="@+id/closedCrimpOption"
+        android:title="@string/crimp_menu_option_closed_crimp" />
 </menu>

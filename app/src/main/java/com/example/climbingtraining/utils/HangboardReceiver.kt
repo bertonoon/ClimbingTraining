@@ -10,7 +10,7 @@ import androidx.lifecycle.MutableLiveData
 class HangboardReceiver : BroadcastReceiver() {
 
     private val _mData = MutableLiveData<Boolean>(false)
-    val mData : LiveData<Boolean>
+    val mData: LiveData<Boolean>
         get() = _mData
 
 

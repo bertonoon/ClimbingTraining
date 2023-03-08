@@ -3,7 +3,9 @@ package com.example.climbingtraining.ui.activities
 import android.Manifest
 import android.app.AlertDialog.*
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -34,7 +36,7 @@ class HangboardActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHangboardBinding
     lateinit var viewModel: HangboardViewModel
-    private var notificationBuilder : NotificationCompat.Builder? = null
+    private var notificationBuilder: NotificationCompat.Builder? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +61,7 @@ class HangboardActivity : AppCompatActivity() {
         viewModel.onViewReady()
         requestPermissions()
 
-        if (notificationBuilder == null){
+        if (notificationBuilder == null) {
             initNotification()
         }
 
@@ -69,7 +71,8 @@ class HangboardActivity : AppCompatActivity() {
                 lifecycleScope.launch(Dispatchers.Main) {
                     with(NotificationManagerCompat.from(this@HangboardActivity)) {
                         notificationBuilder!!.setContentText(
-                            "Time to finish: $it s")
+                            "Time to finish: $it s"
+                        )
                         notificationBuilder!!.setContentTitle(viewModel.currentHangboardState.value.toString())
                         notify(1, notificationBuilder!!.build())
                         oldSecondsValue = it
@@ -77,8 +80,8 @@ class HangboardActivity : AppCompatActivity() {
                 }
             }
         }
-        viewModel.runState.observe(this@HangboardActivity){
-            if ( it == RunState.INITIALIZED) {
+        viewModel.runState.observe(this@HangboardActivity) {
+            if (it == RunState.INITIALIZED) {
                 val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 manager.cancel(1)
             }
@@ -88,7 +91,7 @@ class HangboardActivity : AppCompatActivity() {
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val count = supportFragmentManager.backStackEntryCount
-        if (count == 0){
+        if (count == 0) {
             onBackPressedDispatcher.onBackPressed()
         } else {
             supportFragmentManager.popBackStack()
@@ -107,35 +110,40 @@ class HangboardActivity : AppCompatActivity() {
 //
 //        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, flag)
 
-        notificationBuilder = NotificationCompat.Builder(this@HangboardActivity, Constants.NOTIFICATION_CHANNEL_ID).apply {
-            setSmallIcon(R.drawable.ic_baseline_watch_later_24)
-            setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-          //setContentIntent(pendingIntent)
-            setAutoCancel(false)
-            setOngoing(true)
-            setDefaults(0)
-            setVibrate(null)
-            setSound(null)
-            priority = NotificationCompat.PRIORITY_DEFAULT
-        }
+        notificationBuilder =
+            NotificationCompat.Builder(this@HangboardActivity, Constants.NOTIFICATION_CHANNEL_ID)
+                .apply {
+                    setSmallIcon(R.drawable.ic_baseline_watch_later_24)
+                    setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                    //setContentIntent(pendingIntent)
+                    setAutoCancel(false)
+                    setOngoing(true)
+                    setDefaults(0)
+                    setVibrate(null)
+                    setSound(null)
+                    priority = NotificationCompat.PRIORITY_DEFAULT
+                }
 
     }
 
     private fun hasNotificationPermission() =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            ActivityCompat.checkSelfPermission(this,Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+            ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
         } else {
             true
         }
 
-    private fun requestPermissions(){
+    private fun requestPermissions() {
         val permissionsToRequest = mutableListOf<String>()
-        if(!hasNotificationPermission()){
+        if (!hasNotificationPermission()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 permissionsToRequest.add(Manifest.permission.POST_NOTIFICATIONS)
             }
         }
-        if (permissionsToRequest.isNotEmpty()){
+        if (permissionsToRequest.isNotEmpty()) {
             if (permissionsToRequest.contains(Manifest.permission.POST_NOTIFICATIONS)) {
                 val showDialog = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     ActivityCompat.shouldShowRequestPermissionRationale(
@@ -166,7 +174,7 @@ class HangboardActivity : AppCompatActivity() {
         }
     }
 
-//    override fun onRequestPermissionsResult(
+    //    override fun onRequestPermissionsResult(
 //        requestCode: Int,
 //        permissions: Array<out String>,
 //        grantResults: IntArray
@@ -180,7 +188,7 @@ class HangboardActivity : AppCompatActivity() {
 ////            }
 ////        }
 //    }
-    private fun showResultDbToast(status: DbResultState){
+    private fun showResultDbToast(status: DbResultState) {
         when (status) {
             DbResultState.CONFIG_SAVE_SUCCESS -> Toast.makeText(
                 this,

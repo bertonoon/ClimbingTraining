@@ -19,11 +19,11 @@ import com.example.climbingtraining.ui.activities.HangboardActivity
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 import java.util.*
 
-class TimerFragment : Fragment(){
+class TimerFragment : Fragment() {
 
     private lateinit var binding: FragmentTimerBinding
     lateinit var viewModel: HangboardViewModel
-    private lateinit var navController : NavController
+    private lateinit var navController: NavController
 
 
     override fun onCreateView(
@@ -31,7 +31,7 @@ class TimerFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val fragmentBinding = FragmentTimerBinding.inflate(inflater,container,false)
+        val fragmentBinding = FragmentTimerBinding.inflate(inflater, container, false)
         binding = fragmentBinding
 
         return fragmentBinding.root
@@ -45,82 +45,109 @@ class TimerFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun bindHangColors(){
-        binding.tvCurrentState.setTextColor(ContextCompat.getColor(requireContext(),R.color.hang_color))
-        binding.llTimer.background = ContextCompat.getDrawable(requireContext(),R.drawable.item_circular_hang_background)
-        binding.flTimer.background = ContextCompat.getDrawable(requireContext(),R.drawable.item_circular_color_accent_hang_border)
+    private fun bindHangColors() {
+        binding.tvCurrentState.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.hang_color
+            )
+        )
+        binding.llTimer.background =
+            ContextCompat.getDrawable(requireContext(), R.drawable.item_circular_hang_background)
+        binding.flTimer.background = ContextCompat.getDrawable(
+            requireContext(),
+            R.drawable.item_circular_color_accent_hang_border
+        )
 
 
     }
-    private fun bindBasicColors(){
-        binding.tvCurrentState.setTextColor(ContextCompat.getColor(requireContext(),R.color.basic_text_color))
-        binding.llTimer.background = ContextCompat.getDrawable(requireContext(),R.drawable.item_circular_accent_background)
-        binding.flTimer.background = ContextCompat.getDrawable(requireContext(),R.drawable.item_circular_color_accent_border)
+
+    private fun bindBasicColors() {
+        binding.tvCurrentState.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.basic_text_color
+            )
+        )
+        binding.llTimer.background =
+            ContextCompat.getDrawable(requireContext(), R.drawable.item_circular_accent_background)
+        binding.flTimer.background = ContextCompat.getDrawable(
+            requireContext(),
+            R.drawable.item_circular_color_accent_border
+        )
 
     }
 
 
     private fun initializeObservers() {
-        viewModel.currentHangboard.observe(viewLifecycleOwner){onCurrentHangboardChange(it)}
-        viewModel.currentTimeToFinish.observe(viewLifecycleOwner){onCurrentTimeToFinish(it)}
-        viewModel.currentHangboardState.observe(viewLifecycleOwner){
-            if (viewModel.runState.value != RunState.UNINITIALIZED ) {
+        viewModel.currentHangboard.observe(viewLifecycleOwner) { onCurrentHangboardChange(it) }
+        viewModel.currentTimeToFinish.observe(viewLifecycleOwner) { onCurrentTimeToFinish(it) }
+        viewModel.currentHangboardState.observe(viewLifecycleOwner) {
+            if (viewModel.runState.value != RunState.UNINITIALIZED) {
                 binding.tvCurrentState.visibility = View.VISIBLE
-                if ( it == ExerciseState.INACTIVE ) {
+                if (it == ExerciseState.INACTIVE) {
                     binding.tvCurrentState.text = getString(R.string.hangboardStateWaiting)
-                  bindBasicColors()
+                    bindBasicColors()
                 } else {
                     binding.tvCurrentState.text = it.toString().uppercase()
-                    when(it){
+                    when (it) {
                         ExerciseState.HANG -> bindHangColors()
-                        else-> bindBasicColors()
+                        else -> bindBasicColors()
                     }
                 }
             } else
                 binding.tvCurrentState.visibility = View.INVISIBLE
 
         }
-        viewModel.runState.observe(viewLifecycleOwner){
+        viewModel.runState.observe(viewLifecycleOwner) {
             onRunStateChange()
         }
-        viewModel.repeatsToFinish.observe(viewLifecycleOwner){
+        viewModel.repeatsToFinish.observe(viewLifecycleOwner) {
             binding.tvLeftRepeats.text = it.toString()
             viewModel.currentHangboard.value?.let { it1 ->
-                setupRepeatsProgressBar(it,
-                    it1.numberOfRepeats)
+                setupRepeatsProgressBar(
+                    it,
+                    it1.numberOfRepeats
+                )
             }
         }
-        viewModel.setsToFinish.observe(viewLifecycleOwner){
+        viewModel.setsToFinish.observe(viewLifecycleOwner) {
             binding.tvLeftSets.text = it.toString()
             viewModel.currentHangboard.value?.let { it1 ->
-                setupSetsProgressBar(it,
-                    it1.numberOfSets)
+                setupSetsProgressBar(
+                    it,
+                    it1.numberOfSets
+                )
             }
         }
     }
+
     private fun initializeUI() {
         binding.btnStart.setOnClickListener { viewModel.onStart() }
         binding.btnStopReset.setOnClickListener { onStopResetButton() }
-        binding.llHeaders.setOnClickListener{
+        binding.llHeaders.setOnClickListener {
             navController.navigate(R.id.action_timerFragment_to_addNewHangboardFragment)
         }
-        binding.llTimes.setOnClickListener{
+        binding.llTimes.setOnClickListener {
             navController.navigate(R.id.action_timerFragment_to_addNewHangboardFragment)
         }
     }
 
-    private fun setupTimeProgressBar(timeToFinish: Long, maxTime: Long){
+    private fun setupTimeProgressBar(timeToFinish: Long, maxTime: Long) {
         binding.pbProgressBar.max = maxTime.toInt()
         binding.pbProgressBar.progress = timeToFinish.toInt()
     }
-    private fun setupSetsProgressBar(setsToFinish: Int,maxSets :Int){
+
+    private fun setupSetsProgressBar(setsToFinish: Int, maxSets: Int) {
         binding.pbSets.max = maxSets
         binding.pbSets.progress = setsToFinish
     }
-    private fun setupRepeatsProgressBar(repeatsToFinish: Int,maxRepeats :Int){
+
+    private fun setupRepeatsProgressBar(repeatsToFinish: Int, maxRepeats: Int) {
         binding.pbRepeats.max = maxRepeats
         binding.pbRepeats.progress = repeatsToFinish
     }
+
     private fun onRunStateChange() {
         when (viewModel.runState.value) {
             RunState.ACTIVE -> {
@@ -131,9 +158,9 @@ class TimerFragment : Fragment(){
             }
             RunState.INITIALIZED -> {
                 binding.btnStopReset.text = getString(R.string.ButtonStop)
-                setupTimeProgressBar(1,1)
-                setupRepeatsProgressBar(1,1)
-                setupSetsProgressBar(1,1)
+                setupTimeProgressBar(1, 1)
+                setupRepeatsProgressBar(1, 1)
+                setupSetsProgressBar(1, 1)
             }
             RunState.FINISHED -> {
                 showDialogForSave()
@@ -143,10 +170,13 @@ class TimerFragment : Fragment(){
             }
         }
     }
+
     private fun onCurrentTimeToFinish(timeToFinish: Long) {
-        binding.tvMainTimer.text = String.format("%.1f",timeToFinish.toFloat()/1000).replace(',','.')
-        setupTimeProgressBar(timeToFinish,
-            when(viewModel.currentHangboardState.value){
+        binding.tvMainTimer.text =
+            String.format("%.1f", timeToFinish.toFloat() / 1000).replace(',', '.')
+        setupTimeProgressBar(
+            timeToFinish,
+            when (viewModel.currentHangboardState.value) {
                 ExerciseState.INACTIVE -> 0
                 ExerciseState.PREPARE -> viewModel.currentHangboard.value!!.prepareTime
                 ExerciseState.HANG -> viewModel.currentHangboard.value!!.hangTime
@@ -156,14 +186,16 @@ class TimerFragment : Fragment(){
             }
         )
     }
+
     private fun onCurrentHangboardChange(hangboardTimes: SingleHangboard) {
-        binding.tvHangTime.text = String.format("%.0f",hangboardTimes.hangTime.toFloat()/1000)
-        binding.tvPauseTime.text = String.format("%.0f",hangboardTimes.pauseTime.toFloat()/1000)
+        binding.tvHangTime.text = String.format("%.0f", hangboardTimes.hangTime.toFloat() / 1000)
+        binding.tvPauseTime.text = String.format("%.0f", hangboardTimes.pauseTime.toFloat() / 1000)
         binding.tvRoundsToEnd.text = hangboardTimes.numberOfRepeats.toString()
-        binding.tvRestTime.text = String.format("%.0f",hangboardTimes.restTime.toFloat()/1000)
+        binding.tvRestTime.text = String.format("%.0f", hangboardTimes.restTime.toFloat() / 1000)
         binding.tvSetsToEnd.text = hangboardTimes.numberOfSets.toString()
     }
-    private fun onStopResetButton(){
+
+    private fun onStopResetButton() {
         when (viewModel.runState.value) {
             RunState.ACTIVE -> {
                 viewModel.onStop()
@@ -174,7 +206,7 @@ class TimerFragment : Fragment(){
             }
             else -> {
                 viewModel.onStop()
-               // Log.e("UnknownState","Unknown state of viewModel.runState")
+                // Log.e("UnknownState","Unknown state of viewModel.runState")
             }
         }
     }
@@ -182,11 +214,11 @@ class TimerFragment : Fragment(){
 
     private fun showDialogForSave() {
         val customDialog = Dialog(requireContext())
-        val dialogBinding  = DialogCustomQuestionBinding.inflate(layoutInflater)
+        val dialogBinding = DialogCustomQuestionBinding.inflate(layoutInflater)
         dialogBinding.tvDialog.text = "Save training?"
         customDialog.setContentView(dialogBinding.root)
         customDialog.setCanceledOnTouchOutside(false)
-        dialogBinding.btnYes.setOnClickListener{
+        dialogBinding.btnYes.setOnClickListener {
             viewModel.saveCurrentHangboard()
             customDialog.dismiss()
         }

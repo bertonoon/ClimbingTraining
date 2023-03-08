@@ -18,19 +18,19 @@ import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 import com.example.climbingtraining.utils.SwipeToDeleteCallback
 import com.example.climbingtraining.utils.SwipeToEditCallback
 
-class HistoryFragment : Fragment(R.layout.fragment_history){
+class HistoryFragment : Fragment(R.layout.fragment_history) {
 
     private lateinit var binding: FragmentHistoryBinding
     private lateinit var viewModel: HangboardViewModel
-    private lateinit var adapter : HistoryAdapter
-    private lateinit var navController : NavController
+    private lateinit var adapter: HistoryAdapter
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val fragmentBinding = FragmentHistoryBinding.inflate(inflater,container,false)
+        val fragmentBinding = FragmentHistoryBinding.inflate(inflater, container, false)
         binding = fragmentBinding
         return fragmentBinding.root
     }
@@ -38,7 +38,7 @@ class HistoryFragment : Fragment(R.layout.fragment_history){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = (activity as HangboardActivity).viewModel
         navController = findNavController()
-        adapter = HistoryAdapter(arrayListOf(),viewModel, navController)
+        adapter = HistoryAdapter(arrayListOf(), viewModel, navController)
         initializeUI()
         initializeObservers()
         viewModel.onHistoryReady()
@@ -47,14 +47,14 @@ class HistoryFragment : Fragment(R.layout.fragment_history){
     }
 
     private fun initializeObservers() {
-        viewModel.history.observe(viewLifecycleOwner){adapter.updateList(it)}
+        viewModel.history.observe(viewLifecycleOwner) { adapter.updateList(it) }
     }
 
     private fun initializeUI() {
         binding.rvHistory.adapter = adapter
         binding.rvHistory.layoutManager = LinearLayoutManager(activity)
 
-        val deleteSwipeHandler = object : SwipeToDeleteCallback(requireContext()){
+        val deleteSwipeHandler = object : SwipeToDeleteCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val adapter = binding.rvHistory.adapter as HistoryAdapter
                 adapter.deleteRecord(viewHolder.adapterPosition)
@@ -64,7 +64,7 @@ class HistoryFragment : Fragment(R.layout.fragment_history){
         val deleteItemTouchHelper = ItemTouchHelper(deleteSwipeHandler)
         deleteItemTouchHelper.attachToRecyclerView(binding.rvHistory)
 
-        val editSwipeHandler = object : SwipeToEditCallback(requireContext()){
+        val editSwipeHandler = object : SwipeToEditCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val adapter = binding.rvHistory.adapter as HistoryAdapter
                 adapter.openEditDetails(viewHolder.adapterPosition)
@@ -73,7 +73,7 @@ class HistoryFragment : Fragment(R.layout.fragment_history){
         val editItemTouchHelper = ItemTouchHelper(editSwipeHandler)
         editItemTouchHelper.attachToRecyclerView(binding.rvHistory)
 
-        binding.fabNewHistoryRecord.setOnClickListener{
+        binding.fabNewHistoryRecord.setOnClickListener {
             viewModel.setHistoryEditFlag(true)
             navController.navigate(R.id.action_historyFragment_to_historyEditDetailsFragment)
         }

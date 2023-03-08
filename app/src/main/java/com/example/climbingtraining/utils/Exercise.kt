@@ -13,18 +13,18 @@ import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 
 class Exercise(
     private val viewModel: HangboardViewModel,
-    private val context : Context
+    private val context: Context
 ) {
 
-    private var timeToFinishCurrentState : Long
-    private lateinit var timer :CountDownTimer
-    private var currentState : ExerciseState
+    private var timeToFinishCurrentState: Long
+    private lateinit var timer: CountDownTimer
+    private var currentState: ExerciseState
     private var mediaPlayer: MediaPlayer? = null
 
-    private var config : SingleHangboard =
+    private var config: SingleHangboard =
         BasicHangboardTimes.getBasicTimes()
-    private var setsToFinish : Int = config.numberOfSets
-    private var repeatsToFinish : Int = config.numberOfRepeats
+    private var setsToFinish: Int = config.numberOfSets
+    private var repeatsToFinish: Int = config.numberOfRepeats
 
     init {
         currentState = ExerciseState.INACTIVE
@@ -33,34 +33,38 @@ class Exercise(
             timeToFinishCurrentState,
             currentState,
             setsToFinish,
-            repeatsToFinish)
+            repeatsToFinish
+        )
     }
 
-    fun setHangboard(newConfig : SingleHangboard){
+    fun setHangboard(newConfig: SingleHangboard) {
         config = newConfig
         setsToFinish = config.numberOfSets
         repeatsToFinish = config.numberOfRepeats
     }
+
     fun getHangboard() = config
 
-    private fun calculateTime(time : Long){
-        timer = object : CountDownTimer(time,10){
+    private fun calculateTime(time: Long) {
+        timer = object : CountDownTimer(time, 10) {
             override fun onTick(millisUntilFinished: Long) {
                 timeToFinishCurrentState = millisUntilFinished
                 viewModel.updateData(
                     timeToFinishCurrentState,
                     currentState,
                     setsToFinish,
-                    repeatsToFinish)
+                    repeatsToFinish
+                )
             }
+
             override fun onFinish() {
                 timeToFinishCurrentState = 0
                 playSound()
-                when(currentState){
+                when (currentState) {
                     ExerciseState.REST -> repeatsToFinish--
                     ExerciseState.PAUSE -> setsToFinish--
                     ExerciseState.HANG -> {
-                        if ( repeatsToFinish < 2 && setsToFinish < 2) {
+                        if (repeatsToFinish < 2 && setsToFinish < 2) {
                             setsToFinish = 0
                             repeatsToFinish = 0
                             viewModel.onFinish()
@@ -75,26 +79,27 @@ class Exercise(
         }.start()
     }
 
-    fun run(){
+    fun run() {
         nextState()
     }
 
-    private fun playSound(){
-        try{
+    private fun playSound() {
+        try {
             val packageName = context.packageName
             val soundURI = Uri.parse(
-                "android.resource://$packageName/" + R.raw.start)
-            mediaPlayer = MediaPlayer.create(context,soundURI)
+                "android.resource://$packageName/" + R.raw.start
+            )
+            mediaPlayer = MediaPlayer.create(context, soundURI)
             mediaPlayer?.isLooping = false
             mediaPlayer?.start()
-        } catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
 
-    private fun nextState(){
-        when(currentState){
+    private fun nextState() {
+        when (currentState) {
             ExerciseState.INACTIVE -> {
                 currentState = ExerciseState.PREPARE
                 calculateTime(config.prepareTime)
@@ -128,7 +133,8 @@ class Exercise(
             timeToFinishCurrentState,
             currentState,
             setsToFinish,
-            repeatsToFinish)
+            repeatsToFinish
+        )
     }
 
     fun getState() = currentState
@@ -137,14 +143,14 @@ class Exercise(
 
     fun stop() {
         timer.cancel()
-        viewModel.updateData(timeToFinishCurrentState,currentState,setsToFinish,repeatsToFinish)
+        viewModel.updateData(timeToFinishCurrentState, currentState, setsToFinish, repeatsToFinish)
     }
 
     fun resume() {
         calculateTime(timeToFinishCurrentState)
     }
 
-    fun reset(){
+    fun reset() {
         timer.cancel()
         currentState = ExerciseState.INACTIVE
         repeatsToFinish = config.numberOfRepeats
@@ -153,7 +159,8 @@ class Exercise(
             config.prepareTime,
             currentState,
             setsToFinish,
-            repeatsToFinish)
+            repeatsToFinish
+        )
 
 
     }

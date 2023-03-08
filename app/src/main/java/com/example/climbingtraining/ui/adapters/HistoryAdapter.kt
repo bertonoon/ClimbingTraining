@@ -12,18 +12,20 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class HistoryAdapter (
-    private val historyList : ArrayList<SingleHangboardHistoryModel>,
+class HistoryAdapter(
+    private val historyList: ArrayList<SingleHangboardHistoryModel>,
     private val viewModel: HangboardViewModel,
     private val navController: NavController
-        ) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
     inner class ViewHolder(
         private val binding: ItemSingleHistoryBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: SingleHangboardHistoryModel) {
-            val sdf = SimpleDateFormat(this.itemView.context.getString(R.string.date_format),
-                Locale.US)
+            val sdf = SimpleDateFormat(
+                this.itemView.context.getString(R.string.date_format),
+                Locale.US
+            )
             binding.apply {
                 tvDate.text = sdf.format(item.date)
                 tvName.text = item.hangboardType.name
@@ -32,7 +34,7 @@ class HistoryAdapter (
         }
     }
 
-    private fun openDetails(id:Int) {
+    private fun openDetails(id: Int) {
         viewModel.setHistoryDetails(historyList[id])
         navController.navigate(R.id.action_historyFragment_to_historyDetailsFragment)
     }
@@ -53,8 +55,6 @@ class HistoryAdapter (
     }
 
 
-
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(historyList[position])
     }
@@ -68,7 +68,7 @@ class HistoryAdapter (
         notifyDataSetChanged()
     }
 
-    fun openEditDetails(id:Int) {
+    fun openEditDetails(id: Int) {
         viewModel.setEditHistoryDetails(historyList[id])
         navController.navigate(R.id.action_historyFragment_to_historyEditDetailsFragment)
     }

@@ -11,24 +11,24 @@ class Converters {
     private var gson = Gson()
 
     @TypeConverter
-    fun fromTimestamp(value: Long?) : Date?{
-        return value?.let{Date(it)}
+    fun fromTimestamp(value: Long?): Date? {
+        return value?.let { Date(it) }
     }
 
     @TypeConverter
-    fun dateToTimestamp(date: Date?) : Long? {
+    fun dateToTimestamp(date: Date?): Long? {
         return date?.time?.toLong()
     }
 
     @TypeConverter
-    fun fromSingleHangboard(hangboardType: SingleHangboard?) : String?{
+    fun fromSingleHangboard(hangboardType: SingleHangboard?): String? {
         return gson.toJson(hangboardType)
     }
 
     @TypeConverter
-    fun toSingleHangboard(data: String?) : SingleHangboard?{
-        val type = object : TypeToken<SingleHangboard>(){}.type
-        return gson.fromJson(data,type)
+    fun toSingleHangboard(data: String?): SingleHangboard? {
+        val type = object : TypeToken<SingleHangboard>() {}.type
+        return gson.fromJson(data, type)
     }
 
 

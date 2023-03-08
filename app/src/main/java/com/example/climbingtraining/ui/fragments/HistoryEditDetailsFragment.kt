@@ -26,8 +26,8 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
 
     private lateinit var binding: FragmentHistoryEditDetailsBinding
     private lateinit var viewModel: HangboardViewModel
-    private lateinit var navController : NavController
-    private lateinit var oldHangboardHistoryModel : SingleHangboardHistoryModel
+    private lateinit var navController: NavController
+    private lateinit var oldHangboardHistoryModel: SingleHangboardHistoryModel
     private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
     private val cal = Calendar.getInstance()
 
@@ -37,7 +37,7 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val fragmentBinding = FragmentHistoryEditDetailsBinding.inflate(inflater,container,false)
+        val fragmentBinding = FragmentHistoryEditDetailsBinding.inflate(inflater, container, false)
         binding = fragmentBinding
         return fragmentBinding.root
     }
@@ -51,7 +51,7 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
 
     }
 
-    private fun initializeObservers(){
+    private fun initializeObservers() {
         if (viewModel.historyEditFlag.value == true) {
             oldHangboardHistoryModel = SingleHangboardHistoryModel()
         } else {
@@ -69,7 +69,8 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
 
     private fun initializeUI() {
         binding.btnClose.setOnClickListener {
-            navController.navigateUp() }
+            navController.navigateUp()
+        }
         binding.etGripType.apply {
             isFocusable = false
             setOnClickListener { showGripTypeMenu() }
@@ -87,7 +88,7 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
             navController.navigateUp()
         }
 
-        if ( viewModel.historyEditFlag.value == true) {
+        if (viewModel.historyEditFlag.value == true) {
             binding.tvEditDetails.visibility = View.INVISIBLE
             binding.tvAddTraining.visibility = View.VISIBLE
             binding.etDate.visibility = View.VISIBLE
@@ -107,14 +108,14 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
                     updateDateInView()
                 }
             updateDateInView()
-        }else {
+        } else {
             binding.etDate.visibility = View.GONE
         }
     }
 
-    private fun updateDateInView(){
+    private fun updateDateInView() {
         val myFormat = getString(R.string.date_format)
-        val sdf = SimpleDateFormat(myFormat,Locale.getDefault())
+        val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
         binding.etDate.setText(sdf.format(cal.time).toString())
     }
 
@@ -165,10 +166,10 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
     }
 
     private fun showGripTypeMenu() {
-        val menuGripType = PopupMenu(requireContext(),binding.etGripType)
-        menuGripType.menuInflater.inflate(R.menu.grip_type_menu,menuGripType.menu)
-        menuGripType.setOnMenuItemClickListener{ item ->
-            when(item.itemId){
+        val menuGripType = PopupMenu(requireContext(), binding.etGripType)
+        menuGripType.menuInflater.inflate(R.menu.grip_type_menu, menuGripType.menu)
+        menuGripType.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
                 R.id.edgeOption -> binding.etGripType.setText(getString(R.string.grip_menu_option_edge))
                 R.id.sloperOption -> binding.etGripType.setText(getString(R.string.grip_menu_option_sloper))
                 R.id.jugOption -> binding.etGripType.setText(getString(R.string.grip_menu_option_jug))
@@ -184,11 +185,12 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
         }
         menuGripType.show()
     }
+
     private fun showCrimpTypeMenu() {
-        val menuCrimpType = PopupMenu(requireContext(),binding.etCrimpType)
-        menuCrimpType.menuInflater.inflate(R.menu.crimp_type_menu,menuCrimpType.menu)
-        menuCrimpType.setOnMenuItemClickListener{ item ->
-            when(item.itemId){
+        val menuCrimpType = PopupMenu(requireContext(), binding.etCrimpType)
+        menuCrimpType.menuInflater.inflate(R.menu.crimp_type_menu, menuCrimpType.menu)
+        menuCrimpType.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
                 R.id.openHandOption -> binding.etCrimpType.setText(getString(R.string.crimp_menu_option_open_hand))
                 R.id.openCrimpOption -> binding.etCrimpType.setText(getString(R.string.crimp_menu_option_open_crimp))
                 R.id.closedCrimpOption -> binding.etCrimpType.setText(getString(R.string.crimp_menu_option_closed_crimp))
@@ -198,12 +200,13 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
         }
         menuCrimpType.show()
     }
-    private fun showSuitableLayout(){
+
+    private fun showSuitableLayout() {
         var showEdgeOption = false
         var showSlopeAngleOption = false
         var showCrimpTypeOption = false
 
-        when (binding.etGripType.text.toString()){
+        when (binding.etGripType.text.toString()) {
             getString(R.string.grip_menu_option_one_finger) -> {
                 showEdgeOption = true
                 showSlopeAngleOption = false
@@ -262,11 +265,12 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
 
     }
 
-    private fun updateHistoryDetails(){
+    private fun updateHistoryDetails() {
         val newHangboardHistoryModel = getEditHistoryDetails()
         viewModel.updateHistoryDetails(newHangboardHistoryModel)
     }
-    private fun addNewToHistory(){
+
+    private fun addNewToHistory() {
         val newHangboardHistoryModel = getNewHistoryDetails()
         viewModel.saveHangboardToHistory(newHangboardHistoryModel)
     }
@@ -284,6 +288,7 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
             additionalWeight = getAdditionalWeight()
         )
     }
+
     private fun getNewHistoryDetails(): SingleHangboardHistoryModel {
         return SingleHangboardHistoryModel(
             id = 0,
@@ -297,7 +302,8 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
             additionalWeight = getAdditionalWeight()
         )
     }
-    private fun getHangboardType() : SingleHangboard{
+
+    private fun getHangboardType(): SingleHangboard {
         return SingleHangboard(
             id = 0,
             prepareTime = oldHangboardHistoryModel.hangboardType.prepareTime,
@@ -310,28 +316,33 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
 
         )
     }
-    private fun getNumberOf(et : EditText) : Int {
+
+    private fun getNumberOf(et: EditText): Int {
         return et.text.toString().ifEmpty {
             "0"
         }.toInt()
     }
-    private fun getName() : String{
+
+    private fun getName(): String {
         return binding.etHangboardName.text.toString().ifEmpty {
             "Unnamed"
         }
     }
-    private fun getTimeFromEditText(et : EditText) : Long{
+
+    private fun getTimeFromEditText(et: EditText): Long {
         return et.text.toString().ifEmpty {
             "0"
         }.toLong() * 1000
     }
+
     private fun getNotes(): String {
         return binding.etNote.text.toString().ifEmpty {
             ""
         }
     }
+
     private fun getGripType(): GripType {
-        return when(binding.etGripType.text.toString()){
+        return when (binding.etGripType.text.toString()) {
             getString(R.string.grip_menu_option_edge) -> GripType.EDGE
             getString(R.string.grip_menu_option_sloper) -> GripType.SLOPER
             getString(R.string.grip_menu_option_jug) -> GripType.JUG
@@ -343,24 +354,28 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
             else -> GripType.UNDEFINED
         }
     }
+
     private fun getCrimpType(): CrimpType {
-        return when(binding.etCrimpType.text.toString()){
+        return when (binding.etCrimpType.text.toString()) {
             getString(R.string.crimp_menu_option_open_hand) -> CrimpType.OPEN_HAND
             getString(R.string.crimp_menu_option_open_crimp) -> CrimpType.OPEN_CRIMP
             getString(R.string.crimp_menu_option_closed_crimp) -> CrimpType.CLOSED_CRIMP
             else -> CrimpType.UNDEFINED
         }
     }
+
     private fun getEdgeSize(): Int {
         return binding.etEdgeSize.text.toString().ifEmpty {
             "0"
         }.toInt()
     }
+
     private fun getSlopeAngle(): Int {
         return binding.etSlopeAngle.text.toString().ifEmpty {
             "0"
         }.toInt()
     }
+
     private fun getAdditionalWeight(): Float {
         return binding.etAdditionalWeight.text.toString().ifEmpty {
             "0.0"

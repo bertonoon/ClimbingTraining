@@ -14,29 +14,29 @@ import com.example.climbingtraining.models.SingleHangboard
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 
 
-class SavedConfigsAdapter (
-    private val configsList : ArrayList<SingleHangboard>,
+class SavedConfigsAdapter(
+    private val configsList: ArrayList<SingleHangboard>,
     private val viewModel: HangboardViewModel,
     private val navController: NavController
-        ) : RecyclerView.Adapter<SavedConfigsAdapter.ViewHolder>(){
+) : RecyclerView.Adapter<SavedConfigsAdapter.ViewHolder>() {
 
-    inner class ViewHolder (
+    inner class ViewHolder(
         private val binding: ItemSingleHangboardBinding
-            ) : RecyclerView.ViewHolder(binding.root) {
-                fun bind(config:SingleHangboard){
-                    binding.apply {
-                        tvHangTime.text = (config.hangTime/1000).toString()
-                        tvRestTime.text = (config.restTime/1000).toString()
-                        tvPauseTime.text = (config.pauseTime/1000).toString()
-                        tvSetsToEnd.text = config.numberOfSets.toString()
-                        tvRoundsToEnd.text = config.numberOfRepeats.toString()
-                        tvHangboardName.text = config.name.ifEmpty { "Unnamed" }
-                        cvHangboard.setOnClickListener {expandView(adapterPosition,binding)}
-                        btnSet.setOnClickListener { setHangboard(adapterPosition)}
-                        btnEdit.setOnClickListener { editHangboard(adapterPosition) }
-                        btnDelete.setOnClickListener { deleteHangboard(adapterPosition,binding) }
-                    }
-                }
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(config: SingleHangboard) {
+            binding.apply {
+                tvHangTime.text = (config.hangTime / 1000).toString()
+                tvRestTime.text = (config.restTime / 1000).toString()
+                tvPauseTime.text = (config.pauseTime / 1000).toString()
+                tvSetsToEnd.text = config.numberOfSets.toString()
+                tvRoundsToEnd.text = config.numberOfRepeats.toString()
+                tvHangboardName.text = config.name.ifEmpty { "Unnamed" }
+                cvHangboard.setOnClickListener { expandView(adapterPosition, binding) }
+                btnSet.setOnClickListener { setHangboard(adapterPosition) }
+                btnEdit.setOnClickListener { editHangboard(adapterPosition) }
+                btnDelete.setOnClickListener { deleteHangboard(adapterPosition, binding) }
+            }
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -46,7 +46,7 @@ class SavedConfigsAdapter (
         notifyDataSetChanged()
     }
 
-    private fun editHangboard(idConfig: Int){
+    private fun editHangboard(idConfig: Int) {
         viewModel.setHangboardForEdit(configsList[idConfig])
         navController.navigate(R.id.action_savedConfigurationsFragment_to_addNewHangboardFragment)
     }
@@ -57,20 +57,21 @@ class SavedConfigsAdapter (
 
     }
 
-    private fun expandView(position: Int, binding: ItemSingleHangboardBinding){
-        if (binding.llButtons.visibility == View.GONE){
+    private fun expandView(position: Int, binding: ItemSingleHangboardBinding) {
+        if (binding.llButtons.visibility == View.GONE) {
             expand(binding.llButtons)
-        }
-        else {
+        } else {
             binding.llButtons.animate()
             collapse(binding.llButtons)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemSingleHangboardBinding.inflate(LayoutInflater.from(parent.context),
-        parent,
-        false)
+        val binding = ItemSingleHangboardBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return ViewHolder(binding)
     }
 
@@ -111,7 +112,8 @@ class SavedConfigsAdapter (
             }
         }
 
-        a.duration = 2*(targetHeight / v.context.resources.displayMetrics.density).toInt().toLong()
+        a.duration =
+            2 * (targetHeight / v.context.resources.displayMetrics.density).toInt().toLong()
         v.startAnimation(a)
     }
 
@@ -133,10 +135,10 @@ class SavedConfigsAdapter (
             }
         }
 
-        a.duration = 2*(initialHeight / v.context.resources.displayMetrics.density).toInt().toLong()
+        a.duration =
+            2 * (initialHeight / v.context.resources.displayMetrics.density).toInt().toLong()
         v.startAnimation(a)
     }
-
 
 
 }

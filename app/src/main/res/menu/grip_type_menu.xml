@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/edgeOption"
+    <item
+        android:id="@+id/edgeOption"
         android:title="@string/grip_menu_option_edge" />
-    <item android:id="@+id/sloperOption"
+    <item
+        android:id="@+id/sloperOption"
         android:title="@string/grip_menu_option_sloper" />
-    <item android:id="@+id/jugOption"
-        android:title="@string/grip_menu_option_jug"
-        />
-    <item android:id="@+id/oneFingerOption"
-        android:title="@string/grip_menu_option_one_finger"
-        />
-    <item android:id="@+id/twoFingerOption"
-        android:title="@string/grip_menu_option_two_fingers"
-        />
-    <item android:id="@+id/threeFingerOption"
-        android:title="@string/grip_menu_option_three_fingers"
-        />
-    <item android:id="@+id/pinchOption"
-        android:title="@string/grip_menu_option_pinch"
-        />
-    <item android:id="@+id/otherOption"
-        android:title="@string/grip_menu_option_other"
-        />
+    <item
+        android:id="@+id/jugOption"
+        android:title="@string/grip_menu_option_jug" />
+    <item
+        android:id="@+id/oneFingerOption"
+        android:title="@string/grip_menu_option_one_finger" />
+    <item
+        android:id="@+id/twoFingerOption"
+        android:title="@string/grip_menu_option_two_fingers" />
+    <item
+        android:id="@+id/threeFingerOption"
+        android:title="@string/grip_menu_option_three_fingers" />
+    <item
+        android:id="@+id/pinchOption"
+        android:title="@string/grip_menu_option_pinch" />
+    <item
+        android:id="@+id/otherOption"
+        android:title="@string/grip_menu_option_other" />
 </menu>
