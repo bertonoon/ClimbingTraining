@@ -49,7 +49,7 @@ Project is in progress.
 
 Created by Bartosz Filipów. Feel free to contact me.
 ![https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white
-]({https://www.linkedin.com/in/bartosz-filipow/})
+](https://www.linkedin.com/in/bartosz-filipow/)
 
 ## License
 
