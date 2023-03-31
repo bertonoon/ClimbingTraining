@@ -99,23 +99,24 @@ class HangboardActivity : AppCompatActivity() {
     }
 
     private fun initNotification() {
-//        val intent = Intent(this@HangboardActivity, HangboardActivity::class.java).apply {
-//            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//        }
-//        val flag =
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-//                PendingIntent.FLAG_IMMUTABLE
-//            else
-//                0
-//
-//        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, flag)
+        val intent = Intent(this@HangboardActivity, HangboardActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            flags = Intent.FLAG_
+        }
+        val flag =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                PendingIntent.FLAG_IMMUTABLE
+            else
+                0
+
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, flag)
 
         notificationBuilder =
             NotificationCompat.Builder(this@HangboardActivity, Constants.NOTIFICATION_CHANNEL_ID)
                 .apply {
                     setSmallIcon(R.drawable.ic_baseline_watch_later_24)
                     setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                    //setContentIntent(pendingIntent)
+                    setContentIntent(pendingIntent)
                     setAutoCancel(false)
                     setOngoing(true)
                     setDefaults(0)
@@ -136,16 +137,50 @@ class HangboardActivity : AppCompatActivity() {
             true
         }
 
+    private fun hasForegroundServicePermission() =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.FOREGROUND_SERVICE
+            ) == PackageManager.PERMISSION_GRANTED
+        } else {
+            true
+        }
+
+
     private fun requestPermissions() {
         val permissionsToRequest = mutableListOf<String>()
+
         if (!hasNotificationPermission()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 permissionsToRequest.add(Manifest.permission.POST_NOTIFICATIONS)
             }
         }
+
+        if (!hasForegroundServicePermission()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                permissionsToRequest.add(Manifest.permission.FOREGROUND_SERVICE)
+            }
+        }
+
+
+
         if (permissionsToRequest.isNotEmpty()) {
+            var showDialog = false
+
+            if (permissionsToRequest.contains(Manifest.permission.FOREGROUND_SERVICE)) {
+                showDialog = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    ActivityCompat.shouldShowRequestPermissionRationale(
+                        this,
+                        Manifest.permission.FOREGROUND_SERVICE
+                    )
+                } else {
+                    true
+                }
+            }
+
             if (permissionsToRequest.contains(Manifest.permission.POST_NOTIFICATIONS)) {
-                val showDialog = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                showDialog = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     ActivityCompat.shouldShowRequestPermissionRationale(
                         this,
                         Manifest.permission.POST_NOTIFICATIONS
@@ -153,41 +188,27 @@ class HangboardActivity : AppCompatActivity() {
                 } else {
                     true
                 }
-                if (!showDialog) {
-                    val builder = AlertDialog.Builder(this@HangboardActivity)
-                    builder
-                        .setTitle(getString(R.string.notificationRequestTitle))
-                        .setMessage(getString(R.string.notificationRequestMessage))
-                        .setCancelable(false)
-                        .setPositiveButton(getString(R.string.notificationRequestButtonText))
-                        { dialog, _ ->
-                            dialog.dismiss()
-                            ActivityCompat.requestPermissions(
-                                this@HangboardActivity,
-                                permissionsToRequest.toTypedArray(),
-                                Constants.REQUEST_PERMISSION_CODE
-                            )
-                        }
-                    builder.create().show()
-                }
+            }
+            if (!showDialog) {
+                val builder = AlertDialog.Builder(this@HangboardActivity)
+                builder
+                    .setTitle(getString(R.string.notificationRequestTitle))
+                    .setMessage(getString(R.string.notificationRequestMessage))
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.notificationRequestButtonText))
+                    { dialog, _ ->
+                        dialog.dismiss()
+                        ActivityCompat.requestPermissions(
+                            this@HangboardActivity,
+                            permissionsToRequest.toTypedArray(),
+                            Constants.REQUEST_PERMISSION_CODE
+                        )
+                    }
+                builder.create().show()
             }
         }
     }
 
-    //    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-////        if (requestCode == Constants.REQUEST_PERMISSION_CODE && grantResults.isNotEmpty()){
-////            for(i in grantResults.indices){
-////                if (grantResults[i] == PackageManager.PERMISSION_GRANTED){
-////                    Log.d("PermissionsRequest","${permissions[i]} granted.")
-////                }
-////            }
-////        }
-//    }
     private fun showResultDbToast(status: DbResultState) {
         when (status) {
             DbResultState.CONFIG_SAVE_SUCCESS -> Toast.makeText(

@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".utils.App"
@@ -16,9 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ClimbingTraining"
         tools:targetApi="31">
+        <service
+            android:name=".utils.Service"
+            android:enabled="true"
+            android:exported="false" />
+
         <activity
             android:name=".ui.activities.HangboardActivity"
             android:exported="true"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +36,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <receiver android:name=".utils.HangboardReceiver" />
     </application>
 
