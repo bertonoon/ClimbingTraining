@@ -47,7 +47,10 @@ Project is in progress.
 
 ## Contact
 
-Created by [@Bartosz Filipów](https://www.linkedin.com/in/bartosz-filipow/) - feel free to contact me.
+
+<a href="https://www.linkedin.com/in/bartosz-filipow/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
+<a href="mailto:filipow.bartosz@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" /></a> 
+</br>Created by Bartosz Filipów. Feel free to contact me.
 
 ## License
 
