@@ -20,7 +20,6 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
     private val lastHangboardDao =
         HangboardDatabase.getInstance(application.applicationContext).lastHangboardDao()
 
-    //Live data
     private val _currentHangboard = MutableLiveData<SingleHangboard>()
     val currentHangboard: LiveData<SingleHangboard>
         get() = _currentHangboard

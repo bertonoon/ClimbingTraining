@@ -1,9 +1,11 @@
 package com.example.climbingtraining.utils
 
 import android.content.Context
+import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.CountDownTimer
+import androidx.core.content.ContextCompat
 import com.example.climbingtraining.R
 import com.example.climbingtraining.models.BasicHangboardTimes
 import com.example.climbingtraining.models.ExerciseState
@@ -55,6 +57,10 @@ class Exercise(
                     setsToFinish,
                     repeatsToFinish
                 )
+                updateNotification(
+                    "Time to finish: ${timeToFinishCurrentState / 1000} s",
+                    currentState.toString()
+                )
             }
 
             override fun onFinish() {
@@ -81,6 +87,7 @@ class Exercise(
 
     fun run() {
         nextState()
+        startNotification()
     }
 
     private fun playSound() {
@@ -96,7 +103,6 @@ class Exercise(
             e.printStackTrace()
         }
     }
-
 
     private fun nextState() {
         when (currentState) {
@@ -161,7 +167,26 @@ class Exercise(
             setsToFinish,
             repeatsToFinish
         )
-
-
+        stopNotification()
     }
+
+
+    private fun startNotification() {
+        val serviceIntent = Intent(context, HangboardService::class.java)
+        ContextCompat.startForegroundService(context, serviceIntent)
+    }
+
+    private fun updateNotification(text: String, title: String) {
+        val serviceIntent = Intent(context, HangboardService::class.java)
+        serviceIntent.putExtra("contentText", text)
+        serviceIntent.putExtra("contentTitle", title)
+        ContextCompat.startForegroundService(context, serviceIntent)
+    }
+
+    private fun stopNotification() {
+        val serviceIntent = Intent(context, HangboardService::class.java)
+        context.stopService(serviceIntent)
+    }
+
+
 }

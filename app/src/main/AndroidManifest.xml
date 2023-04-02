@@ -17,7 +17,7 @@
         android:theme="@style/Theme.ClimbingTraining"
         tools:targetApi="31">
         <service
-            android:name=".utils.Service"
+            android:name=".utils.HangboardService"
             android:enabled="true"
             android:exported="false" />
 

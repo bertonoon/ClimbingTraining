@@ -4,12 +4,12 @@ import android.Manifest
 import android.app.AlertDialog.*
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
@@ -28,6 +29,7 @@ import com.example.climbingtraining.models.ExerciseState
 import com.example.climbingtraining.models.RunState
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 import com.example.climbingtraining.utils.Constants
+import com.example.climbingtraining.utils.HangboardService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -37,6 +39,9 @@ class HangboardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHangboardBinding
     lateinit var viewModel: HangboardViewModel
     private var notificationBuilder: NotificationCompat.Builder? = null
+
+    private lateinit var statusReceiver: BroadcastReceiver
+    private lateinit var timeReceiver: BroadcastReceiver
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,32 +66,34 @@ class HangboardActivity : AppCompatActivity() {
         viewModel.onViewReady()
         requestPermissions()
 
-        if (notificationBuilder == null) {
-            initNotification()
+
+//        if (notificationBuilder == null) {
+//            initNotification()
+//        }
+      //  startNotification()
+
+//        var oldSecondsValue = 0
+//        viewModel.secondsToFinish.observe(this@HangboardActivity) {
+//            if (it != oldSecondsValue && viewModel.currentHangboardState.value != ExerciseState.INACTIVE) {
+//                lifecycleScope.launch(Dispatchers.Main) {
+//                    with(NotificationManagerCompat.from(this@HangboardActivity)) {
+//                        updateNotification("Time to finish: $it s")
+//                        //notificationBuilder!!.setContentTitle(viewModel.currentHangboardState.value.toString())
+//                        //notify(1, notificationBuilder!!.build())
+//                        oldSecondsValue = it
+//                    }
+//                }
+////                viewModel.runState.observe(this@HangboardActivity) {
+////                    if (it == RunState.INITIALIZED) {
+////                        val manager =
+////                            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+////                        manager.cancel(1)
+////                    }
+//                }
+//            }
         }
 
-        var oldSecondsValue = 0
-        viewModel.secondsToFinish.observe(this@HangboardActivity) {
-            if (it != oldSecondsValue && viewModel.currentHangboardState.value != ExerciseState.INACTIVE) {
-                lifecycleScope.launch(Dispatchers.Main) {
-                    with(NotificationManagerCompat.from(this@HangboardActivity)) {
-                        notificationBuilder!!.setContentText(
-                            "Time to finish: $it s"
-                        )
-                        notificationBuilder!!.setContentTitle(viewModel.currentHangboardState.value.toString())
-                        notify(1, notificationBuilder!!.build())
-                        oldSecondsValue = it
-                    }
-                }
-            }
-        }
-        viewModel.runState.observe(this@HangboardActivity) {
-            if (it == RunState.INITIALIZED) {
-                val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                manager.cancel(1)
-            }
-        }
-    }
+
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
@@ -286,5 +293,6 @@ class HangboardActivity : AppCompatActivity() {
         }
         viewModel.zeroDbStatuses()
     }
+
 
 }
