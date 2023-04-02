@@ -38,11 +38,6 @@ class HangboardActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHangboardBinding
     lateinit var viewModel: HangboardViewModel
-    private var notificationBuilder: NotificationCompat.Builder? = null
-
-    private lateinit var statusReceiver: BroadcastReceiver
-    private lateinit var timeReceiver: BroadcastReceiver
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -66,34 +61,7 @@ class HangboardActivity : AppCompatActivity() {
         viewModel.onViewReady()
         requestPermissions()
 
-
-//        if (notificationBuilder == null) {
-//            initNotification()
-//        }
-      //  startNotification()
-
-//        var oldSecondsValue = 0
-//        viewModel.secondsToFinish.observe(this@HangboardActivity) {
-//            if (it != oldSecondsValue && viewModel.currentHangboardState.value != ExerciseState.INACTIVE) {
-//                lifecycleScope.launch(Dispatchers.Main) {
-//                    with(NotificationManagerCompat.from(this@HangboardActivity)) {
-//                        updateNotification("Time to finish: $it s")
-//                        //notificationBuilder!!.setContentTitle(viewModel.currentHangboardState.value.toString())
-//                        //notify(1, notificationBuilder!!.build())
-//                        oldSecondsValue = it
-//                    }
-//                }
-////                viewModel.runState.observe(this@HangboardActivity) {
-////                    if (it == RunState.INITIALIZED) {
-////                        val manager =
-////                            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-////                        manager.cancel(1)
-////                    }
-//                }
-//            }
-        }
-
-
+    }
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
@@ -103,35 +71,6 @@ class HangboardActivity : AppCompatActivity() {
         } else {
             supportFragmentManager.popBackStack()
         }
-    }
-
-    private fun initNotification() {
-        val intent = Intent(this@HangboardActivity, HangboardActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//            flags = Intent.FLAG_
-        }
-        val flag =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                PendingIntent.FLAG_IMMUTABLE
-            else
-                0
-
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, flag)
-
-        notificationBuilder =
-            NotificationCompat.Builder(this@HangboardActivity, Constants.NOTIFICATION_CHANNEL_ID)
-                .apply {
-                    setSmallIcon(R.drawable.ic_baseline_watch_later_24)
-                    setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                    setContentIntent(pendingIntent)
-                    setAutoCancel(false)
-                    setOngoing(true)
-                    setDefaults(0)
-                    setVibrate(null)
-                    setSound(null)
-                    priority = NotificationCompat.PRIORITY_DEFAULT
-                }
-
     }
 
     private fun hasNotificationPermission() =
@@ -153,7 +92,6 @@ class HangboardActivity : AppCompatActivity() {
         } else {
             true
         }
-
 
     private fun requestPermissions() {
         val permissionsToRequest = mutableListOf<String>()
