@@ -9,5 +9,9 @@ enum class GripType {
     ONE_FINGER,
     TWO_FINGER,
     THREE_FINGER,
-    OTHER
+    OTHER;
+
+    fun toDisplayString(): String {
+        return this.toString().lowercase().replaceFirstChar(Char::titlecase).replace("_"," ")
+    }
 }

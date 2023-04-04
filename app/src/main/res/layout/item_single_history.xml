@@ -1,38 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvHangboard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
-    android:orientation="vertical"
     android:layout_marginBottom="10dp"
-    android:id="@+id/cvHangboard">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="start"
-        android:padding="10dp">
+        android:orientation="vertical"
+        android:layout_margin="5dp"
+        >
 
-        <TextView
-            android:id="@+id/tvDate"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:text="2023-05-03 17:52" />
+            android:layout_gravity="start"
+            android:orientation="horizontal"
+            android:layout_margin="2dp"
+            >
 
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="0dp"
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="2023-05-03 17:52"
+                android:gravity="start"/>
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                tools:text="WD-3 100%"
+                android:gravity="start"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            tools:text="WD-3 100%"
+            android:gravity="start"
+            android:orientation="horizontal"
+            android:layout_margin="2dp"
+            >
 
-            />
+            <TextView
+                android:id="@+id/tvIntensity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                tools:text="75 %"
+                android:gravity="start"
+                android:visibility="invisible"
+                tools:visibility="visible"
+                />
+            <TextView
+                android:id="@+id/tvGripType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="Crimp"
+                android:gravity="start"
+                android:visibility="invisible"
+                tools:visibility="visible"
+                />
+            <TextView
+                android:id="@+id/tvCrimpType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="CC"
+                android:gravity="start"
+                android:visibility="invisible"
+                tools:visibility="visible"
+                />
+            <TextView
+                android:id="@+id/tvEdgeOrSlopeType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="20 mm"
+                android:gravity="start"
+                android:visibility="invisible"
+                tools:visibility="visible"
+                />
+            <TextView
+                android:id="@+id/tvAdditionalWeight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="100 kg"
+                android:gravity="start"
+                android:visibility="invisible"
+                tools:visibility="visible"
+                />
 
-
+        </LinearLayout>
     </LinearLayout>
-
 
 </androidx.cardview.widget.CardView>
