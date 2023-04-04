@@ -51,5 +51,7 @@
     <string name="historyItemCrimpTypeOpenHand">OH</string>
     <string name="historyItemCrimpTypeOpenCrimp">OC</string>
     <string name="historyItemCrimpTypeClosedCrimp">CC</string>
+    <string name="historyDetailsIntensity">Training intensity</string>
+    <string name="unit_percent">%</string>
 
 </resources>

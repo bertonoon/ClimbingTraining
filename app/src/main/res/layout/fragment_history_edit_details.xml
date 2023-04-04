@@ -378,7 +378,7 @@
                 android:layout_marginHorizontal="5dp"
                 tools:text="20"
                 android:importantForAutofill="no"
-                android:inputType="numberDecimal"
+                android:inputType="number"
                 android:gravity="end"
 
                 />
@@ -426,7 +426,7 @@
                 android:layout_marginHorizontal="5dp"
                 tools:text="30"
                 android:importantForAutofill="no"
-                android:inputType="numberDecimal"
+                android:inputType="number"
                 android:gravity="end" />
 
             <TextView
@@ -526,6 +526,52 @@
                 android:textSize="16sp"
                 android:text="@string/unit_kg" />
         </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/llIntensity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:background="@drawable/ll_row_border"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:layout_marginHorizontal="5dp"
+                android:src="@drawable/ic_baseline_percent_24" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:textSize="16sp"
+                android:text="@string/historyDetailsIntensity" />
+
+            <EditText
+                android:id="@+id/etIntensity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:textSize="16sp"
+                android:layout_marginHorizontal="5dp"
+                tools:text="20"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:gravity="end"
+                />
+            <TextView
+                android:id="@+id/etIntensityUnit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:textSize="16sp"
+                android:text="@string/unit_percent" />
+        </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/llNote"

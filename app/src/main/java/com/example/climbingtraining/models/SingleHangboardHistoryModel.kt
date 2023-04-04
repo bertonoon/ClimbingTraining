@@ -16,4 +16,5 @@ data class SingleHangboardHistoryModel(
     val edgeSize: Int = 0,
     val slopeAngle: Int = 0,
     val additionalWeight: Float = 0.0f,
+    val intensity : Int = 0
 )

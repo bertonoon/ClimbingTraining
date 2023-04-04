@@ -16,7 +16,7 @@ import com.example.climbingtraining.models.SingleHangboardHistoryModel
         SingleHangboardHistoryModel::class,
         LastHangboard::class
     ],
-    version = 4
+    version = 5
 )
 @TypeConverters(Converters::class)
 abstract class HangboardDatabase : RoomDatabase() {

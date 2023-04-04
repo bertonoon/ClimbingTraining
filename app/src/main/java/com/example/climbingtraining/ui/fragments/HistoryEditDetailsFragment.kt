@@ -160,6 +160,7 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
                     }
                 )
                 etNote.setText(details.notes)
+                etIntensity.setText(details.intensity.toString())
             }
             showSuitableLayout()
         }
@@ -285,8 +286,19 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
             crimpType = getCrimpType(),
             edgeSize = getEdgeSize(),
             slopeAngle = getSlopeAngle(),
-            additionalWeight = getAdditionalWeight()
+            additionalWeight = getAdditionalWeight(),
+            intensity = getIntensity()
         )
+    }
+
+    private fun getIntensity(): Int {
+        return if (binding.etIntensity.text.toString().isEmpty()){
+            0
+        } else if (binding.etIntensity.text.toString().toInt() > 100){
+            100
+        } else {
+            binding.etIntensity.text.toString().toInt()
+        }
     }
 
     private fun getNewHistoryDetails(): SingleHangboardHistoryModel {
@@ -299,7 +311,8 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
             crimpType = getCrimpType(),
             edgeSize = getEdgeSize(),
             slopeAngle = getSlopeAngle(),
-            additionalWeight = getAdditionalWeight()
+            additionalWeight = getAdditionalWeight(),
+            intensity = getIntensity()
         )
     }
 

@@ -38,7 +38,8 @@ class HistoryAdapter(
             if (item.crimpType != CrimpType.UNDEFINED
                 && item.gripType != GripType.PINCH
                 && item.gripType != GripType.JUG
-                && item.gripType != GripType.SLOPER) {
+                && item.gripType != GripType.SLOPER
+            ) {
                 binding.tvCrimpType.text = item.crimpType.shortcutString()
                 binding.tvCrimpType.visibility = View.VISIBLE
             } else {
@@ -51,7 +52,6 @@ class HistoryAdapter(
             } else {
                 binding.tvGripType.visibility = View.INVISIBLE
             }
-
 
             if (item.gripType == GripType.SLOPER) {
                 binding.tvEdgeOrSlopeType.text = "${item.slopeAngle} °"
@@ -66,12 +66,15 @@ class HistoryAdapter(
                 binding.tvEdgeOrSlopeType.visibility = View.INVISIBLE
             }
 
-
             if (item.additionalWeight > 0) {
                 binding.tvAdditionalWeight.text = "${item.additionalWeight} kg"
                 binding.tvAdditionalWeight.visibility = View.VISIBLE
             } else binding.tvAdditionalWeight.visibility = View.INVISIBLE
 
+            if (item.intensity > 0) {
+                binding.tvIntensity.text = "${item.intensity} %"
+                binding.tvIntensity.visibility = View.VISIBLE
+            } else binding.tvIntensity.visibility = View.INVISIBLE
         }
     }
 

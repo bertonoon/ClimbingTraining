@@ -1,5 +1,6 @@
 package com.example.climbingtraining.ui.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -56,6 +57,7 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details) {
         navController.navigate(R.id.action_historyDetailsFragment_to_historyEditDetailsFragment)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setDetails(details: SingleHangboardHistoryModel) {
         val sdf = SimpleDateFormat(getString(R.string.date_format), Locale.US)
         binding.apply {
@@ -67,11 +69,12 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details) {
             tvPauseTime.text = (details.hangboardType.pauseTime / 1000).toString()
             tvSets.text = details.hangboardType.numberOfSets.toString()
             tvGripType.text = showGripType(details.gripType)
-            tvEdgeSize.text = details.edgeSize.toString()
-            tvSlopeAngle.text = details.slopeAngle.toString()
+            tvEdgeSize.text = "${details.edgeSize} mm"
+            tvSlopeAngle.text = "${details.slopeAngle} °"
             tvCrimpType.text = showCrimpType(details.crimpType)
-            tvAdditionalWeight.text = details.additionalWeight.toString()
+            tvAdditionalWeight.text = "${details.additionalWeight} kg"
             tvNotes.text = details.notes
+            tvIntensity.text = "${details.intensity} %"
         }
 
         if (details.gripType == GripType.UNDEFINED && details.additionalWeight <= 0) {
@@ -92,6 +95,12 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details) {
                 binding.llAdditionalWeight.visibility = View.VISIBLE
             } else {
                 binding.llAdditionalWeight.visibility = View.GONE
+            }
+
+            if (details.intensity > 0) {
+                binding.llIntensity.visibility = View.VISIBLE
+            } else {
+                binding.llIntensity.visibility = View.GONE
             }
 
         }
