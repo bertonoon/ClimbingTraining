@@ -6,8 +6,11 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import android.os.Build.VERSION_CODES
+import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 
 class App : Application() {
+
+    lateinit var viewModel: HangboardViewModel
 
     override fun onCreate() {
         super.onCreate()
@@ -26,4 +29,6 @@ class App : Application() {
             manager.createNotificationChannel(channel)
         }
     }
+
+
 }

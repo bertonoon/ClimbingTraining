@@ -1,15 +1,17 @@
 package com.example.climbingtraining.ui.viewModels
 
 import android.app.Application
-import androidx.lifecycle.*
-import com.example.climbingtraining.db.SavedConfigsDao
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.climbingtraining.db.HangboardDatabase
+import com.example.climbingtraining.db.SavedConfigsDao
 import com.example.climbingtraining.models.*
 import com.example.climbingtraining.utils.Exercise
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.Date
-import com.example.climbingtraining.models.SingleHangboardHistoryModel
+import java.util.*
 
 class HangboardViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -93,7 +95,6 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         _setsToFinish.postValue(setsToFinish)
         _repeatsToFinish.postValue(repeatsToFinish)
         _secondsToFinish.postValue((timeToFinish / 1000).toInt())
-
     }
 
     private fun updateData() {
@@ -103,7 +104,6 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         _repeatsToFinish.postValue(currentExercise.getHangboard().numberOfRepeats)
         _currentHangboard.postValue(currentExercise.getHangboard())
     }
-
 
     private fun initHangboard() {
         currentExercise = Exercise(this, getApplication())
@@ -124,7 +124,6 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-
     fun onFinish() {
         chosenHangboard = currentExercise.getHangboard()
         _runState.postValue(RunState.FINISHED)
@@ -134,7 +133,6 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         initHangboard()
         setHangboard()
     }
-
 
     fun setHangboard(hangboard: SingleHangboard) {
         chosenHangboard = hangboard
@@ -169,7 +167,6 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
         currentExercise.reset()
         _runState.postValue(RunState.INITIALIZED)
     }
-
 
     private fun addSavedConfig(savedConfigsDao: SavedConfigsDao, newConfig: SingleHangboard) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -302,6 +299,7 @@ class HangboardViewModel(application: Application) : AndroidViewModel(applicatio
             }
         }
     }
+
 
     private fun setLastHangboard() {
         viewModelScope.launch(Dispatchers.IO) {

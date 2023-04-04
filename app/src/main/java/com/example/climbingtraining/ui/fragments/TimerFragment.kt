@@ -17,7 +17,6 @@ import com.example.climbingtraining.models.RunState
 import com.example.climbingtraining.models.SingleHangboard
 import com.example.climbingtraining.ui.activities.HangboardActivity
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
-import java.util.*
 
 class TimerFragment : Fragment() {
 
@@ -37,12 +36,19 @@ class TimerFragment : Fragment() {
         return fragmentBinding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as HangboardActivity).viewModel
         initializeUI()
         initializeObservers()
         navController = findNavController()
-        super.onViewCreated(view, savedInstanceState)
+
+
     }
 
     private fun bindHangColors() {
@@ -53,7 +59,10 @@ class TimerFragment : Fragment() {
             )
         )
         binding.llTimer.background =
-            ContextCompat.getDrawable(requireContext(), R.drawable.item_circular_hang_background)
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.item_circular_hang_background
+            )
         binding.flTimer.background = ContextCompat.getDrawable(
             requireContext(),
             R.drawable.item_circular_color_accent_hang_border
@@ -70,7 +79,10 @@ class TimerFragment : Fragment() {
             )
         )
         binding.llTimer.background =
-            ContextCompat.getDrawable(requireContext(), R.drawable.item_circular_accent_background)
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.item_circular_accent_background
+            )
         binding.flTimer.background = ContextCompat.getDrawable(
             requireContext(),
             R.drawable.item_circular_color_accent_border
@@ -120,6 +132,7 @@ class TimerFragment : Fragment() {
                 )
             }
         }
+
     }
 
     private fun initializeUI() {
@@ -188,10 +201,13 @@ class TimerFragment : Fragment() {
     }
 
     private fun onCurrentHangboardChange(hangboardTimes: SingleHangboard) {
-        binding.tvHangTime.text = String.format("%.0f", hangboardTimes.hangTime.toFloat() / 1000)
-        binding.tvPauseTime.text = String.format("%.0f", hangboardTimes.pauseTime.toFloat() / 1000)
+        binding.tvHangTime.text =
+            String.format("%.0f", hangboardTimes.hangTime.toFloat() / 1000)
+        binding.tvPauseTime.text =
+            String.format("%.0f", hangboardTimes.pauseTime.toFloat() / 1000)
         binding.tvRoundsToEnd.text = hangboardTimes.numberOfRepeats.toString()
-        binding.tvRestTime.text = String.format("%.0f", hangboardTimes.restTime.toFloat() / 1000)
+        binding.tvRestTime.text =
+            String.format("%.0f", hangboardTimes.restTime.toFloat() / 1000)
         binding.tvSetsToEnd.text = hangboardTimes.numberOfSets.toString()
     }
 

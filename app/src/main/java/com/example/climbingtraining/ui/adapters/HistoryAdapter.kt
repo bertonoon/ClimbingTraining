@@ -10,7 +10,6 @@ import com.example.climbingtraining.models.SingleHangboardHistoryModel
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class HistoryAdapter(
     private val historyList: ArrayList<SingleHangboardHistoryModel>,

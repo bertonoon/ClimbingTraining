@@ -1,13 +1,13 @@
 package com.example.climbingtraining.utils
 
-import android.app.*
+import android.app.PendingIntent
+import android.app.Service
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.example.climbingtraining.R
 import com.example.climbingtraining.ui.activities.HangboardActivity
-import java.util.*
 
 
 class HangboardService : Service() {
@@ -29,7 +29,33 @@ class HangboardService : Service() {
             else
                 0
 
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, flag)
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(
+            this,
+            Constants.CONTENT_INTENT_REQUEST_CODE,
+            notificationIntent,
+            flag
+        )
+
+
+        val startIntent: Intent = Intent(this, HangboardReceiver::class.java).apply {
+            putExtra(Constants.NOTIFICATION_ACTION_MESSAGE, Constants.START_FROM_NOTIFICATION)
+        }
+        val startPendingIntent = PendingIntent.getBroadcast(
+            this,
+            Constants.START_REQUEST_CODE,
+            startIntent,
+            flag
+        )
+
+        val stopIntent = Intent(this, HangboardReceiver::class.java).apply {
+            putExtra(Constants.NOTIFICATION_ACTION_MESSAGE, Constants.STOP_FROM_NOTIFICATION)
+        }
+        val stopPendingIntent = PendingIntent.getBroadcast(
+            this,
+            Constants.STOP_REQUEST_CODE,
+            stopIntent,
+            flag
+        )
 
         notificationBuilder =
             NotificationCompat.Builder(this, Constants.NOTIFICATION_CHANNEL_ID)
@@ -44,8 +70,10 @@ class HangboardService : Service() {
                     setSound(null)
                     setContentText(contentText)
                     setContentTitle(contentTitle)
+                    addAction(R.drawable.ic_baseline_play_arrow_24, "START", startPendingIntent)
+                    addAction(R.drawable.ic_baseline_pause_24, "STOP", stopPendingIntent)
                     foregroundServiceBehavior = NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE
-                    priority = NotificationCompat.PRIORITY_DEFAULT
+                    priority = NotificationCompat.PRIORITY_HIGH
                 }
 
         startForeground(1, notificationBuilder!!.build())

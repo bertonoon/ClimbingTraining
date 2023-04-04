@@ -2,11 +2,10 @@ package com.example.climbingtraining.ui.activities
 
 import android.Manifest
 import android.app.AlertDialog.*
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -15,29 +14,31 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.climbingtraining.R
 import com.example.climbingtraining.databinding.ActivityHangboardBinding
 import com.example.climbingtraining.models.DbResultState
-import com.example.climbingtraining.models.ExerciseState
-import com.example.climbingtraining.models.RunState
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
 import com.example.climbingtraining.utils.Constants
-import com.example.climbingtraining.utils.HangboardService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class HangboardActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHangboardBinding
     lateinit var viewModel: HangboardViewModel
+
+    private val broadCastStartReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            viewModel.onStart()
+        }
+    }
+    private val broadCastStopReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            viewModel.onStop()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -61,7 +62,16 @@ class HangboardActivity : AppCompatActivity() {
         viewModel.onViewReady()
         requestPermissions()
 
+        registerReceiver(broadCastStartReceiver, IntentFilter(Constants.RECEIVER_START_TIMER))
+        registerReceiver(broadCastStopReceiver, IntentFilter(Constants.RECEIVER_STOP_TIMER))
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(broadCastStartReceiver)
+        unregisterReceiver(broadCastStopReceiver)
+    }
+
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {

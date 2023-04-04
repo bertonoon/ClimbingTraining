@@ -28,6 +28,7 @@ class Exercise(
     private var setsToFinish: Int = config.numberOfSets
     private var repeatsToFinish: Int = config.numberOfRepeats
 
+
     init {
         currentState = ExerciseState.INACTIVE
         timeToFinishCurrentState = 0
