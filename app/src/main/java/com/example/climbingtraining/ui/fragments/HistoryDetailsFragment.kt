@@ -66,13 +66,13 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details) {
         val times =
             buildString {
                 append("H")
-                append(hangboardDetails.hangboardType.hangTime/1000)
+                append(hangboardDetails.hangboardType.hangTime / 1000)
                 append("s/R")
-                append(hangboardDetails.hangboardType.restTime/1000)
+                append(hangboardDetails.hangboardType.restTime / 1000)
                 append("s x")
                 append(hangboardDetails.hangboardType.numberOfRepeats)
                 append("/P")
-                append(hangboardDetails.hangboardType.pauseTime/1000)
+                append(hangboardDetails.hangboardType.pauseTime / 1000)
                 append("s x")
                 append(hangboardDetails.hangboardType.numberOfSets)
             }
@@ -93,13 +93,19 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details) {
 
         if (hangboardDetails.gripType == GripType.SLOPER)
             if (hangboardDetails.slopeAngle > 0)
-                shareDetails.append("Slope angle: ${hangboardDetails.slopeAngle}\n")
+                shareDetails.append(
+                    "Slope angle: ${
+                        hangboardDetails.slopeAngle.toString() + requireContext().getString(
+                            R.string.unit_degree
+                        )
+                    }\n"
+                )
 
         if (hangboardDetails.additionalWeight > 0)
-            shareDetails.append("Additional weight: ${hangboardDetails.additionalWeight}\n")
+            shareDetails.append("Additional weight: ${hangboardDetails.additionalWeight}kg\n")
 
         if (hangboardDetails.intensity > 0)
-            shareDetails.append("Training intensity: ${hangboardDetails.intensity}")
+            shareDetails.append("Training intensity: ${hangboardDetails.intensity}%")
 
 
         val intent = Intent()

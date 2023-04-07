@@ -312,7 +312,8 @@
             android:background="@drawable/ll_row_border"
             android:gravity="center"
             android:visibility="visible"
-            tools:visibility="visible">
+            tools:visibility="visible"
+            >
 
             <ImageView
                 android:layout_width="0dp"
@@ -352,7 +353,7 @@
             android:gravity="center"
             android:visibility="gone"
             tools:visibility="visible"
-
+            android:layout_marginTop="-1dp"
             >
 
             <ImageView
@@ -400,7 +401,8 @@
             android:padding="8dp"
             android:background="@drawable/ll_row_border"
             android:visibility="gone"
-            tools:visibility="visible">
+            tools:visibility="visible"
+            android:layout_marginTop="-1dp">
 
             <ImageView
                 android:layout_width="0dp"
@@ -448,7 +450,7 @@
             android:gravity="center"
             android:visibility="gone"
             tools:visibility="visible"
-
+            android:layout_marginTop="-1dp"
             >
 
             <ImageView
@@ -487,7 +489,7 @@
             android:gravity="center"
             android:visibility="visible"
             tools:visibility="visible"
-
+            android:layout_marginTop="-1dp"
             >
 
             <ImageView
@@ -535,7 +537,8 @@
             android:orientation="horizontal"
             android:padding="8dp"
             android:background="@drawable/ll_row_border"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginTop="-1dp">
 
             <ImageView
                 android:layout_width="0dp"
