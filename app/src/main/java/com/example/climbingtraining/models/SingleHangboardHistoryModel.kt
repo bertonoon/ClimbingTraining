@@ -18,3 +18,4 @@ data class SingleHangboardHistoryModel(
     val additionalWeight: Float = 0.0f,
     val intensity : Int = 0
 )
+

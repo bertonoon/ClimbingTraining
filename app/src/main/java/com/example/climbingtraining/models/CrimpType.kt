@@ -14,5 +14,13 @@ enum class CrimpType {
             CLOSED_CRIMP -> "CC"
         }
     }
+    fun toDisplayString() : String{
+        return when(this){
+            UNDEFINED -> "Undefined"
+            OPEN_HAND -> "Open hand"
+            OPEN_CRIMP -> "Open crimp"
+            CLOSED_CRIMP -> "Closed crimp"
+        }
+    }
 
 }

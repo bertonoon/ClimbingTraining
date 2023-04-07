@@ -1,6 +1,7 @@
 package com.example.climbingtraining.ui.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,8 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details) {
     private lateinit var viewModel: HangboardViewModel
     private lateinit var navController: NavController
 
+    private lateinit var hangboardDetails: SingleHangboardHistoryModel;
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,12 +47,67 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details) {
     }
 
     private fun initializeObservers() {
-        viewModel.historyDetailsHangboard.observe(viewLifecycleOwner) { setDetails(it) }
+        viewModel.historyDetailsHangboard.observe(viewLifecycleOwner) {
+            hangboardDetails = it
+            setDetails(it)
+        }
     }
 
     private fun initializeUI() {
         binding.btnClose.setOnClickListener { navController.navigateUp() }
         binding.btnEdit.setOnClickListener { onEditButton() }
+        binding.ivShare.setOnClickListener { onShareButton() }
+    }
+
+    private fun onShareButton() {
+        val shareDetails: StringBuilder = StringBuilder()
+        shareDetails.append("Training details \n")
+
+        val times =
+            buildString {
+                append("H")
+                append(hangboardDetails.hangboardType.hangTime/1000)
+                append("s/R")
+                append(hangboardDetails.hangboardType.restTime/1000)
+                append("s x")
+                append(hangboardDetails.hangboardType.numberOfRepeats)
+                append("/P")
+                append(hangboardDetails.hangboardType.pauseTime/1000)
+                append("s x")
+                append(hangboardDetails.hangboardType.numberOfSets)
+            }
+        shareDetails.append(times + "\n")
+
+        if (hangboardDetails.gripType != GripType.UNDEFINED)
+            shareDetails.append(hangboardDetails.gripType.toDisplayString() + "\n")
+        if (hangboardDetails.gripType == GripType.EDGE ||
+            hangboardDetails.gripType == GripType.ONE_FINGER ||
+            hangboardDetails.gripType == GripType.TWO_FINGER ||
+            hangboardDetails.gripType == GripType.THREE_FINGER
+        ) {
+            if (hangboardDetails.edgeSize > 0)
+                shareDetails.append("Edge: ${hangboardDetails.edgeSize}mm\n")
+            if (hangboardDetails.crimpType != CrimpType.UNDEFINED)
+                shareDetails.append("Crimp: ${hangboardDetails.crimpType.toDisplayString()}\n")
+        }
+
+        if (hangboardDetails.gripType == GripType.SLOPER)
+            if (hangboardDetails.slopeAngle > 0)
+                shareDetails.append("Slope angle: ${hangboardDetails.slopeAngle}\n")
+
+        if (hangboardDetails.additionalWeight > 0)
+            shareDetails.append("Additional weight: ${hangboardDetails.additionalWeight}\n")
+
+        if (hangboardDetails.intensity > 0)
+            shareDetails.append("Training intensity: ${hangboardDetails.intensity}")
+
+
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, shareDetails.toString())
+
+        startActivity(Intent.createChooser(intent, "Share To:"))
     }
 
     private fun onEditButton() {

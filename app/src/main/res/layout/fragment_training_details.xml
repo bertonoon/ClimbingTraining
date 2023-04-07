@@ -4,62 +4,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.HangboardActivity"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".ui.activities.HangboardActivity">
+
 
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_weight="6"
+        android:gravity="start"
         android:text="DETAILS"
-        android:gravity="center"
         android:textSize="20sp"
-        android:visibility="visible" />
+        android:visibility="visible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivShare"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_baseline_share_24"
+        app:layout_constraintBottom_toTopOf="@id/tvHangboardName"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvHangboardName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Hangboard name"
-        android:textSize="18sp"
         android:layout_marginHorizontal="10dp"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        tools:text="Hangboard name" />
 
     <TextView
         android:id="@+id/tvDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="2022.11.30 17:51"
-        android:textSize="16sp"
         android:layout_marginHorizontal="10dp"
-        app:layout_constraintTop_toBottomOf="@id/tvHangboardName"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvHangboardName"
+        tools:text="2022.11.30 17:51" />
 
     <LinearLayout
         android:id="@+id/llSeries"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/tvDate"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tvDate">
 
         <LinearLayout
             android:id="@+id/llHeaders"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
             android:layout_marginHorizontal="10dp"
-            android:background="@drawable/ll_row_border"
             android:layout_marginVertical="10dp"
+            android:background="@drawable/ll_row_border"
+            android:gravity="center"
+            android:orientation="horizontal"
 
             >
 
@@ -68,8 +83,8 @@
                 android:layout_width="65dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="5dp"
-                android:text="Hang"
                 android:gravity="center"
+                android:text="Hang"
                 android:textSize="@dimen/time" />
 
             <TextView
@@ -77,8 +92,8 @@
                 android:layout_width="65dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="7dp"
-                android:text="Rest"
                 android:gravity="center"
+                android:text="Rest"
                 android:textSize="@dimen/time" />
 
             <TextView
@@ -86,8 +101,8 @@
                 android:layout_width="65dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="5dp"
-                android:text="Repeats"
                 android:gravity="center"
+                android:text="Repeats"
                 android:textSize="@dimen/time" />
 
             <TextView
@@ -95,8 +110,8 @@
                 android:layout_width="65dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="7dp"
-                android:text="Pause"
                 android:gravity="center"
+                android:text="Pause"
                 android:textSize="@dimen/time" />
 
             <TextView
@@ -104,8 +119,8 @@
                 android:layout_width="65dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="5dp"
-                android:text="Sets"
                 android:gravity="center"
+                android:text="Sets"
                 android:textSize="@dimen/time" />
         </LinearLayout>
 
@@ -113,36 +128,36 @@
             android:id="@+id/llTimes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/llHeaders"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:orientation="horizontal"
-            android:gravity="center"
             android:layout_marginHorizontal="10dp"
-            android:background="@drawable/ll_row_border">
+            android:background="@drawable/ll_row_border"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llHeaders">
 
 
             <LinearLayout
                 android:id="@+id/llHangTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="5dp">
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tvHangTime"
                     android:layout_width="50dp"
                     android:layout_height="30dp"
-                    tools:text="15"
                     android:gravity="center"
-                    android:textSize="@dimen/time" />
+                    android:textSize="@dimen/time"
+                    tools:text="15" />
 
                 <TextView
                     android:id="@+id/tvUnitHangTime"
                     android:layout_width="15dp"
                     android:layout_height="30dp"
-                    android:text="s"
                     android:gravity="center"
+                    android:text="s"
                     android:textSize="@dimen/time" />
             </LinearLayout>
 
@@ -155,23 +170,23 @@
                 android:id="@+id/llRestTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="5dp">
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tvRestTime"
                     android:layout_width="50dp"
                     android:layout_height="30dp"
-                    tools:text="15"
                     android:gravity="center"
-                    android:textSize="@dimen/time" />
+                    android:textSize="@dimen/time"
+                    tools:text="15" />
 
                 <TextView
                     android:id="@+id/tvUnitRestTime"
                     android:layout_width="15dp"
                     android:layout_height="30dp"
-                    android:text="s"
                     android:gravity="center"
+                    android:text="s"
                     android:textSize="@dimen/time" />
             </LinearLayout>
 
@@ -184,16 +199,16 @@
                 android:id="@+id/llRoundsToEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="5dp">
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tvRepeats"
                     android:layout_width="65dp"
                     android:layout_height="30dp"
-                    tools:text="15"
                     android:gravity="center"
-                    android:textSize="@dimen/time" />
+                    android:textSize="@dimen/time"
+                    tools:text="15" />
             </LinearLayout>
 
             <View
@@ -205,23 +220,23 @@
                 android:id="@+id/llPauseTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="5dp">
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tvPauseTime"
                     android:layout_width="50dp"
                     android:layout_height="30dp"
-                    tools:text="15"
                     android:gravity="center"
-                    android:textSize="@dimen/time" />
+                    android:textSize="@dimen/time"
+                    tools:text="15" />
 
                 <TextView
                     android:id="@+id/tvUnitPauseTime"
                     android:layout_width="15dp"
                     android:layout_height="30dp"
-                    android:text="s"
                     android:gravity="center"
+                    android:text="s"
                     android:textSize="@dimen/time" />
             </LinearLayout>
 
@@ -234,16 +249,16 @@
                 android:id="@+id/llSetsToEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="6dp">
+                android:layout_margin="6dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tvSets"
                     android:layout_width="65dp"
                     android:layout_height="30dp"
-                    tools:text="15"
                     android:gravity="center"
-                    android:textSize="@dimen/time" />
+                    android:textSize="@dimen/time"
+                    tools:text="15" />
             </LinearLayout>
 
 
@@ -255,12 +270,12 @@
         android:id="@+id/llDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/llSeries"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llSeries"
 
         >
 
@@ -268,43 +283,41 @@
             android:id="@+id/tvMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Add details to your training."
-            android:gravity="center"
             android:layout_marginBottom="10dp"
-            android:visibility="visible" />
+            android:gravity="center"
+            android:visibility="visible"
+            tools:text="Add details to your training." />
 
         <LinearLayout
             android:id="@+id/llGripType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp"
             android:background="@drawable/ll_row_border"
             android:gravity="center"
-
-            >
+            android:orientation="horizontal"
+            android:padding="8dp">
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.1"
                 android:layout_marginHorizontal="5dp"
+                android:layout_weight="0.1"
                 android:src="@drawable/ic_baseline_drag_handle_24" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
-                android:textSize="16sp"
-                android:text="Grip type" />
+                android:text="Grip type"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tvGripType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
                 android:layout_weight="1"
                 android:textSize="16sp"
-                android:layout_marginHorizontal="5dp"
                 tools:text="Crimp" />
         </LinearLayout>
 
@@ -312,34 +325,33 @@
             android:id="@+id/llEdgeSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp"
             android:background="@drawable/ll_row_border"
             android:gravity="center"
-
-            >
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:layout_marginTop="-1dp">
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.1"
                 android:layout_marginHorizontal="5dp"
+                android:layout_weight="0.1"
                 android:src="@drawable/ic_baseline_height_24" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
-                android:textSize="16sp"
-                android:text="Edge size" />
+                android:text="Edge size"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tvEdgeSize"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
                 android:layout_weight="1"
                 android:textSize="16sp"
-                android:layout_marginHorizontal="5dp"
                 tools:text="20 mm" />
         </LinearLayout>
 
@@ -347,18 +359,18 @@
             android:id="@+id/llSlopeAngle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp"
             android:background="@drawable/ll_row_border"
             android:gravity="center"
-
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:layout_marginTop="-1dp"
             >
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.1"
                 android:layout_marginHorizontal="5dp"
+                android:layout_weight="0.1"
                 android:scaleX="-1"
                 android:src="@drawable/ic_baseline_rotate_90_degrees_cw_24" />
 
@@ -366,16 +378,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
-                android:textSize="16sp"
-                android:text="Slope angle" />
+                android:text="Slope angle"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tvSlopeAngle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
                 android:layout_weight="1"
                 android:textSize="16sp"
-                android:layout_marginHorizontal="5dp"
                 tools:text="30°" />
         </LinearLayout>
 
@@ -383,34 +395,34 @@
             android:id="@+id/llCrimpType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp"
             android:background="@drawable/ll_row_border"
             android:gravity="center"
-
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:layout_marginTop="-1dp"
             >
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.1"
                 android:layout_marginHorizontal="5dp"
+                android:layout_weight="0.1"
                 android:src="@drawable/ic_baseline_front_hand_24" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
-                android:textSize="16sp"
-                android:text="Crimp type" />
+                android:text="Crimp type"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tvCrimpType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
                 android:layout_weight="1"
                 android:textSize="16sp"
-                android:layout_marginHorizontal="5dp"
                 tools:text="Open" />
         </LinearLayout>
 
@@ -418,32 +430,33 @@
             android:id="@+id/llAdditionalWeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/ll_row_border"
+            android:gravity="center"
             android:orientation="horizontal"
             android:padding="8dp"
-            android:background="@drawable/ll_row_border"
-            android:gravity="center">
+            android:layout_marginTop="-1dp">
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.1"
                 android:layout_marginHorizontal="5dp"
+                android:layout_weight="0.1"
                 android:src="@drawable/ic_baseline_balance_24" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
-                android:textSize="16sp"
-                android:text="Additional weight" />
+                android:text="Additional weight"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tvAdditionalWeight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
                 android:layout_weight="1"
                 android:textSize="16sp"
-                android:layout_marginHorizontal="5dp"
                 tools:text="20 kg" />
         </LinearLayout>
 
@@ -451,32 +464,33 @@
             android:id="@+id/llIntensity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/ll_row_border"
+            android:gravity="center"
             android:orientation="horizontal"
             android:padding="8dp"
-            android:background="@drawable/ll_row_border"
-            android:gravity="center">
+            android:layout_marginTop="-1dp">
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.1"
                 android:layout_marginHorizontal="5dp"
+                android:layout_weight="0.1"
                 android:src="@drawable/ic_baseline_percent_24" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
-                android:textSize="16sp"
-                android:text="@string/historyDetailsIntensity" />
+                android:text="@string/historyDetailsIntensity"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tvIntensity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
                 android:layout_weight="1"
                 android:textSize="16sp"
-                android:layout_marginHorizontal="5dp"
                 tools:text="75 %" />
         </LinearLayout>
 
@@ -484,23 +498,23 @@
             android:id="@+id/llNotes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
+            android:layout_marginVertical="10dp"
             android:background="@drawable/ll_row_border"
-            android:layout_marginVertical="10dp">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tvNotes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="Autofill"
-                android:maxLines="6"
-                android:lines="6"
-                android:minLines="6"
-                android:maxLength="250"
                 android:gravity="top|start"
+                android:hint="@string/history_note_hint"
+                android:lines="6"
+                android:maxLength="250"
+                android:maxLines="6"
+                android:minLines="6"
                 android:scrollbars="vertical"
-                android:hint="@string/history_note_hint" />
+                tools:ignore="Autofill" />
         </LinearLayout>
 
 
@@ -511,18 +525,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnEdit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@color/palette3"
             android:text="@string/btn_edit"
-            android:layout_margin="10dp"
             android:textColor="@color/white"
 
             />
@@ -531,10 +545,10 @@
             android:id="@+id/btnClose"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@color/palette5"
             android:text="@string/btn_close"
-            android:layout_margin="10dp"
             android:textColor="@color/white"
 
             />
