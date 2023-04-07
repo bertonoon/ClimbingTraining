@@ -1,6 +1,7 @@
 package com.example.climbingtraining.ui.fragments
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,9 +29,11 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
     private lateinit var viewModel: HangboardViewModel
     private lateinit var navController: NavController
     private lateinit var oldHangboardHistoryModel: SingleHangboardHistoryModel
-    private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
-    private val cal = Calendar.getInstance()
 
+    private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
+    private lateinit var timeSetListener: TimePickerDialog.OnTimeSetListener
+
+    private val cal = Calendar.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -99,14 +102,28 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
                     cal.get(Calendar.MONTH),
                     cal.get(Calendar.DAY_OF_MONTH)
                 ).show()
+
             }
             dateSetListener =
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
                     cal.set(Calendar.YEAR, year)
                     cal.set(Calendar.MONTH, month)
                     cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    TimePickerDialog(
+                        requireContext(),
+                        timeSetListener,
+                        cal.get(Calendar.HOUR_OF_DAY),
+                        cal.get(Calendar.MINUTE),
+                        true
+                    ).show()
+                }
+            timeSetListener =
+                TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                    cal.set(Calendar.HOUR_OF_DAY, hour)
+                    cal.set(Calendar.MINUTE, minute)
                     updateDateInView()
                 }
+
             updateDateInView()
         } else {
             binding.etDate.visibility = View.GONE
@@ -292,9 +309,9 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
     }
 
     private fun getIntensity(): Int {
-        return if (binding.etIntensity.text.toString().isEmpty()){
+        return if (binding.etIntensity.text.toString().isEmpty()) {
             0
-        } else if (binding.etIntensity.text.toString().toInt() > 100){
+        } else if (binding.etIntensity.text.toString().toInt() > 100) {
             100
         } else {
             binding.etIntensity.text.toString().toInt()
