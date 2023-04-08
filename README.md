@@ -31,6 +31,7 @@ The application works on devices with Android 5.0 or higher.
 - Navigation Component
 - Fragments
 - RecyclerView
+- Broadcast Receiver and Foreground Service
 
 ## Architecture
 
