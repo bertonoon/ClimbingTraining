@@ -39,7 +39,9 @@ Application uses `MVVM` as its architecture pattern. `HangboardActivity` is
 the main activity of the app. It is composed of three main fragments: TimerFragment, 
 SavedConfigurationsFragment and HistoryFragment with `Navigation Component`. The `ViewModel`
 of this app is located in HangboardViewModel. `Exercise` class is responsible for calculating
-the time and running the exercise. `RoomDb` support is located in the db folder. 
+the time and running the exercise. `RoomDb` support is located in the db folder. Notification uses
+`Foreground Service` for updates time when app is in the background and `Broadcast Receiver`
+for start and stop command. 
 
 ## Project Status
 
