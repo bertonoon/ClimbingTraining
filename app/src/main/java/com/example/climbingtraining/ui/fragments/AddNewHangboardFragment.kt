@@ -236,6 +236,27 @@ class AddNewHangboardFragment : Fragment(R.layout.fragment_add_new_hangboard) {
             Toast.makeText(context, "Please enter number of sets.", Toast.LENGTH_SHORT).show()
             return false
         }
+        if (binding.etHangTime.text.toString().toLong() > Long.MAX_VALUE){
+            Toast.makeText(context, "Nice try. Please enter a smaller hang time.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (binding.etRestTime.text.toString().toLong() > Long.MAX_VALUE){
+            Toast.makeText(context, "Nice try. Please enter a smaller rest time.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (binding.etPauseTime.text.toString().toLong() > Long.MAX_VALUE){
+            Toast.makeText(context, "Nice try. Please enter a smaller pause time.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (binding.etRounds.text.toString().toLong() > Int.MAX_VALUE){
+            Toast.makeText(context, "Nice try. Please enter a smaller number of reps.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (binding.etSets.text.toString().toLong() > Int.MAX_VALUE){
+            Toast.makeText(context, "Nice try. Please enter a smaller number of sets.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
         return true
     }
 

@@ -47,7 +47,15 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
     }
 
     private fun initializeObservers() {
-        viewModel.history.observe(viewLifecycleOwner) { adapter.updateList(it) }
+        viewModel.history.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
+                binding.rvHistory.visibility = View.GONE
+                binding.tvMessage.visibility = View.VISIBLE
+            } else {
+                binding.rvHistory.visibility = View.VISIBLE
+                binding.tvMessage.visibility = View.GONE
+                adapter.updateList(it)
+            } }
     }
 
     private fun initializeUI() {

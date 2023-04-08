@@ -78,29 +78,31 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details) {
             }
         shareDetails.append(times + "\n")
 
-        if (hangboardDetails.gripType != GripType.UNDEFINED)
-            shareDetails.append(hangboardDetails.gripType.toDisplayString() + "\n")
-        if (hangboardDetails.gripType == GripType.EDGE ||
-            hangboardDetails.gripType == GripType.ONE_FINGER ||
-            hangboardDetails.gripType == GripType.TWO_FINGER ||
-            hangboardDetails.gripType == GripType.THREE_FINGER
-        ) {
-            if (hangboardDetails.edgeSize > 0)
-                shareDetails.append("Edge: ${hangboardDetails.edgeSize}mm\n")
-            if (hangboardDetails.crimpType != CrimpType.UNDEFINED)
-                shareDetails.append("Crimp: ${hangboardDetails.crimpType.toDisplayString()}\n")
+        if (hangboardDetails.gripType != GripType.UNDEFINED) {
+            shareDetails.append(hangboardDetails.gripType.toDisplayString())
+
+            if (hangboardDetails.gripType == GripType.EDGE ||
+                hangboardDetails.gripType == GripType.ONE_FINGER ||
+                hangboardDetails.gripType == GripType.TWO_FINGER ||
+                hangboardDetails.gripType == GripType.THREE_FINGER
+            ) {
+                if (hangboardDetails.edgeSize > 0)
+                    shareDetails.append(": ${hangboardDetails.edgeSize}mm")
+                else
+                    shareDetails.append("\n")
+                if (hangboardDetails.crimpType != CrimpType.UNDEFINED)
+                    shareDetails.append("\nCrimp: ${hangboardDetails.crimpType.toDisplayString()}")
+            } else if (hangboardDetails.gripType == GripType.SLOPER)
+                if (hangboardDetails.slopeAngle > 0)
+                    shareDetails.append(
+                        ": ${
+                            hangboardDetails.slopeAngle.toString() + requireContext().getString(
+                                R.string.unit_degree
+                            )
+                        }"
+                    )
+            shareDetails.append("\n")
         }
-
-        if (hangboardDetails.gripType == GripType.SLOPER)
-            if (hangboardDetails.slopeAngle > 0)
-                shareDetails.append(
-                    "Slope angle: ${
-                        hangboardDetails.slopeAngle.toString() + requireContext().getString(
-                            R.string.unit_degree
-                        )
-                    }\n"
-                )
-
         if (hangboardDetails.additionalWeight > 0)
             shareDetails.append("Additional weight: ${hangboardDetails.additionalWeight}kg\n")
 
@@ -172,6 +174,12 @@ class HistoryDetailsFragment : Fragment(R.layout.fragment_training_details) {
             binding.llNotes.visibility = View.GONE
         } else {
             binding.llNotes.visibility = View.VISIBLE
+        }
+
+        if (details.intensity > 0) {
+            binding.llIntensity.visibility = View.VISIBLE
+        } else {
+            binding.llIntensity.visibility = View.GONE
         }
 
     }

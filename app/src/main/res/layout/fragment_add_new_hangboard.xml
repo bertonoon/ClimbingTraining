@@ -39,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:inputType="text"
+        android:maxLength="30"
         app:layout_constraintTop_toBottomOf="@id/tvAddSeries"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -140,7 +141,8 @@
                     tools:text="15"
                     android:textSize="@dimen/time"
                     android:autofillHints="7"
-                    android:imeOptions="actionNext" />
+                    android:imeOptions="actionNext"
+                    android:maxLength="4" />
 
                 <TextView
                     android:id="@+id/tvUnitHangTime"
@@ -171,7 +173,7 @@
                     android:gravity="center"
                     android:inputType="numberDecimal"
                     android:digits="0123456789"
-
+                    android:maxLength="4"
                     android:textSize="@dimen/time"
                     android:autofillHints="3"
                     android:imeOptions="actionNext" />
@@ -207,7 +209,8 @@
                     android:gravity="center"
                     android:textSize="@dimen/time"
                     android:autofillHints="6"
-                    android:imeOptions="actionNext" />
+                    android:imeOptions="actionNext"
+                    android:maxLength="4"/>
             </LinearLayout>
 
             <View
@@ -232,7 +235,8 @@
                     android:gravity="center"
                     android:textSize="@dimen/time"
                     android:autofillHints="90"
-                    android:imeOptions="actionNext" />
+                    android:imeOptions="actionNext"
+                    android:maxLength="4"/>
 
                 <TextView
                     android:id="@+id/tvUnitPauseTime"
@@ -264,7 +268,8 @@
                     android:digits="0123456789"
                     android:gravity="center"
                     android:textSize="@dimen/time"
-                    android:autofillHints="3" />
+                    android:autofillHints="3"
+                    android:maxLength="4"/>
             </LinearLayout>
 
 

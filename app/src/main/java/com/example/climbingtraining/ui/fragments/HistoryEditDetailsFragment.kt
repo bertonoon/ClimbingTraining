@@ -228,7 +228,7 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
             getString(R.string.grip_menu_option_one_finger) -> {
                 showEdgeOption = true
                 showSlopeAngleOption = false
-                showCrimpTypeOption = false
+                showCrimpTypeOption = true
             }
             getString(R.string.grip_menu_option_three_fingers) -> {
                 showEdgeOption = true
@@ -253,7 +253,7 @@ class HistoryEditDetailsFragment : Fragment(R.layout.fragment_history_edit_detai
             getString(R.string.grip_menu_option_two_fingers) -> {
                 showEdgeOption = true
                 showSlopeAngleOption = false
-                showCrimpTypeOption = false
+                showCrimpTypeOption = true
             }
             getString(R.string.grip_menu_option_pinch) -> {
                 showEdgeOption = false

@@ -53,5 +53,7 @@
     <string name="historyItemCrimpTypeClosedCrimp">CC</string>
     <string name="historyDetailsIntensity">Training intensity</string>
     <string name="unit_percent">%</string>
+    <string name="no_saved_configs_msg">Add training setups with the plus button</string>
+    <string name="history_no_records_msg">No history records in device memory</string>
 
 </resources>

@@ -43,7 +43,16 @@ class SavedConfigurationsFragment : Fragment(R.layout.fragment_saved_configurati
     }
 
     private fun initializeObservers() {
-        viewModel.savedConfigs.observe(viewLifecycleOwner) { adapter.updateList(it) }
+        viewModel.savedConfigs.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
+                binding.rvConfigs.visibility = View.GONE
+                binding.tvMessage.visibility = View.VISIBLE
+            } else {
+                binding.rvConfigs.visibility = View.VISIBLE
+                binding.tvMessage.visibility = View.GONE
+                adapter.updateList(it)
+            }
+        }
     }
 
     private fun initializeUI() {

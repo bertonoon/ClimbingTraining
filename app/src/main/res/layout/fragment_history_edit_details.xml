@@ -50,6 +50,7 @@
             android:inputType="text"
             android:hint="@string/edit_details_name"
             android:imeOptions="actionNext"
+            android:maxLength="30"
             android:autofillHints="Name" />
 
         <EditText
@@ -160,6 +161,7 @@
                     tools:text="15"
                     android:textSize="@dimen/time"
                     android:autofillHints="7"
+                    android:maxLength="4"
                     android:imeOptions="actionNext" />
 
                 <TextView
@@ -194,6 +196,7 @@
 
                     android:textSize="@dimen/time"
                     android:autofillHints="3"
+                    android:maxLength="4"
                     android:imeOptions="actionNext" />
 
                 <TextView
@@ -227,6 +230,7 @@
                     android:gravity="center"
                     android:textSize="@dimen/time"
                     android:autofillHints="6"
+                    android:maxLength="4"
                     android:imeOptions="actionNext" />
             </LinearLayout>
 
@@ -251,6 +255,7 @@
                     android:digits="0123456789"
                     android:gravity="center"
                     android:textSize="@dimen/time"
+                    android:maxLength="4"
                     android:autofillHints="90"
                     android:imeOptions="actionNext" />
 
@@ -282,6 +287,7 @@
                     tools:text="15"
                     android:inputType="numberDecimal"
                     android:digits="0123456789"
+                    android:maxLength="4"
                     android:gravity="center"
                     android:textSize="@dimen/time"
                     android:autofillHints="3" />
@@ -378,6 +384,7 @@
                 android:textSize="16sp"
                 android:layout_marginHorizontal="5dp"
                 tools:text="20"
+                android:maxLength="4"
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:gravity="end"
@@ -427,6 +434,7 @@
                 android:textSize="16sp"
                 android:layout_marginHorizontal="5dp"
                 tools:text="30"
+                android:maxLength="3"
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:gravity="end" />
@@ -514,6 +522,7 @@
                 android:textSize="16sp"
                 android:layout_marginHorizontal="5dp"
                 tools:text="20"
+                android:maxLength="4"
                 android:importantForAutofill="no"
                 android:inputType="numberDecimal"
                 android:gravity="end"
@@ -562,6 +571,7 @@
                 android:textSize="16sp"
                 android:layout_marginHorizontal="5dp"
                 tools:text="20"
+                android:maxLength="3"
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:gravity="end"
