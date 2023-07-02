@@ -5,6 +5,16 @@
 
 Application dedicated for climbers to training on hangboard.
 
+## Future
+
+The application will be completely rebuilt before release on Google Play. I plan to add:
+- tests
+- dependency injection
+- repository pattern
+- shared pref.
+- more viewModels than one
+- foreground service for timer
+- translation to Polish language
 
 ## Features
 
