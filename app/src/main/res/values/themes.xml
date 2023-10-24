@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.ClimbingTraining" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
@@ -10,11 +10,15 @@
         <item name="colorSecondaryVariant">@color/palette3</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/palette2</item>
+        <item name="windowActionBarOverlay">true</item>
         <!-- Customize your theme here. -->
         <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
         <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
         <item name="android:editTextStyle">@style/RobotoEditTextStyle</item>
+        <item name="actionBarStyle">@style/Custom.ActionBar</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.Actionbar</item>
+
     </style>
 
     <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
@@ -28,4 +32,17 @@
     <style name="RobotoEditTextStyle" parent="android:Widget.EditText">
         <item name="android:fontFamily">sans-serif</item>
     </style>
+
+    <style name="Custom.ActionBar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="background">@android:color/transparent</item>
+
+    </style>
+
+    <style name="ThemeOverlay.Actionbar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" >
+        <item name="android:textColorPrimary">@android:color/tab_indicator_text</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+
+
 </resources>

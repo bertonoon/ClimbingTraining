@@ -1,7 +1,9 @@
 package com.example.climbingtraining.ui.fragments
 
 import android.app.Dialog
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +19,8 @@ import com.example.climbingtraining.models.RunState
 import com.example.climbingtraining.models.SingleHangboard
 import com.example.climbingtraining.ui.activities.HangboardActivity
 import com.example.climbingtraining.ui.viewModels.HangboardViewModel
+import java.util.*
+
 
 class TimerFragment : Fragment() {
 
@@ -32,13 +36,9 @@ class TimerFragment : Fragment() {
     ): View {
         val fragmentBinding = FragmentTimerBinding.inflate(inflater, container, false)
         binding = fragmentBinding
+        activity?.title = "CURRENT SETTING"
 
         return fragmentBinding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
